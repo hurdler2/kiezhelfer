@@ -42,22 +42,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       },
     }),
   ],
-  callbacks: {
-    jwt({ token, user }) {
-      if (user) {
-        token.id = user.id as string;
-        token.role = ((user as unknown) as { role?: string }).role ?? "USER";
-      }
-      return token;
-    },
-    session({ session, token }) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (session.user as any).id = token.id;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (session.user as any).role = token.role;
-      return session;
-    },
-  },
   events: {
     async signIn({ user }) {
       if (!user?.id) return;

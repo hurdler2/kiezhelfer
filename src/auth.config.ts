@@ -25,5 +25,20 @@ export default {
       }
       return true;
     },
+    jwt({ token, user }) {
+      if (user) {
+        token.id = user.id as string;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        token.role = ((user as unknown) as { role?: string }).role ?? "USER";
+      }
+      return token;
+    },
+    session({ session, token }) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (session.user as any).id = token.id;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (session.user as any).role = token.role;
+      return session;
+    },
   },
 } satisfies NextAuthConfig;

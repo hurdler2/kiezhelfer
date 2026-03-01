@@ -1,4 +1,4 @@
-import { auth } from "@/auth";
+import { auth } from "@/auth.edge";
 import { updatePresence } from "@/lib/online-store";
 import { NextRequest, NextResponse } from "next/server";
 
