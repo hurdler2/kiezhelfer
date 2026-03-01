@@ -8,7 +8,8 @@
     "login": "Anmelden",
     "register": "Registrieren",
     "logout": "Abmelden",
-    "newListing": "Angebot erstellen"
+    "newListing": "Angebot erstellen",
+    "about": "Über uns"
   },
   "home": {
     "heroTitle": "Nachbarschaftshilfe in Berlin",
@@ -332,5 +333,27 @@
       "inappropriate": "Unangemessene Inhalte",
       "other": "Sonstiges"
     }
+  },
+  "about": {
+    "heroTitle": "Nachbarschaftshilfe,\ndie verbindet",
+    "heroSubtitle": "KiezHelfer bringt Berliner zusammen – Menschen, die helfen wollen, und Menschen, die Hilfe brauchen.",
+    "missionTitle": "Unsere Mission",
+    "missionText": "Wir glauben, dass jeder Mensch wertvolle Fähigkeiten besitzt und dass jeder manchmal Unterstützung braucht. KiezHelfer macht Nachbarschaftshilfe einfach, sicher und zugänglich – direkt in deinem Kiez.",
+    "storyTitle": "Wie alles begann",
+    "storyText": "KiezHelfer wurde 2024 in Berlin gegründet, weil wir erkannt haben: In einer Millionenstadt fühlen sich viele bei kleinen Alltagsproblemen allein gelassen. Ein tropfender Wasserhahn, Nachhilfe für die Kinder, ein bevorstehender Umzug – für alles braucht man die richtigen Kontakte. Wir haben KiezHelfer gebaut, um genau diese Lücke zu schließen.",
+    "valuesTitle": "Unsere Werte",
+    "v1Title": "Vertrauen",
+    "v1Desc": "Verifizierte Profile und echte Bewertungen schaffen eine sichere Gemeinschaft.",
+    "v2Title": "Gemeinschaft",
+    "v2Desc": "Wir stärken den Zusammenhalt in Berliner Kiezen – Nachbar hilft Nachbar.",
+    "v3Title": "Qualität",
+    "v3Desc": "Nur geprüfte Angebote mit echten Bewertungen erscheinen auf unserer Plattform.",
+    "v4Title": "Zugänglichkeit",
+    "v4Desc": "Kostenlose Registrierung, keine versteckten Gebühren – für jeden offen.",
+    "statsTitle": "KiezHelfer in Zahlen",
+    "ctaTitle": "Werde Teil der Gemeinschaft",
+    "ctaText": "Ob du Hilfe suchst oder anbietest – bei KiezHelfer bist du willkommen.",
+    "ctaButton": "Jetzt mitmachen",
+    "ctaButtonSecondary": "Angebote entdecken"
   }
 }

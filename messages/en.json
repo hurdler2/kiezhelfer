@@ -8,7 +8,8 @@
     "login": "Sign In",
     "register": "Sign Up",
     "logout": "Sign Out",
-    "newListing": "Post a Listing"
+    "newListing": "Post a Listing",
+    "about": "About Us"
   },
   "home": {
     "heroTitle": "Neighborhood Help in Berlin",
@@ -332,5 +333,27 @@
       "inappropriate": "Inappropriate Content",
       "other": "Other"
     }
+  },
+  "about": {
+    "heroTitle": "Neighborhood Help\nthat Connects",
+    "heroSubtitle": "KiezHelfer brings Berliners together – people who want to help and people who need help.",
+    "missionTitle": "Our Mission",
+    "missionText": "We believe everyone has valuable skills and that everyone sometimes needs support. KiezHelfer makes neighborhood help simple, safe and accessible – right in your neighborhood.",
+    "storyTitle": "How It All Started",
+    "storyText": "KiezHelfer was founded in Berlin in 2024 because we realized: in a city of millions, many people feel alone when facing small everyday problems. A dripping faucet, tutoring for the kids, an upcoming move – you need the right contacts for everything. We built KiezHelfer to close exactly this gap.",
+    "valuesTitle": "Our Values",
+    "v1Title": "Trust",
+    "v1Desc": "Verified profiles and genuine reviews create a safe community.",
+    "v2Title": "Community",
+    "v2Desc": "We strengthen the bond in Berlin neighborhoods – neighbor helps neighbor.",
+    "v3Title": "Quality",
+    "v3Desc": "Only reviewed listings with real ratings appear on our platform.",
+    "v4Title": "Accessibility",
+    "v4Desc": "Free registration, no hidden fees – open to everyone.",
+    "statsTitle": "KiezHelfer in Numbers",
+    "ctaTitle": "Join the Community",
+    "ctaText": "Whether you are looking for help or offering it – you are welcome at KiezHelfer.",
+    "ctaButton": "Get Started Now",
+    "ctaButtonSecondary": "Discover Listings"
   }
 }

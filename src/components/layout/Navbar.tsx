@@ -29,6 +29,7 @@ export default function Navbar({ transparent = false }: { transparent?: boolean 
   const navLinks = [
     { href: "/listings" as const, label: t("listings") },
     { href: "/map" as const, label: t("map") },
+    { href: "/about" as const, label: t("about") },
   ];
 
   return (
