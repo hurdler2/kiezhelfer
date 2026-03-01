@@ -2,6 +2,8 @@ import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 const VALID_REASONS = ["spam", "fake", "harassment", "scam", "inappropriate", "other"];
 
 export async function POST(req: NextRequest) {
