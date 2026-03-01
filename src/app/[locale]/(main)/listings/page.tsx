@@ -21,61 +21,64 @@ export default async function ListingsPage({ params, searchParams }: Props) {
 
   const searchWords = searchParams.q?.trim().split(/\s+/).filter(Boolean) ?? [];
 
-  // Fuzzy search via pg_trgm: her kelime için ILIKE + trigram similarity
+  // Fuzzy arama: pg_trgm varsa kullan, yoksa Prisma ORM fallback
   let searchIds: string[] | null = null;
   if (searchWords.length > 0) {
     try {
-      const parts = searchWords.map((word) =>
-        Prisma.sql`(
+      // Her kelime için arama koşulu oluştur
+      let combinedCond = Prisma.sql`(
+        l.title ILIKE ${`%${searchWords[0]}%`}
+        OR l.description ILIKE ${`%${searchWords[0]}%`}
+        OR c.slug ILIKE ${`%${searchWords[0]}%`}
+        OR EXISTS (SELECT 1 FROM unnest(l.tags) AS tag WHERE tag ILIKE ${`%${searchWords[0]}%`})
+        OR similarity(l.title, ${searchWords[0]}) > 0.2
+        OR similarity(l.description, ${searchWords[0]}) > 0.2
+      )`;
+
+      for (let i = 1; i < searchWords.length; i++) {
+        const word = searchWords[i];
+        combinedCond = Prisma.sql`${combinedCond} OR (
           l.title ILIKE ${`%${word}%`}
           OR l.description ILIKE ${`%${word}%`}
           OR c.slug ILIKE ${`%${word}%`}
           OR EXISTS (SELECT 1 FROM unnest(l.tags) AS tag WHERE tag ILIKE ${`%${word}%`})
           OR similarity(l.title, ${word}) > 0.2
           OR similarity(l.description, ${word}) > 0.2
-        )`
-      );
+        )`;
+      }
 
-      const combined = parts.slice(1).reduce(
-        (acc, p) => Prisma.sql`${acc} OR ${p}`,
-        parts[0]
-      );
-
-      const catCond = searchParams.category
-        ? Prisma.sql`AND c.slug = ${searchParams.category}`
-        : Prisma.sql``;
-      const disCond = searchParams.district
-        ? Prisma.sql`AND l.district = ${searchParams.district}`
-        : Prisma.sql``;
+      let whereClause = Prisma.sql`l.status::text = 'ACTIVE' AND (${combinedCond})`;
+      if (searchParams.category) {
+        whereClause = Prisma.sql`${whereClause} AND c.slug = ${searchParams.category}`;
+      }
+      if (searchParams.district) {
+        whereClause = Prisma.sql`${whereClause} AND l.district = ${searchParams.district}`;
+      }
 
       const rows = await prisma.$queryRaw<{ id: string }[]>(Prisma.sql`
         SELECT DISTINCT l.id
         FROM "Listing" l
         JOIN "Category" c ON l."categoryId" = c.id
-        WHERE l.status = 'ACTIVE'
-        ${catCond}
-        ${disCond}
-        AND (${combined})
+        WHERE ${whereClause}
       `);
 
       searchIds = rows.map((r) => r.id);
     } catch {
-      // pg_trgm yoksa basit ILIKE fallback
-      const fallbackRows = await prisma.$queryRaw<{ id: string }[]>(Prisma.sql`
-        SELECT DISTINCT l.id
-        FROM "Listing" l
-        JOIN "Category" c ON l."categoryId" = c.id
-        WHERE l.status = 'ACTIVE'
-        ${searchParams.category ? Prisma.sql`AND c.slug = ${searchParams.category}` : Prisma.sql``}
-        ${searchParams.district ? Prisma.sql`AND l.district = ${searchParams.district}` : Prisma.sql``}
-        AND (
-          ${searchWords.slice(1).reduce(
-            (acc, w) => Prisma.sql`${acc} OR l.title ILIKE ${`%${w}%`} OR l.description ILIKE ${`%${w}%`} OR c.slug ILIKE ${`%${w}%`}`,
-            Prisma.sql`l.title ILIKE ${`%${searchWords[0]}%`} OR l.description ILIKE ${`%${searchWords[0]}%`} OR c.slug ILIKE ${`%${searchWords[0]}%`}`
-          )}
-        )
-      `);
-      searchIds = fallbackRows.map((r) => r.id);
+      // pg_trgm yoksa Prisma ORM ile basit arama
+      const fallback = await prisma.listing.findMany({
+        where: {
+          status: "ACTIVE",
+          ...(searchParams.category && { category: { slug: searchParams.category } }),
+          ...(searchParams.district && { district: searchParams.district }),
+          OR: searchWords.flatMap((word) => [
+            { title: { contains: word, mode: "insensitive" } },
+            { description: { contains: word, mode: "insensitive" } },
+            { category: { slug: { contains: word, mode: "insensitive" } } },
+          ]),
+        },
+        select: { id: true },
+      });
+      searchIds = fallback.map((l) => l.id);
     }
   }
 
