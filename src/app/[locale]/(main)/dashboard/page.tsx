@@ -61,7 +61,7 @@ export default async function DashboardPage({ params }: { params: { locale: stri
       <div className="flex items-center gap-4 mb-8">
         <Avatar src={user.profile?.avatarUrl ?? user.image} name={user.name} size="lg" />
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">{t("hello", { name: user.name })}</h1>
+          <h1 className="text-2xl font-bold text-gray-900">{t("hello", { name: user.name ?? "" })}</h1>
           <p className="text-gray-500 text-sm">
             {user.profile?.district
               ? `${user.profile.district.replace(/-/g, " ")} · `
