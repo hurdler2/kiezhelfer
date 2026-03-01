@@ -21,5 +21,5 @@ export function updatePresence(userId: string, ip: string, pathname: string) {
 /** Returns users seen within the last `thresholdMs` milliseconds. */
 export function getOnlineUsers(thresholdMs = 2 * 60 * 1000): OnlineEntry[] {
   const cutoff = new Date(Date.now() - thresholdMs);
-  return [...onlineStore.values()].filter((u) => u.lastSeen > cutoff);
+  return Array.from(onlineStore.values()).filter((u) => u.lastSeen > cutoff);
 }
