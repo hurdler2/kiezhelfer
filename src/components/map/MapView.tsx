@@ -2,7 +2,6 @@
 
 import { useState, useCallback } from "react";
 import { GoogleMap, Marker, InfoWindow, useJsApiLoader } from "@react-google-maps/api";
-import { Link } from "@/i18n/navigation";
 import { formatPrice } from "@/lib/utils";
 
 const BERLIN_CENTER = { lat: 52.52, lng: 13.405 };

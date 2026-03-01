@@ -12,7 +12,7 @@ interface Props {
   listingTitle: string;
 }
 
-export default function ContactButton({ recipientId, listingId, listingTitle }: Props) {
+export default function ContactButton({ recipientId, listingId, listingTitle: _listingTitle }: Props) {
   const { data: session } = useSession();
   const router = useRouter();
   const locale = useLocale();

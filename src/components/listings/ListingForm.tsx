@@ -77,7 +77,7 @@ export default function ListingForm({ categories }: Props) {
       }
 
       router.push(`/${locale}/listings/${result.id}`);
-    } catch (err) {
+    } catch {
       setError(t("networkError"));
     }
   }

@@ -1,8 +1,8 @@
 ﻿import Link from "next/link";
-import { MapPin, Star, Clock } from "lucide-react";
+import { MapPin, Star } from "lucide-react";
 import Avatar from "@/components/ui/Avatar";
 import Badge from "@/components/ui/Badge";
-import { formatPrice, formatRelativeTime } from "@/lib/utils";
+import { formatPrice } from "@/lib/utils";
 import type { ListingWithDetails } from "@/types";
 
 interface ListingCardProps {
