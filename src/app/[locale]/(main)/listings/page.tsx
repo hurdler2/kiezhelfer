@@ -5,6 +5,8 @@ import ListingsFilter from "@/components/listings/ListingsFilter";
 import { Link } from "@/i18n/navigation";
 import { Plus } from "lucide-react";
 
+export const dynamic = "force-dynamic";
+
 interface Props {
   params: { locale: string };
   searchParams: { category?: string; district?: string; q?: string; page?: string };
@@ -27,6 +29,7 @@ export default async function ListingsPage({ params, searchParams }: Props) {
             { title: { contains: searchParams.q, mode: "insensitive" } },
             { description: { contains: searchParams.q, mode: "insensitive" } },
             { tags: { has: searchParams.q } },
+            { category: { slug: { contains: searchParams.q, mode: "insensitive" } } },
           ],
         }),
       },
@@ -57,6 +60,7 @@ export default async function ListingsPage({ params, searchParams }: Props) {
             { title: { contains: searchParams.q, mode: "insensitive" } },
             { description: { contains: searchParams.q, mode: "insensitive" } },
             { tags: { has: searchParams.q } },
+            { category: { slug: { contains: searchParams.q, mode: "insensitive" } } },
           ],
         }),
       },
