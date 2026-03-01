@@ -1,0 +1,27 @@
+name: kiezhelfer
+
+services:
+  # ─── PostgreSQL Veritabanı ───────────────────────────────────────────────────
+  db:
+    image: postgres:16-alpine
+    container_name: kiezhelfer-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: kiezhelfer
+      POSTGRES_PASSWORD: kiezhelfer123
+      POSTGRES_DB: kiezhelfer
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      # İlk kurulumda DB'yi seed data ile doldurur (volume boşsa çalışır)
+      - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U kiezhelfer -d kiezhelfer"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  postgres_data:
+    name: kiezhelfer_postgres_data

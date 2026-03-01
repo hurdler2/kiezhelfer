@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "lib": ["esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "outDir": "./dist",
+    "rootDir": ".",
+    "target": "es2017"
+  },
+  "include": ["server.ts", "src/lib/socket.ts"],
+  "exclude": ["node_modules"]
+}
