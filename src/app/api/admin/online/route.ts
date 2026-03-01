@@ -3,6 +3,8 @@ import { getOnlineUsers } from "@/lib/online-store";
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   const session = await auth();
   if (!session?.user || (session.user as any).role !== "ADMIN") {
