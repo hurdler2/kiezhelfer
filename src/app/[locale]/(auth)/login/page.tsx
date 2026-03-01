@@ -5,7 +5,6 @@ import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { loginSchema, type LoginFormValues } from "@/lib/validations/user";
@@ -17,7 +16,6 @@ import Image from "next/image";
 export default function LoginPage() {
   const t = useTranslations("auth");
   const locale = useLocale();
-  const router = useRouter();
   const [error, setError] = useState<string | null>(null);
 
   const {
@@ -39,8 +37,7 @@ export default function LoginPage() {
     if (result?.error) {
       setError(t("invalidCredentials"));
     } else {
-      router.push(`/${locale}/dashboard`);
-      router.refresh();
+      window.location.href = `/${locale}/dashboard`;
     }
   }
 

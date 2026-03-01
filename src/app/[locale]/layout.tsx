@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import type { Metadata } from "next";
 import { SessionProvider } from "next-auth/react";
+import { auth } from "@/auth";
 
 export const metadata: Metadata = {
   title: "KiezHelfer – Nachbarschaftshilfe in Berlin",
@@ -31,10 +32,13 @@ export default async function LocaleLayout({
 
   setRequestLocale(locale);
 
-  const messages = await getMessages({ locale });
+  const [messages, session] = await Promise.all([
+    getMessages({ locale }),
+    auth(),
+  ]);
 
   return (
-    <SessionProvider>
+    <SessionProvider session={session}>
       <NextIntlClientProvider messages={messages}>
         {children}
       </NextIntlClientProvider>
