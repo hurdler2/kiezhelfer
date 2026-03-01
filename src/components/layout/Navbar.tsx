@@ -142,7 +142,7 @@ export default function Navbar({ transparent = false }: { transparent?: boolean 
                         </Link>
                         <div className="border-t border-gray-100 mt-1 pt-1">
                           <button
-                            onClick={() => signOut({ callbackUrl: "/" })}
+                            onClick={async () => { await signOut({ redirect: false }); window.location.href = "/"; }}
                             className="flex w-full items-center gap-2.5 px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 transition-colors"
                           >
                             <LogOut className="h-4 w-4" />
