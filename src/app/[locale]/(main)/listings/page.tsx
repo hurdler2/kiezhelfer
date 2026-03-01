@@ -1,5 +1,6 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { prisma } from "@/lib/prisma";
+import { Prisma } from "@prisma/client";
 import ListingCard from "@/components/listings/ListingCard";
 import ListingsFilter from "@/components/listings/ListingsFilter";
 import { Link } from "@/i18n/navigation";
@@ -18,29 +19,78 @@ export default async function ListingsPage({ params, searchParams }: Props) {
   const page = parseInt(searchParams.page ?? "1");
   const limit = 48;
 
-  const searchWords = searchParams.q
-    ? searchParams.q.trim().split(/\s+/).filter(Boolean)
-    : [];
+  const searchWords = searchParams.q?.trim().split(/\s+/).filter(Boolean) ?? [];
 
-  const searchFilter = searchWords.length > 0
-    ? {
-        OR: searchWords.flatMap((word) => [
-          { title: { contains: word, mode: "insensitive" as const } },
-          { description: { contains: word, mode: "insensitive" as const } },
-          { tags: { has: word } },
-          { category: { slug: { contains: word, mode: "insensitive" as const } } },
-        ]),
-      }
-    : {};
+  // Fuzzy search via pg_trgm: her kelime için ILIKE + trigram similarity
+  let searchIds: string[] | null = null;
+  if (searchWords.length > 0) {
+    try {
+      const parts = searchWords.map((word) =>
+        Prisma.sql`(
+          l.title ILIKE ${`%${word}%`}
+          OR l.description ILIKE ${`%${word}%`}
+          OR c.slug ILIKE ${`%${word}%`}
+          OR EXISTS (SELECT 1 FROM unnest(l.tags) AS tag WHERE tag ILIKE ${`%${word}%`})
+          OR similarity(l.title, ${word}) > 0.2
+          OR similarity(l.description, ${word}) > 0.2
+        )`
+      );
+
+      const combined = parts.slice(1).reduce(
+        (acc, p) => Prisma.sql`${acc} OR ${p}`,
+        parts[0]
+      );
+
+      const catCond = searchParams.category
+        ? Prisma.sql`AND c.slug = ${searchParams.category}`
+        : Prisma.sql``;
+      const disCond = searchParams.district
+        ? Prisma.sql`AND l.district = ${searchParams.district}`
+        : Prisma.sql``;
+
+      const rows = await prisma.$queryRaw<{ id: string }[]>(Prisma.sql`
+        SELECT DISTINCT l.id
+        FROM "Listing" l
+        JOIN "Category" c ON l."categoryId" = c.id
+        WHERE l.status = 'ACTIVE'
+        ${catCond}
+        ${disCond}
+        AND (${combined})
+      `);
+
+      searchIds = rows.map((r) => r.id);
+    } catch {
+      // pg_trgm yoksa basit ILIKE fallback
+      const fallbackRows = await prisma.$queryRaw<{ id: string }[]>(Prisma.sql`
+        SELECT DISTINCT l.id
+        FROM "Listing" l
+        JOIN "Category" c ON l."categoryId" = c.id
+        WHERE l.status = 'ACTIVE'
+        ${searchParams.category ? Prisma.sql`AND c.slug = ${searchParams.category}` : Prisma.sql``}
+        ${searchParams.district ? Prisma.sql`AND l.district = ${searchParams.district}` : Prisma.sql``}
+        AND (
+          ${searchWords.slice(1).reduce(
+            (acc, w) => Prisma.sql`${acc} OR l.title ILIKE ${`%${w}%`} OR l.description ILIKE ${`%${w}%`} OR c.slug ILIKE ${`%${w}%`}`,
+            Prisma.sql`l.title ILIKE ${`%${searchWords[0]}%`} OR l.description ILIKE ${`%${searchWords[0]}%`} OR c.slug ILIKE ${`%${searchWords[0]}%`}`
+          )}
+        )
+      `);
+      searchIds = fallbackRows.map((r) => r.id);
+    }
+  }
+
+  const baseWhere: Prisma.ListingWhereInput =
+    searchIds !== null
+      ? { id: { in: searchIds } }
+      : {
+          status: "ACTIVE",
+          ...(searchParams.category && { category: { slug: searchParams.category } }),
+          ...(searchParams.district && { district: searchParams.district }),
+        };
 
   const [listings, total, categories] = await Promise.all([
     prisma.listing.findMany({
-      where: {
-        status: "ACTIVE",
-        ...(searchParams.category && { category: { slug: searchParams.category } }),
-        ...(searchParams.district && { district: searchParams.district }),
-        ...searchFilter,
-      },
+      where: baseWhere,
       include: {
         user: {
           select: {
@@ -58,14 +108,9 @@ export default async function ListingsPage({ params, searchParams }: Props) {
       take: limit,
       skip: (page - 1) * limit,
     }),
-    prisma.listing.count({
-      where: {
-        status: "ACTIVE",
-        ...(searchParams.category && { category: { slug: searchParams.category } }),
-        ...(searchParams.district && { district: searchParams.district }),
-        ...searchFilter,
-      },
-    }),
+    searchIds !== null
+      ? Promise.resolve(searchIds.length)
+      : prisma.listing.count({ where: baseWhere }),
     prisma.category.findMany({ orderBy: { sortOrder: "asc" } }),
   ]);
 
