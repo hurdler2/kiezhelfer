@@ -37,13 +37,13 @@ export default async function ListingsPage({ params, searchParams }: Props) {
 
       for (let i = 1; i < searchWords.length; i++) {
         const word = searchWords[i];
-        combinedCond = Prisma.sql`${combinedCond} OR (
+        combinedCond = Prisma.sql`${combinedCond} AND (
           l.title ILIKE ${`%${word}%`}
           OR l.description ILIKE ${`%${word}%`}
           OR c.slug ILIKE ${`%${word}%`}
           OR EXISTS (SELECT 1 FROM unnest(l.tags) AS tag WHERE tag ILIKE ${`%${word}%`})
-          OR similarity(l.title, ${word}) > 0.2
-          OR similarity(l.description, ${word}) > 0.2
+          OR similarity(l.title, ${word}) > 0.3
+          OR similarity(l.description, ${word}) > 0.3
         )`;
       }
 
@@ -70,11 +70,13 @@ export default async function ListingsPage({ params, searchParams }: Props) {
           status: "ACTIVE",
           ...(searchParams.category && { category: { slug: searchParams.category } }),
           ...(searchParams.district && { district: searchParams.district }),
-          OR: searchWords.flatMap((word) => [
-            { title: { contains: word, mode: "insensitive" } },
-            { description: { contains: word, mode: "insensitive" } },
-            { category: { slug: { contains: word, mode: "insensitive" } } },
-          ]),
+          AND: searchWords.map((word) => ({
+            OR: [
+              { title: { contains: word, mode: "insensitive" } },
+              { description: { contains: word, mode: "insensitive" } },
+              { category: { slug: { contains: word, mode: "insensitive" } } },
+            ],
+          })),
         },
         select: { id: true },
       });
