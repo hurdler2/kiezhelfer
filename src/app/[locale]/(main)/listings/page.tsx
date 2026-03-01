@@ -18,20 +18,28 @@ export default async function ListingsPage({ params, searchParams }: Props) {
   const page = parseInt(searchParams.page ?? "1");
   const limit = 48;
 
+  const searchWords = searchParams.q
+    ? searchParams.q.trim().split(/\s+/).filter(Boolean)
+    : [];
+
+  const searchFilter = searchWords.length > 0
+    ? {
+        OR: searchWords.flatMap((word) => [
+          { title: { contains: word, mode: "insensitive" as const } },
+          { description: { contains: word, mode: "insensitive" as const } },
+          { tags: { has: word } },
+          { category: { slug: { contains: word, mode: "insensitive" as const } } },
+        ]),
+      }
+    : {};
+
   const [listings, total, categories] = await Promise.all([
     prisma.listing.findMany({
       where: {
         status: "ACTIVE",
         ...(searchParams.category && { category: { slug: searchParams.category } }),
         ...(searchParams.district && { district: searchParams.district }),
-        ...(searchParams.q && {
-          OR: [
-            { title: { contains: searchParams.q, mode: "insensitive" } },
-            { description: { contains: searchParams.q, mode: "insensitive" } },
-            { tags: { has: searchParams.q } },
-            { category: { slug: { contains: searchParams.q, mode: "insensitive" } } },
-          ],
-        }),
+        ...searchFilter,
       },
       include: {
         user: {
@@ -55,14 +63,7 @@ export default async function ListingsPage({ params, searchParams }: Props) {
         status: "ACTIVE",
         ...(searchParams.category && { category: { slug: searchParams.category } }),
         ...(searchParams.district && { district: searchParams.district }),
-        ...(searchParams.q && {
-          OR: [
-            { title: { contains: searchParams.q, mode: "insensitive" } },
-            { description: { contains: searchParams.q, mode: "insensitive" } },
-            { tags: { has: searchParams.q } },
-            { category: { slug: { contains: searchParams.q, mode: "insensitive" } } },
-          ],
-        }),
+        ...searchFilter,
       },
     }),
     prisma.category.findMany({ orderBy: { sortOrder: "asc" } }),
