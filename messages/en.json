@@ -113,16 +113,11 @@
     }
   },
   "categories": {
-    "homeRepair": "Home Repair",
-    "cleaning": "Cleaning",
-    "itHelp": "IT Help",
-    "tutoring": "Tutoring",
-    "babysitting": "Babysitting",
-    "moving": "Moving Help",
-    "gardening": "Gardening",
-    "cooking": "Cooking",
-    "beauty": "Beauty & Care",
-    "other": "Other"
+    "reparaturenMontage": "Small Repairs & Assembly Service",
+    "technikComputer": "Tech & Computer Help",
+    "alltagNachbarschaft": "Everyday & Neighborhood Help",
+    "gartenOutdoor": "Garden & Outdoor Help",
+    "transportKurier": "Transport & Courier Help"
   },
   "districts": {
     "mitte": "Mitte",
@@ -288,11 +283,11 @@
     "join": "Get Involved",
     "joinDesc": "Offer your skills and earn money in your neighborhood.",
     "ctaButton": "Create Listing",
-    "pop1": "Berlin Locksmith",
-    "pop2": "Berlin Tutoring",
-    "pop3": "Berlin Cleaning Service",
-    "pop4": "Berlin Moving Help",
-    "pop5": "Berlin IT Support"
+    "pop1": "Berlin Repair Service",
+    "pop2": "Berlin Computer Help",
+    "pop3": "Berlin Neighborhood Help",
+    "pop4": "Berlin Garden Help",
+    "pop5": "Berlin Courier Service"
   },
   "legal": {
     "privacyTitle": "Privacy Policy",

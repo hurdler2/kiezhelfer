@@ -48,29 +48,48 @@ export default async function HomePage({ params }: { params: { locale: string } 
     }),
   ]);
 
-  const categoryIcons: Record<string, { color: string; bg: string; photo: string }> = {
-    "home-repair": { color: "text-orange-700", bg: "bg-orange-50",   photo: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400&h=260&fit=crop&q=80" },
-    "cleaning":    { color: "text-sky-700",    bg: "bg-sky-50",      photo: "https://images.unsplash.com/photo-1527515545081-5db817172677?w=400&h=260&fit=crop&q=80" },
-    "it-help":     { color: "text-violet-700", bg: "bg-violet-50",   photo: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=400&h=260&fit=crop&q=80" },
-    "tutoring":    { color: "text-green-700",  bg: "bg-green-50",    photo: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&h=260&fit=crop&q=80" },
-    "babysitting": { color: "text-pink-700",   bg: "bg-pink-50",     photo: "https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=400&h=260&fit=crop&q=80" },
-    "moving":      { color: "text-amber-700",  bg: "bg-amber-50",    photo: "https://images.unsplash.com/photo-1600518464441-9154a4dea21b?w=400&h=260&fit=crop&q=80" },
-    "gardening":   { color: "text-emerald-700",bg: "bg-emerald-50",  photo: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=260&fit=crop&q=80" },
-    "cooking":     { color: "text-red-700",    bg: "bg-red-50",      photo: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=260&fit=crop&q=80" },
-    "beauty":      { color: "text-fuchsia-700",bg: "bg-fuchsia-50",  photo: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=400&h=260&fit=crop&q=80" },
-    "other":       { color: "text-brand-700",  bg: "bg-brand-50",    photo: "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=400&h=260&fit=crop&q=80" },
+  const categoryIcons: Record<string, { photo: string; gradient: string; desc: { de: string; en: string } }> = {
+    "reparaturen-montage": {
+      photo: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=700&h=460&fit=crop&q=85",
+      gradient: "from-orange-900/70 via-orange-800/40 to-transparent",
+      desc: { de: "Regale, Lampen, Türen & mehr", en: "Shelves, lamps, doors & more" },
+    },
+    "technik-computer": {
+      photo: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=700&h=460&fit=crop&q=85",
+      gradient: "from-blue-900/70 via-blue-800/40 to-transparent",
+      desc: { de: "Laptop, WLAN, Software & Geräte", en: "Laptop, Wi-Fi, software & devices" },
+    },
+    "alltag-nachbarschaft": {
+      photo: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=700&h=460&fit=crop&q=85",
+      gradient: "from-emerald-900/70 via-emerald-800/40 to-transparent",
+      desc: { de: "Einkaufen, Begleitung & Alltagshilfe", en: "Shopping, companionship & daily help" },
+    },
+    "garten-outdoor": {
+      photo: "https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?w=700&h=460&fit=crop&q=85",
+      gradient: "from-green-900/70 via-green-800/40 to-transparent",
+      desc: { de: "Rasenmähen, Pflanzen & Außenanlagen", en: "Lawn mowing, plants & outdoor areas" },
+    },
+    "transport-kurier": {
+      photo: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=700&h=460&fit=crop&q=85",
+      gradient: "from-amber-900/70 via-amber-800/40 to-transparent",
+      desc: { de: "Pakete, Einkäufe & kleine Transporte", en: "Parcels, shopping & small deliveries" },
+    },
   };
 
   const categoryLabels: Record<string, Record<string, string>> = {
     de: {
-      "home-repair": "Hausreparatur", "cleaning": "Reinigung", "it-help": "IT-Hilfe",
-      "tutoring": "Nachhilfe", "babysitting": "Kinderbetreuung", "moving": "Umzug",
-      "gardening": "Garten", "cooking": "Kochen", "beauty": "Schönheit", "other": "Sonstiges",
+      "reparaturen-montage": "Kleine Reparaturen & Montageservice",
+      "technik-computer":    "Technik- & Computerhilfe",
+      "alltag-nachbarschaft":"Alltags- & Nachbarschaftshilfe",
+      "garten-outdoor":      "Garten- & Outdoor-Hilfe",
+      "transport-kurier":    "Transport & Kurierhilfe",
     },
     en: {
-      "home-repair": "Home Repair", "cleaning": "Cleaning", "it-help": "IT Help",
-      "tutoring": "Tutoring", "babysitting": "Babysitting", "moving": "Moving",
-      "gardening": "Gardening", "cooking": "Cooking", "beauty": "Beauty", "other": "Other",
+      "reparaturen-montage": "Small Repairs & Assembly",
+      "technik-computer":    "Tech & Computer Help",
+      "alltag-nachbarschaft":"Everyday & Neighborhood Help",
+      "garten-outdoor":      "Garden & Outdoor Help",
+      "transport-kurier":    "Transport & Courier Help",
     },
   };
 
@@ -133,11 +152,11 @@ export default async function HomePage({ params }: { params: { locale: string } 
 
             {/* Kategori pilleri */}
             <div className="flex flex-wrap justify-center gap-2">
-              {categories.slice(0, 7).map((cat) => (
+              {categories.map((cat) => (
                 <Link
                   key={cat.id}
                   href={`/listings?category=${cat.slug}` as any}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/8 hover:bg-white/15 border border-white/10 text-slate-300 hover:text-white text-xs font-medium transition-all"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 text-white/80 hover:text-white text-xs font-medium transition-all backdrop-blur-sm"
                 >
                   {categoryLabels[params.locale]?.[cat.slug] ?? cat.slug}
                 </Link>
@@ -211,28 +230,42 @@ export default async function HomePage({ params }: { params: { locale: string } 
                 {t("viewAll")} <ChevronRight className="h-4 w-4" />
               </Link>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
               {categories.map((cat) => {
-                const icon = categoryIcons[cat.slug];
+                const meta = categoryIcons[cat.slug];
+                const label = categoryLabels[params.locale]?.[cat.slug] ?? cat.slug;
+                const desc = meta?.desc?.[params.locale as "de" | "en"] ?? "";
                 return (
                   <Link
                     key={cat.id}
                     href={`/listings?category=${cat.slug}` as any}
-                    className="group rounded-2xl overflow-hidden border border-gray-100 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
+                    className="group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
                   >
-                    <div className="relative h-28 overflow-hidden">
+                    {/* Fotoğraf */}
+                    <div className="relative h-52 overflow-hidden">
                       <Image
-                        src={icon?.photo ?? "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=400&h=260&fit=crop&q=80"}
-                        alt={categoryLabels[params.locale]?.[cat.slug] ?? cat.slug}
+                        src={meta?.photo ?? "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=700&h=460&fit=crop&q=85"}
+                        alt={label}
                         fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-300"
-                        sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 20vw"
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        sizes="(max-width: 640px) 100vw, 33vw"
                       />
+                      {/* Gradient overlay */}
+                      <div className={`absolute inset-0 bg-gradient-to-t ${meta?.gradient ?? "from-gray-900/70 via-gray-800/40 to-transparent"}`} />
+                      {/* İsim + açıklama */}
+                      <div className="absolute bottom-0 left-0 right-0 p-5">
+                        <p className="text-white font-bold text-base leading-snug drop-shadow-sm">
+                          {label}
+                        </p>
+                        <p className="text-white/75 text-xs mt-1 font-medium">{desc}</p>
+                      </div>
                     </div>
-                    <div className={`px-3 py-2.5 ${icon?.bg ?? "bg-gray-50"} text-center`}>
-                      <span className={`text-xs font-semibold ${icon?.color ?? "text-gray-700"}`}>
-                        {categoryLabels[params.locale]?.[cat.slug] ?? cat.slug}
+                    {/* Alt şerit */}
+                    <div className="bg-white border-t border-gray-100 px-5 py-3 flex items-center justify-between">
+                      <span className="text-xs font-semibold text-gray-500">
+                        {params.locale === "de" ? "Angebote ansehen" : "View listings"}
                       </span>
+                      <ChevronRight className="h-4 w-4 text-brand-500 group-hover:translate-x-0.5 transition-transform" />
                     </div>
                   </Link>
                 );

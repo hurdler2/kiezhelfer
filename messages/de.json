@@ -113,16 +113,11 @@
     }
   },
   "categories": {
-    "homeRepair": "Haushaltsreparaturen",
-    "cleaning": "Reinigung",
-    "itHelp": "IT-Hilfe",
-    "tutoring": "Nachhilfe",
-    "babysitting": "Kinderbetreuung",
-    "moving": "Umzugshilfe",
-    "gardening": "Garten",
-    "cooking": "Kochen",
-    "beauty": "Schönheit & Pflege",
-    "other": "Sonstiges"
+    "reparaturenMontage": "Kleine Reparaturen & Montageservice",
+    "technikComputer": "Technik- & Computerhilfe",
+    "alltagNachbarschaft": "Alltags- & Nachbarschaftshilfe",
+    "gartenOutdoor": "Garten- & Outdoor-Hilfe",
+    "transportKurier": "Transport & Kurierhilfe"
   },
   "districts": {
     "mitte": "Mitte",
@@ -288,11 +283,11 @@
     "join": "Mitmachen",
     "joinDesc": "Biete deine Fähigkeiten an und verdiene Geld in deiner Nachbarschaft.",
     "ctaButton": "Angebot erstellen",
-    "pop1": "Berlin Schlüsseldienst",
-    "pop2": "Berlin Nachhilfe",
-    "pop3": "Berlin Reinigungsservice",
-    "pop4": "Berlin Umzugshilfe",
-    "pop5": "Berlin IT-Support"
+    "pop1": "Berlin Reparaturservice",
+    "pop2": "Berlin Computerhilfe",
+    "pop3": "Berlin Nachbarschaftshilfe",
+    "pop4": "Berlin Gartenhilfe",
+    "pop5": "Berlin Kurierdienst"
   },
   "legal": {
     "privacyTitle": "Datenschutzerklärung",

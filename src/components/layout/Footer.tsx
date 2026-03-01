@@ -7,13 +7,11 @@ export default function Footer() {
   const t = useTranslations("footer");
 
   const serviceLinks = [
-    { slug: "home-repair",  label: "Hausreparatur" },
-    { slug: "cleaning",     label: "Reinigung" },
-    { slug: "it-help",      label: "IT-Hilfe" },
-    { slug: "tutoring",     label: "Nachhilfe" },
-    { slug: "babysitting",  label: "Kinderbetreuung" },
-    { slug: "moving",       label: "Umzug" },
-    { slug: "gardening",    label: "Garten" },
+    { slug: "reparaturen-montage",  label: "Kleine Reparaturen & Montageservice" },
+    { slug: "technik-computer",     label: "Technik- & Computerhilfe" },
+    { slug: "alltag-nachbarschaft", label: "Alltags- & Nachbarschaftshilfe" },
+    { slug: "garten-outdoor",       label: "Garten- & Outdoor-Hilfe" },
+    { slug: "transport-kurier",     label: "Transport & Kurierhilfe" },
   ];
 
   return (
@@ -48,7 +46,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-brand-500 transition-colors">
+                <Link href="/about" className="hover:text-brand-500 transition-colors">
                   {t("aboutUs")}
                 </Link>
               </li>
@@ -82,11 +80,11 @@ export default function Footer() {
             <h3 className="text-sm font-semibold text-gray-900 mb-5">{t("popular")}</h3>
             <ul className="space-y-2.5">
               {[
-                { label: t("pop1"), href: "/listings?category=home-repair" },
-                { label: t("pop2"), href: "/listings?category=tutoring" },
-                { label: t("pop3"), href: "/listings?category=cleaning" },
-                { label: t("pop4"), href: "/listings?category=moving" },
-                { label: t("pop5"), href: "/listings?category=it-help" },
+                { label: t("pop1"), href: "/listings?category=reparaturen-montage" },
+                { label: t("pop2"), href: "/listings?category=technik-computer" },
+                { label: t("pop3"), href: "/listings?category=alltag-nachbarschaft" },
+                { label: t("pop4"), href: "/listings?category=garten-outdoor" },
+                { label: t("pop5"), href: "/listings?category=transport-kurier" },
               ].map((item) => (
                 <li key={item.label}>
                   <Link
