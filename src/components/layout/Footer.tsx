@@ -27,8 +27,8 @@ export default function Footer() {
               <Image
                 src="/logo.png"
                 alt="KiezHelfer"
-                width={110}
-                height={110}
+                width={140}
+                height={140}
                 className="rounded-xl object-contain"
               />
             </Link>

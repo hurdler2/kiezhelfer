@@ -46,9 +46,9 @@ export default function Navbar({ transparent = false }: { transparent?: boolean 
             <Image
               src="/logo.png"
               alt="KiezHelfer"
-              width={100}
-              height={100}
-              className="rounded-lg object-contain h-12 w-auto mix-blend-multiply"
+              width={130}
+              height={130}
+              className="rounded-lg object-contain h-16 w-auto mix-blend-multiply"
             />
           </Link>
 
