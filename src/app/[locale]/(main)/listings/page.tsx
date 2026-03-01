@@ -26,6 +26,7 @@ export default async function ListingsPage({ params, searchParams }: Props) {
           OR: [
             { title: { contains: searchParams.q, mode: "insensitive" } },
             { description: { contains: searchParams.q, mode: "insensitive" } },
+            { tags: { has: searchParams.q } },
           ],
         }),
       },
@@ -51,6 +52,13 @@ export default async function ListingsPage({ params, searchParams }: Props) {
         status: "ACTIVE",
         ...(searchParams.category && { category: { slug: searchParams.category } }),
         ...(searchParams.district && { district: searchParams.district }),
+        ...(searchParams.q && {
+          OR: [
+            { title: { contains: searchParams.q, mode: "insensitive" } },
+            { description: { contains: searchParams.q, mode: "insensitive" } },
+            { tags: { has: searchParams.q } },
+          ],
+        }),
       },
     }),
     prisma.category.findMany({ orderBy: { sortOrder: "asc" } }),
