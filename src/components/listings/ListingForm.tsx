@@ -123,15 +123,24 @@ export default function ListingForm({ categories, listingId, defaultValues }: Pr
           const uploadData = await uploadRes.json();
           if (uploadRes.ok && uploadData.url) {
             uploadedUrls.push(uploadData.url);
+          } else {
+            console.error("Upload failed:", uploadData);
+            setError(uploadData.error ?? "Foto-Upload fehlgeschlagen.");
+            setUploading(false);
+            return;
           }
         }
 
         if (uploadedUrls.length > 0) {
-          await fetch(`/api/listings/${targetId}`, {
+          const patchRes = await fetch(`/api/listings/${targetId}`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ imageUrls: uploadedUrls }),
           });
+          if (!patchRes.ok) {
+            const patchData = await patchRes.json();
+            console.error("Image PATCH failed:", patchData);
+          }
         }
         setUploading(false);
       }
