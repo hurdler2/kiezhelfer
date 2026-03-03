@@ -1,6 +1,6 @@
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import type { Metadata } from "next";
 import { SessionProvider } from "next-auth/react";
@@ -36,6 +36,11 @@ export default async function LocaleLayout({
     getMessages({ locale }),
     auth(),
   ]);
+
+  // Admin kullanıcıları user sitesine erişemez
+  if ((session?.user as any)?.role === "ADMIN") {
+    redirect("/admin");
+  }
 
   return (
     <SessionProvider session={session}>
