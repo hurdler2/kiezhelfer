@@ -10,7 +10,8 @@ export default function EmailVerificationBanner() {
   const [dismissed, setDismissed] = useState(false);
 
   if (!session?.user) return null;
-  if ((session.user as any).emailVerifiedAt) return null;
+  // Sadece açıkça null ise göster (undefined = eski token, doğrulanmış kullanıcı)
+  if ((session.user as any).emailVerifiedAt !== null) return null;
   if (dismissed) return null;
 
   return (
