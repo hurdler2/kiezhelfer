@@ -38,7 +38,7 @@ export async function GET(request: Request) {
       }),
     ]);
 
-    return NextResponse.redirect(new URL("/de/login?verified=1", request.url));
+    return NextResponse.redirect(new URL("/de/email-verified", request.url));
   } catch (error) {
     console.error("Verify email error:", error);
     return NextResponse.redirect(new URL("/de/login?error=server-error", request.url));
