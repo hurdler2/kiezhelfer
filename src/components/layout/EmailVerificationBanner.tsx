@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { MailWarning, X } from "lucide-react";
-import { Link } from "@/i18n/navigation";
 
 export default function EmailVerificationBanner() {
   const { data: session } = useSession();
@@ -20,11 +19,7 @@ export default function EmailVerificationBanner() {
         <div className="flex items-center gap-2.5 text-amber-800 text-sm">
           <MailWarning className="h-4 w-4 text-amber-500 shrink-0" />
           <span>
-            E-Mail-Adresse noch nicht bestätigt.{" "}
-            <Link href="/profile" className="underline hover:text-amber-900 font-medium">
-              Profil öffnen
-            </Link>{" "}
-            oder wende dich an den Support.
+            Bitte bestätige deine E-Mail-Adresse – prüfe dein Postfach und klicke auf den Aktivierungslink.
           </span>
         </div>
         <button

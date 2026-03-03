@@ -9,6 +9,31 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
   adapter: PrismaAdapter(prisma),
   session: { strategy: "jwt" },
+  callbacks: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    authorized: (authConfig.callbacks as any).authorized,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    session: (authConfig.callbacks as any).session,
+    async jwt(params) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const token = await (authConfig.callbacks as any).jwt(params);
+
+      // Onaylanmamış kullanıcılarda DB'yi kontrol et (admin onayı veya email linki sonrası banner kaybolsun)
+      if (!params.user && token.emailVerifiedAt === null && token.id) {
+        try {
+          const dbUser = await prisma.user.findUnique({
+            where: { id: token.id as string },
+            select: { emailVerifiedAt: true },
+          });
+          if (dbUser?.emailVerifiedAt) {
+            token.emailVerifiedAt = dbUser.emailVerifiedAt;
+          }
+        } catch { /* ignore */ }
+      }
+
+      return token;
+    },
+  },
   providers: [
     Credentials({
       credentials: {
