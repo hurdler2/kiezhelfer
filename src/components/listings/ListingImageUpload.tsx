@@ -1,8 +1,9 @@
-﻿"use client";
+"use client";
 
 import { useState, useRef } from "react";
 import { Camera, X, Loader2, ImagePlus, Star } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 interface Props {
   listingId: string;
@@ -11,6 +12,7 @@ interface Props {
 
 export default function ListingImageUpload({ listingId, currentImages }: Props) {
   const router = useRouter();
+  const t = useTranslations("listingForm");
   const fileRef = useRef<HTMLInputElement>(null);
   const [images, setImages] = useState<string[]>(currentImages);
   const [uploading, setUploading] = useState(false);
@@ -30,7 +32,7 @@ export default function ListingImageUpload({ listingId, currentImages }: Props) 
       const uploadData = await uploadRes.json();
 
       if (!uploadRes.ok) {
-        setError(uploadData.error ?? "Upload fehlgeschlagen.");
+        setError(uploadData.error ?? t("photoUploadError"));
         return;
       }
 
@@ -45,7 +47,7 @@ export default function ListingImageUpload({ listingId, currentImages }: Props) 
 
       router.refresh();
     } catch {
-      setError("Netzwerkfehler. Bitte versuche es erneut.");
+      setError(t("networkError"));
     } finally {
       setUploading(false);
       if (fileRef.current) fileRef.current.value = "";
@@ -82,23 +84,20 @@ export default function ListingImageUpload({ listingId, currentImages }: Props) 
             style={index === 0 ? { borderColor: "#2CB34F" } : {}}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={url} alt="Foto" className="w-full h-full object-cover" />
-            {/* Kapak rozeti */}
             {index === 0 && (
               <span className="absolute bottom-0 left-0 right-0 bg-brand-500/80 text-white text-[10px] text-center py-0.5 leading-none">
-                Titelbild
+                {t("coverImage")}
               </span>
             )}
-            {/* Kapak yap butonu */}
             {index !== 0 && (
               <button
                 onClick={() => setCover(url)}
-                title="Als Titelbild setzen"
+                title={t("setCoverImage")}
                 className="absolute bottom-0.5 left-0.5 bg-black/60 text-white rounded-full p-0.5 opacity-0 group-hover:opacity-100 transition-opacity"
               >
                 <Star className="h-3 w-3" />
               </button>
             )}
-            {/* Sil butonu */}
             <button
               onClick={() => removeImage(url)}
               className="absolute top-0.5 right-0.5 bg-black/60 text-white rounded-full p-0.5 opacity-0 group-hover:opacity-100 transition-opacity"
@@ -119,7 +118,7 @@ export default function ListingImageUpload({ listingId, currentImages }: Props) 
             ) : (
               <>
                 <ImagePlus className="h-5 w-5" />
-                <span className="text-xs">Foto</span>
+                <span className="text-xs">{t("photoAdd")}</span>
               </>
             )}
           </button>
@@ -138,7 +137,7 @@ export default function ListingImageUpload({ listingId, currentImages }: Props) 
 
       <p className="text-xs text-gray-400">
         <Camera className="h-3 w-3 inline mr-1" />
-        Max. 5 Fotos · JPEG, PNG, WebP · max. 5 MB
+        {t("photoHint")}
       </p>
     </div>
   );

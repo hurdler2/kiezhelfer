@@ -51,7 +51,27 @@
     "why3Title": "Lokal & nah",
     "why3Desc": "Helfer kommen aus deiner Nachbarschaft; schnelle Wege, echte Nähe.",
     "why4Title": "Einfach & fair",
-    "why4Desc": "Registrierung kostenlos, unkomplizierter Ablauf, faire Preise für alle Beteiligten."
+    "why4Desc": "Registrierung kostenlos, unkomplizierter Ablauf, faire Preise für alle Beteiligten.",
+    "registeredUsersLabel": "registrierte Nutzer",
+    "whySubtitle": "Deine Fähigkeiten zählen! Wann du willst, wo du willst, für die Menschen in deiner Nachbarschaft.",
+    "categoriesLabel": "Kategorien",
+    "viewListings": "Angebote ansehen",
+    "latestLabel": "Neueste Angebote",
+    "howItWorksLabel": "So einfach geht's",
+    "reviewsLabel": "Was unsere Nutzer sagen",
+    "reviewsTitle": "Echte Bewertungen",
+    "reviewsCount": "{count}+ Bewertungen",
+    "reviewFor": "Bewertung für",
+    "ctaLabel": "Jetzt starten",
+    "ctaMainTitle": "Wie möchtest du mitmachen?",
+    "ctaMainSubtitle": "KiezHelfer verbindet Berliner – egal ob du Hilfe brauchst oder Hilfe anbietest.",
+    "ctaSeekHelp": "Hilfe suchen",
+    "ctaSeekDesc": "Finde qualifizierte Nachbarn für Hausreparaturen, Nachhilfe, Umzug und mehr – direkt in deinem Kiez.",
+    "ctaBrowseListings": "Angebote durchsuchen",
+    "ctaOfferHelp": "Hilfe anbieten",
+    "ctaOfferDesc": "Erstelle kostenlos dein Angebot, teile deine Fähigkeiten mit deinen Nachbarn und verdiene Geld.",
+    "ctaCreateListing": "Angebot erstellen",
+    "ctaSafeLabel": "Kostenlos registrieren · Keine Gebühren · Verifizierte Nutzer"
   },
   "listings": {
     "title": "Angebote",
@@ -108,6 +128,14 @@
     "submitEdit": "Änderungen speichern",
     "errorCreating": "Fehler beim Erstellen des Angebots",
     "networkError": "Netzwerkfehler. Bitte versuche es erneut.",
+    "photosLabel": "Fotos",
+    "photosOptional": "(optional, max. 5)",
+    "photoAdd": "Foto",
+    "photoHint": "JPEG, PNG, WebP · max. 5 MB",
+    "photosUploading": "Fotos werden hochgeladen…",
+    "photoUploadError": "Foto-Upload fehlgeschlagen.",
+    "coverImage": "Titelbild",
+    "setCoverImage": "Als Titelbild setzen",
     "priceTypes": {
       "free": "Kostenlos",
       "hourly": "Stundenpreis",
@@ -120,7 +148,12 @@
     "technikComputer": "Technik- & Computerhilfe",
     "alltagNachbarschaft": "Alltags- & Nachbarschaftshilfe",
     "gartenOutdoor": "Garten- & Outdoor-Hilfe",
-    "transportKurier": "Transport & Kurierhilfe"
+    "transportKurier": "Transport & Kurierhilfe",
+    "reparaturenMontageDesc": "Regale, Lampen, Türen & mehr",
+    "technikComputerDesc": "Laptop, WLAN, Software & Geräte",
+    "alltagNachbarschaftDesc": "Einkaufen, Begleitung & Alltagshilfe",
+    "gartenOutdoorDesc": "Rasenmähen, Pflanzen & Außenanlagen",
+    "transportKurierDesc": "Pakete, Einkäufe & kleine Transporte"
   },
   "districts": {
     "mitte": "Mitte",
@@ -198,7 +231,8 @@
     "emailVerifyBanner": "Bitte bestätige deine E-Mail-Adresse, um Angebote zu erstellen und Nachrichten zu senden.",
     "emailVerifyResend": "Bestätigungs-E-Mail erneut senden",
     "emailVerifySuccess": "E-Mail-Adresse bestätigt!",
-    "emailVerifySent": "Bestätigungs-E-Mail gesendet!"
+    "emailVerifySent": "Bestätigungs-E-Mail gesendet!",
+    "adminLoginRequired": "Admin-Zugang: Bitte melde dich unter /admin-login an."
   },
   "profile": {
     "editTitle": "Profil bearbeiten",
@@ -326,6 +360,8 @@
     "contactMessagePlaceholder": "Wie können wir dir helfen?",
     "contactSend": "Nachricht senden",
     "contactSuccess": "Deine Nachricht wurde gesendet. Wir melden uns bald bei dir!",
+    "contactError": "Nachricht konnte nicht gesendet werden. Bitte versuche es später erneut.",
+    "contactNetworkError": "Verbindungsfehler. Bitte überprüfe deine Internetverbindung.",
     "lastUpdated": "Zuletzt aktualisiert: Februar 2026"
   },
   "reports": {

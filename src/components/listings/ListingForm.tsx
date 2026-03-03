@@ -13,43 +13,6 @@ import Button from "@/components/ui/Button";
 import { BERLIN_DISTRICTS } from "@/types";
 import { ImagePlus, X, Camera, Loader2 } from "lucide-react";
 
-const categoryNames: Record<string, Record<string, string>> = {
-  de: {
-    "home-repair": "Hausreparatur",
-    cleaning: "Reinigung",
-    "it-help": "IT-Hilfe",
-    tutoring: "Nachhilfe",
-    babysitting: "Kinderbetreuung",
-    moving: "Umzug",
-    gardening: "Garten",
-    cooking: "Kochen",
-    beauty: "Schönheit",
-    other: "Sonstiges",
-    "reparaturen-montage": "Kleine Reparaturen & Montageservice",
-    "technik-computer": "Technik- & Computerhilfe",
-    "alltag-nachbarschaft": "Alltags- & Nachbarschaftshilfe",
-    "garten-outdoor": "Garten- & Outdoor-Hilfe",
-    "transport-kurier": "Transport & Kurierhilfe",
-  },
-  en: {
-    "home-repair": "Home Repair",
-    cleaning: "Cleaning",
-    "it-help": "IT Help",
-    tutoring: "Tutoring",
-    babysitting: "Babysitting",
-    moving: "Moving",
-    gardening: "Gardening",
-    cooking: "Cooking",
-    beauty: "Beauty",
-    other: "Other",
-    "reparaturen-montage": "Repairs & Assembly",
-    "technik-computer": "Tech & Computer Help",
-    "alltag-nachbarschaft": "Everyday & Neighborhood Help",
-    "garten-outdoor": "Garden & Outdoor Help",
-    "transport-kurier": "Transport & Courier",
-  },
-};
-
 interface Props {
   categories: Category[];
   listingId?: string;
@@ -58,6 +21,7 @@ interface Props {
 
 export default function ListingForm({ categories, listingId, defaultValues }: Props) {
   const t = useTranslations("listingForm");
+  const tCat = useTranslations("categories");
   const locale = useLocale();
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
@@ -125,7 +89,7 @@ export default function ListingForm({ categories, listingId, defaultValues }: Pr
             uploadedUrls.push(uploadData.url);
           } else {
             console.error("Upload failed:", uploadData);
-            setError(uploadData.error ?? "Foto-Upload fehlgeschlagen.");
+            setError(uploadData.error ?? t("photoUploadError"));
             setUploading(false);
             return;
           }
@@ -194,7 +158,7 @@ export default function ListingForm({ categories, listingId, defaultValues }: Pr
           <option value="">{t("selectCategory")}</option>
           {categories.map((cat) => (
             <option key={cat.id} value={cat.id}>
-              {categoryNames[locale]?.[cat.slug] ?? cat.slug}
+              {tCat((cat.nameKey?.replace("categories.", "") ?? cat.slug) as any)}
             </option>
           ))}
         </select>
@@ -260,7 +224,7 @@ export default function ListingForm({ categories, listingId, defaultValues }: Pr
       {/* Fotos */}
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">
-          Fotos <span className="text-gray-400 font-normal">(optional, max. 5)</span>
+          {t("photosLabel")} <span className="text-gray-400 font-normal">{t("photosOptional")}</span>
         </label>
         <div className="flex flex-wrap gap-2 mb-2">
           {previews.map((src, i) => (
@@ -283,13 +247,13 @@ export default function ListingForm({ categories, listingId, defaultValues }: Pr
               className="w-20 h-20 rounded-lg border-2 border-dashed border-gray-300 hover:border-brand-400 flex flex-col items-center justify-center gap-1 text-gray-400 hover:text-brand-500 transition-colors"
             >
               <ImagePlus className="h-5 w-5" />
-              <span className="text-xs">Foto</span>
+              <span className="text-xs">{t("photoAdd")}</span>
             </button>
           )}
         </div>
         <p className="text-xs text-gray-400">
           <Camera className="h-3 w-3 inline mr-1" />
-          JPEG, PNG, WebP · max. 5 MB pro Foto
+          {t("photoHint")}
         </p>
         <input
           ref={fileRef}
@@ -304,7 +268,7 @@ export default function ListingForm({ categories, listingId, defaultValues }: Pr
       {uploading && (
         <div className="flex items-center gap-2 text-sm text-brand-600">
           <Loader2 className="h-4 w-4 animate-spin" />
-          Fotos werden hochgeladen…
+          {t("photosUploading")}
         </div>
       )}
 

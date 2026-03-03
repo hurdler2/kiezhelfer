@@ -51,7 +51,27 @@
     "why3Title": "From Your Neighborhood",
     "why3Desc": "All providers are from Berlin. Filter by district and find help exactly in your neighborhood.",
     "why4Title": "Free & Easy",
-    "why4Desc": "Creating and browsing listings is completely free. Registration takes less than a minute."
+    "why4Desc": "Creating and browsing listings is completely free. Registration takes less than a minute.",
+    "registeredUsersLabel": "registered users",
+    "whySubtitle": "Your skills matter! Whenever you want, wherever you want, for the people in your neighborhood.",
+    "categoriesLabel": "Categories",
+    "viewListings": "View listings",
+    "latestLabel": "Latest Listings",
+    "howItWorksLabel": "Simple as that",
+    "reviewsLabel": "What our users say",
+    "reviewsTitle": "Real Reviews",
+    "reviewsCount": "{count}+ reviews",
+    "reviewFor": "Review for",
+    "ctaLabel": "Get Started",
+    "ctaMainTitle": "How would you like to join?",
+    "ctaMainSubtitle": "KiezHelfer connects Berliners – whether you need help or offer it.",
+    "ctaSeekHelp": "Find Help",
+    "ctaSeekDesc": "Find qualified neighbors for home repairs, tutoring, moving and more – right in your neighborhood.",
+    "ctaBrowseListings": "Browse Listings",
+    "ctaOfferHelp": "Offer Help",
+    "ctaOfferDesc": "Create your free listing, share your skills with neighbors and earn money.",
+    "ctaCreateListing": "Create Listing",
+    "ctaSafeLabel": "Free to register · No fees · Verified users"
   },
   "listings": {
     "title": "Listings",
@@ -108,6 +128,14 @@
     "submitEdit": "Save Changes",
     "errorCreating": "Error creating listing",
     "networkError": "Network error. Please try again.",
+    "photosLabel": "Photos",
+    "photosOptional": "(optional, max. 5)",
+    "photoAdd": "Photo",
+    "photoHint": "JPEG, PNG, WebP · max. 5 MB",
+    "photosUploading": "Uploading photos…",
+    "photoUploadError": "Photo upload failed.",
+    "coverImage": "Cover photo",
+    "setCoverImage": "Set as cover photo",
     "priceTypes": {
       "free": "Free",
       "hourly": "Hourly rate",
@@ -120,7 +148,12 @@
     "technikComputer": "Tech & Computer Help",
     "alltagNachbarschaft": "Everyday & Neighborhood Help",
     "gartenOutdoor": "Garden & Outdoor Help",
-    "transportKurier": "Transport & Courier Help"
+    "transportKurier": "Transport & Courier Help",
+    "reparaturenMontageDesc": "Shelves, lamps, doors & more",
+    "technikComputerDesc": "Laptop, Wi-Fi, software & devices",
+    "alltagNachbarschaftDesc": "Shopping, companionship & daily help",
+    "gartenOutdoorDesc": "Lawn mowing, plants & outdoor areas",
+    "transportKurierDesc": "Parcels, shopping & small deliveries"
   },
   "districts": {
     "mitte": "Mitte",
@@ -198,7 +231,8 @@
     "emailVerifyBanner": "Please verify your email address to create listings and send messages.",
     "emailVerifyResend": "Resend verification email",
     "emailVerifySuccess": "Email address verified!",
-    "emailVerifySent": "Verification email sent!"
+    "emailVerifySent": "Verification email sent!",
+    "adminLoginRequired": "Admin access: Please sign in at /admin-login."
   },
   "profile": {
     "editTitle": "Edit Profile",
@@ -326,6 +360,8 @@
     "contactMessagePlaceholder": "How can we help you?",
     "contactSend": "Send Message",
     "contactSuccess": "Your message has been sent. We will get back to you soon!",
+    "contactError": "Message could not be sent. Please try again later.",
+    "contactNetworkError": "Connection error. Please check your internet connection.",
     "lastUpdated": "Last updated: February 2026"
   },
   "reports": {

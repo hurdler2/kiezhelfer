@@ -1,5 +1,6 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import { MapPin, Star } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import Avatar from "@/components/ui/Avatar";
 import Badge from "@/components/ui/Badge";
 import { formatPrice } from "@/lib/utils";
@@ -10,46 +11,11 @@ interface ListingCardProps {
   locale?: string;
 }
 
-export default function ListingCard({ listing, locale = "de" }: ListingCardProps) {
-  const categoryNames: Record<string, Record<string, string>> = {
-    de: {
-      "home-repair": "Hausreparatur",
-      cleaning: "Reinigung",
-      "it-help": "IT-Hilfe",
-      tutoring: "Nachhilfe",
-      babysitting: "Kinderbetreuung",
-      moving: "Umzug",
-      gardening: "Garten",
-      cooking: "Kochen",
-      beauty: "Schönheit",
-      other: "Sonstiges",
-      "reparaturen-montage": "Kleine Reparaturen & Montageservice",
-      "technik-computer": "Technik- & Computerhilfe",
-      "alltag-nachbarschaft": "Alltags- & Nachbarschaftshilfe",
-      "garten-outdoor": "Garten- & Outdoor-Hilfe",
-      "transport-kurier": "Transport & Kurierhilfe",
-    },
-    en: {
-      "home-repair": "Home Repair",
-      cleaning: "Cleaning",
-      "it-help": "IT Help",
-      tutoring: "Tutoring",
-      babysitting: "Babysitting",
-      moving: "Moving",
-      gardening: "Gardening",
-      cooking: "Cooking",
-      beauty: "Beauty",
-      other: "Other",
-      "reparaturen-montage": "Repairs & Assembly",
-      "technik-computer": "Tech & Computer Help",
-      "alltag-nachbarschaft": "Everyday & Neighborhood Help",
-      "garten-outdoor": "Garden & Outdoor Help",
-      "transport-kurier": "Transport & Courier",
-    },
-  };
+export default async function ListingCard({ listing, locale = "de" }: ListingCardProps) {
+  const tCat = await getTranslations("categories");
 
-  const categoryLabel =
-    categoryNames[locale]?.[listing.category.slug] ?? listing.category.slug;
+  const nameKey = (listing.category.nameKey ?? "").replace("categories.", "");
+  const categoryLabel = nameKey ? tCat(nameKey as any) : listing.category.slug;
 
   return (
     <Link href={`/${locale}/listings/${listing.id}`}>

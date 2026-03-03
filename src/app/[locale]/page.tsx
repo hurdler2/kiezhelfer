@@ -16,6 +16,7 @@ import {
 export default async function HomePage({ params }: { params: { locale: string } }) {
   setRequestLocale(params.locale);
   const t = await getTranslations("home");
+  const tCat = await getTranslations("categories");
 
   const [featuredListings, listingCount, userCount, categories, topReviews] = await Promise.all([
     prisma.listing.findMany({
@@ -48,48 +49,31 @@ export default async function HomePage({ params }: { params: { locale: string } 
     }),
   ]);
 
-  const categoryIcons: Record<string, { photo: string; gradient: string; desc: { de: string; en: string } }> = {
+  const categoryMeta: Record<string, { photo: string; gradient: string; descKey: string }> = {
     "reparaturen-montage": {
       photo: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=700&h=460&fit=crop&q=85",
       gradient: "from-orange-900/70 via-orange-800/40 to-transparent",
-      desc: { de: "Regale, Lampen, Türen & mehr", en: "Shelves, lamps, doors & more" },
+      descKey: "reparaturenMontageDesc",
     },
     "technik-computer": {
       photo: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=700&h=460&fit=crop&q=85",
       gradient: "from-blue-900/70 via-blue-800/40 to-transparent",
-      desc: { de: "Laptop, WLAN, Software & Geräte", en: "Laptop, Wi-Fi, software & devices" },
+      descKey: "technikComputerDesc",
     },
     "alltag-nachbarschaft": {
       photo: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=700&h=460&fit=crop&q=85",
       gradient: "from-emerald-900/70 via-emerald-800/40 to-transparent",
-      desc: { de: "Einkaufen, Begleitung & Alltagshilfe", en: "Shopping, companionship & daily help" },
+      descKey: "alltagNachbarschaftDesc",
     },
     "garten-outdoor": {
       photo: "https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?w=700&h=460&fit=crop&q=85",
       gradient: "from-green-900/70 via-green-800/40 to-transparent",
-      desc: { de: "Rasenmähen, Pflanzen & Außenanlagen", en: "Lawn mowing, plants & outdoor areas" },
+      descKey: "gartenOutdoorDesc",
     },
     "transport-kurier": {
       photo: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=700&h=460&fit=crop&q=85",
       gradient: "from-amber-900/70 via-amber-800/40 to-transparent",
-      desc: { de: "Pakete, Einkäufe & kleine Transporte", en: "Parcels, shopping & small deliveries" },
-    },
-  };
-
-  const categoryLabels: Record<string, Record<string, string>> = {
-    de: {
-      "reparaturen-montage": "Kleine Reparaturen & Montageservice",
-      "technik-computer":    "Technik- & Computerhilfe",
-      "alltag-nachbarschaft":"Alltags- & Nachbarschaftshilfe",
-      "garten-outdoor":      "Garten- & Outdoor-Hilfe",
-      "transport-kurier":    "Transport & Kurierhilfe",
-    },
-    en: {
-      "reparaturen-montage": "Small Repairs & Assembly",
-      "technik-computer":    "Tech & Computer Help",
-      "alltag-nachbarschaft":"Everyday & Neighborhood Help",
-      "garten-outdoor":      "Garden & Outdoor Help",
-      "transport-kurier":    "Transport & Courier Help",
+      descKey: "transportKurierDesc",
     },
   };
 
@@ -100,7 +84,6 @@ export default async function HomePage({ params }: { params: { locale: string } 
 
         {/* ── HERO ─────────────────────────────────────────────────── */}
         <section className="relative overflow-hidden text-white min-h-[820px]">
-          {/* Arka plan fotoğrafı */}
           <Image
             src="/hero2.png"
             alt="KiezHelfer Hero"
@@ -108,16 +91,13 @@ export default async function HomePage({ params }: { params: { locale: string } 
             priority
             className="object-cover object-center"
           />
-          {/* Koyu gradient overlay — okunabilirlik için */}
           <div className="absolute inset-0 bg-gradient-to-b from-slate-950/55 via-slate-900/45 to-slate-950/60" />
-          {/* Navbar arkası için ekstra koyu şerit */}
           <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-black/50 to-transparent" />
 
           <div className="relative max-w-5xl mx-auto px-4 sm:px-6 pt-28 pb-48 text-center">
-            {/* Trust badge */}
             <div className="inline-flex items-center gap-2 bg-brand-500/15 border border-brand-400/25 rounded-full px-4 py-1.5 text-xs text-brand-300 mb-8 font-medium tracking-wide uppercase">
               <span className="h-1.5 w-1.5 rounded-full bg-brand-400 animate-pulse" />
-              Berlin · {userCount}+ {params.locale === "de" ? "registrierte Nutzer" : "registered users"}
+              Berlin · {userCount}+ {t("registeredUsersLabel")}
             </div>
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-5 leading-[1.12] tracking-tight">
@@ -152,19 +132,20 @@ export default async function HomePage({ params }: { params: { locale: string } 
 
             {/* Kategori pilleri */}
             <div className="flex flex-wrap justify-center gap-2">
-              {categories.map((cat) => (
-                <Link
-                  key={cat.id}
-                  href={`/listings?category=${cat.slug}` as any}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 text-white/80 hover:text-white text-xs font-medium transition-all backdrop-blur-sm"
-                >
-                  {categoryLabels[params.locale]?.[cat.slug] ?? cat.slug}
-                </Link>
-              ))}
+              {categories.map((cat) => {
+                const nameKey = (cat.nameKey ?? "").replace("categories.", "");
+                return (
+                  <Link
+                    key={cat.id}
+                    href={`/listings?category=${cat.slug}` as any}
+                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 text-white/80 hover:text-white text-xs font-medium transition-all backdrop-blur-sm"
+                  >
+                    {nameKey ? tCat(nameKey as any) : cat.slug}
+                  </Link>
+                );
+              })}
             </div>
           </div>
-
-
         </section>
 
         {/* ── İSTATİSTİK BANDI ─────────────────────────────────────── */}
@@ -196,7 +177,7 @@ export default async function HomePage({ params }: { params: { locale: string } 
             <div className="text-center mb-12">
               <p className="text-xs font-semibold text-brand-600 uppercase tracking-widest mb-2">{t("whyTitle")}</p>
               <h2 className="text-3xl font-bold text-gray-900">
-                {params.locale === "de" ? "Deine Fähigkeiten zählen! Wann du willst, wo du willst, für die Menschen in deiner Nachbarschaft." : "Your skills matter! Whenever you want, wherever you want, for the people in your neighborhood."}
+                {t("whySubtitle")}
               </h2>
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -223,7 +204,7 @@ export default async function HomePage({ params }: { params: { locale: string } 
           <div className="max-w-5xl mx-auto">
             <div className="flex items-end justify-between mb-10">
               <div>
-                <p className="text-xs font-semibold text-brand-600 uppercase tracking-widest mb-1">{params.locale === "de" ? "Kategorien" : "Categories"}</p>
+                <p className="text-xs font-semibold text-brand-600 uppercase tracking-widest mb-1">{t("categoriesLabel")}</p>
                 <h2 className="text-3xl font-bold text-gray-900">{t("categoriesTitle")}</h2>
               </div>
               <Link href="/listings" className="hidden sm:flex items-center gap-1 text-sm text-brand-600 hover:text-brand-700 font-medium">
@@ -232,16 +213,17 @@ export default async function HomePage({ params }: { params: { locale: string } 
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
               {categories.map((cat) => {
-                const meta = categoryIcons[cat.slug];
-                const label = categoryLabels[params.locale]?.[cat.slug] ?? cat.slug;
-                const desc = meta?.desc?.[params.locale as "de" | "en"] ?? "";
+                const meta = categoryMeta[cat.slug];
+                const nameKey = (cat.nameKey ?? "").replace("categories.", "");
+                const label = nameKey ? tCat(nameKey as any) : cat.slug;
+                const descKey = meta?.descKey as any;
+                const desc = descKey ? tCat(descKey) : "";
                 return (
                   <Link
                     key={cat.id}
                     href={`/listings?category=${cat.slug}` as any}
                     className="group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
                   >
-                    {/* Fotoğraf */}
                     <div className="relative h-52 overflow-hidden">
                       <Image
                         src={meta?.photo ?? "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=700&h=460&fit=crop&q=85"}
@@ -250,9 +232,7 @@ export default async function HomePage({ params }: { params: { locale: string } 
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                         sizes="(max-width: 640px) 100vw, 33vw"
                       />
-                      {/* Gradient overlay */}
                       <div className={`absolute inset-0 bg-gradient-to-t ${meta?.gradient ?? "from-gray-900/70 via-gray-800/40 to-transparent"}`} />
-                      {/* İsim + açıklama */}
                       <div className="absolute bottom-0 left-0 right-0 p-5">
                         <p className="text-white font-bold text-base leading-snug drop-shadow-sm">
                           {label}
@@ -260,10 +240,9 @@ export default async function HomePage({ params }: { params: { locale: string } 
                         <p className="text-white/75 text-xs mt-1 font-medium">{desc}</p>
                       </div>
                     </div>
-                    {/* Alt şerit */}
                     <div className="bg-white border-t border-gray-100 px-5 py-3 flex items-center justify-between">
                       <span className="text-xs font-semibold text-gray-500">
-                        {params.locale === "de" ? "Angebote ansehen" : "View listings"}
+                        {t("viewListings")}
                       </span>
                       <ChevronRight className="h-4 w-4 text-brand-500 group-hover:translate-x-0.5 transition-transform" />
                     </div>
@@ -280,7 +259,7 @@ export default async function HomePage({ params }: { params: { locale: string } 
             <div className="flex items-end justify-between mb-10">
               <div>
                 <p className="text-xs font-semibold text-brand-600 uppercase tracking-widest mb-1">
-                  {params.locale === "de" ? "Neueste Angebote" : "Latest Listings"}
+                  {t("latestLabel")}
                 </p>
                 <h2 className="text-3xl font-bold text-gray-900">{t("featuredListings")}</h2>
               </div>
@@ -308,7 +287,7 @@ export default async function HomePage({ params }: { params: { locale: string } 
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-14">
               <p className="text-xs font-semibold text-brand-600 uppercase tracking-widest mb-2">
-                {params.locale === "de" ? "So einfach geht's" : "Simple as that"}
+                {t("howItWorksLabel")}
               </p>
               <h2 className="text-3xl font-bold text-gray-900">{t("howItWorks")}</h2>
             </div>
@@ -340,16 +319,16 @@ export default async function HomePage({ params }: { params: { locale: string } 
             <div className="max-w-5xl mx-auto">
               <div className="text-center mb-12">
                 <p className="text-xs font-semibold text-brand-600 uppercase tracking-widest mb-2">
-                  {params.locale === "de" ? "Was unsere Nutzer sagen" : "What our users say"}
+                  {t("reviewsLabel")}
                 </p>
                 <h2 className="text-3xl font-bold text-gray-900">
-                  {params.locale === "de" ? "Echte Bewertungen" : "Real Reviews"}
+                  {t("reviewsTitle")}
                 </h2>
                 <div className="flex items-center justify-center gap-1 mt-3">
                   {[1,2,3,4,5].map((i) => (
                     <Star key={i} className="h-5 w-5 fill-amber-400 text-amber-400" />
                   ))}
-                  <span className="ml-2 text-sm text-gray-500 font-medium">5.0 · {topReviews.length}+ {params.locale === "de" ? "Bewertungen" : "reviews"}</span>
+                  <span className="ml-2 text-sm text-gray-500 font-medium">5.0 · {t("reviewsCount", { count: topReviews.length })}</span>
                 </div>
               </div>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -368,7 +347,7 @@ export default async function HomePage({ params }: { params: { locale: string } 
                       <div>
                         <p className="text-xs font-semibold text-gray-900">{review.author.name}</p>
                         <p className="text-xs text-gray-400">
-                          {params.locale === "de" ? "Bewertung für" : "Review for"} {review.target.name}
+                          {t("reviewFor")} {review.target.name}
                         </p>
                       </div>
                     </div>
@@ -382,24 +361,18 @@ export default async function HomePage({ params }: { params: { locale: string } 
         {/* ── CTA BANNER ───────────────────────────────────────────── */}
         <section className="py-24 px-4 bg-gray-50">
           <div className="max-w-5xl mx-auto">
-            {/* Başlık */}
             <div className="text-center mb-14">
               <p className="text-xs font-semibold text-brand-600 uppercase tracking-widest mb-3">
-                {params.locale === "de" ? "Jetzt starten" : "Get Started"}
+                {t("ctaLabel")}
               </p>
               <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 leading-tight">
-                {params.locale === "de"
-                  ? "Wie möchtest du mitmachen?"
-                  : "How would you like to join?"}
+                {t("ctaMainTitle")}
               </h2>
               <p className="text-gray-500 mt-3 text-sm max-w-md mx-auto">
-                {params.locale === "de"
-                  ? "KiezHelfer verbindet Berliner – egal ob du Hilfe brauchst oder Hilfe anbietest."
-                  : "KiezHelfer connects Berliners – whether you need help or offer it."}
+                {t("ctaMainSubtitle")}
               </p>
             </div>
 
-            {/* İki kart */}
             <div className="grid md:grid-cols-2 gap-5">
 
               {/* Kart 1 — Hilfe suchen */}
@@ -410,18 +383,16 @@ export default async function HomePage({ params }: { params: { locale: string } 
                     <UserCheck className="h-7 w-7 text-blue-500" />
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 mb-2">
-                    {params.locale === "de" ? "Hilfe suchen" : "Find Help"}
+                    {t("ctaSeekHelp")}
                   </h3>
                   <p className="text-gray-500 text-sm leading-relaxed mb-8">
-                    {params.locale === "de"
-                      ? "Finde qualifizierte Nachbarn für Hausreparaturen, Nachhilfe, Umzug und mehr – direkt in deinem Kiez."
-                      : "Find qualified neighbors for home repairs, tutoring, moving and more – right in your neighborhood."}
+                    {t("ctaSeekDesc")}
                   </p>
                   <Link
                     href="/listings"
                     className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-xl transition-colors shadow-sm"
                   >
-                    {params.locale === "de" ? "Angebote durchsuchen" : "Browse Listings"}
+                    {t("ctaBrowseListings")}
                     <ArrowRight className="h-4 w-4" />
                   </Link>
                 </div>
@@ -436,30 +407,25 @@ export default async function HomePage({ params }: { params: { locale: string } 
                     <Zap className="h-7 w-7 text-white" />
                   </div>
                   <h3 className="text-xl font-bold text-white mb-2">
-                    {params.locale === "de" ? "Hilfe anbieten" : "Offer Help"}
+                    {t("ctaOfferHelp")}
                   </h3>
                   <p className="text-brand-100 text-sm leading-relaxed mb-8">
-                    {params.locale === "de"
-                      ? "Erstelle kostenlos dein Angebot, teile deine Fähigkeiten mit deinen Nachbarn und verdiene Geld."
-                      : "Create your free listing, share your skills with neighbors and earn money."}
+                    {t("ctaOfferDesc")}
                   </p>
                   <Link
                     href="/listings/new"
                     className="inline-flex items-center gap-2 px-6 py-3 bg-white text-brand-700 text-sm font-bold rounded-xl hover:bg-brand-50 transition-colors shadow-sm"
                   >
-                    {params.locale === "de" ? "Angebot erstellen" : "Create Listing"}
+                    {t("ctaCreateListing")}
                     <ArrowRight className="h-4 w-4" />
                   </Link>
                 </div>
               </div>
             </div>
 
-            {/* Alt — Ücretsiz & güvenli */}
             <p className="text-center text-xs text-brand-700/60 mt-8 flex items-center justify-center gap-1.5">
               <Shield className="h-3.5 w-3.5" />
-              {params.locale === "de"
-                ? "Kostenlos registrieren · Keine Gebühren · Verifizierte Nutzer"
-                : "Free to register · No fees · Verified users"}
+              {t("ctaSafeLabel")}
             </p>
           </div>
         </section>

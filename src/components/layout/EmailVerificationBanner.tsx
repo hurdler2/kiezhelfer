@@ -2,10 +2,13 @@
 
 import { useState } from "react";
 import { useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
 import { MailWarning, X } from "lucide-react";
 
 export default function EmailVerificationBanner() {
   const { data: session } = useSession();
+  const t = useTranslations("auth");
+  const tCommon = useTranslations("common");
   const [dismissed, setDismissed] = useState(false);
 
   if (!session?.user) return null;
@@ -18,14 +21,12 @@ export default function EmailVerificationBanner() {
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
         <div className="flex items-center gap-2.5 text-amber-800 text-sm">
           <MailWarning className="h-4 w-4 text-amber-500 shrink-0" />
-          <span>
-            Bitte bestätige deine E-Mail-Adresse – prüfe dein Postfach und klicke auf den Aktivierungslink.
-          </span>
+          <span>{t("emailVerifyBanner")}</span>
         </div>
         <button
           onClick={() => setDismissed(true)}
           className="text-amber-500 hover:text-amber-700 transition-colors shrink-0"
-          aria-label="Schließen"
+          aria-label={tCommon("close")}
         >
           <X className="h-4 w-4" />
         </button>

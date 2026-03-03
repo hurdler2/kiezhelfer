@@ -31,10 +31,10 @@ export default function ContactPage() {
         setEmail("");
         setMessage("");
       } else {
-        setError("Nachricht konnte nicht gesendet werden. Bitte versuche es später erneut.");
+        setError(t("contactError"));
       }
     } catch {
-      setError("Verbindungsfehler. Bitte überprüfe deine Internetverbindung.");
+      setError(t("contactNetworkError"));
     } finally {
       setSending(false);
     }

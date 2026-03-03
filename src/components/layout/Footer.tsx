@@ -5,13 +5,14 @@ import Image from "next/image";
 
 export default function Footer() {
   const t = useTranslations("footer");
+  const tCat = useTranslations("categories");
 
   const serviceLinks = [
-    { slug: "reparaturen-montage",  label: "Kleine Reparaturen & Montageservice" },
-    { slug: "technik-computer",     label: "Technik- & Computerhilfe" },
-    { slug: "alltag-nachbarschaft", label: "Alltags- & Nachbarschaftshilfe" },
-    { slug: "garten-outdoor",       label: "Garten- & Outdoor-Hilfe" },
-    { slug: "transport-kurier",     label: "Transport & Kurierhilfe" },
+    { slug: "reparaturen-montage",  key: "reparaturenMontage" },
+    { slug: "technik-computer",     key: "technikComputer" },
+    { slug: "alltag-nachbarschaft", key: "alltagNachbarschaft" },
+    { slug: "garten-outdoor",       key: "gartenOutdoor" },
+    { slug: "transport-kurier",     key: "transportKurier" },
   ];
 
   return (
@@ -68,7 +69,7 @@ export default function Footer() {
                     href={`/listings?category=${s.slug}` as any}
                     className="text-sm text-gray-600 hover:text-brand-500 transition-colors"
                   >
-                    {s.label}
+                    {tCat(s.key as any)}
                   </Link>
                 </li>
               ))}

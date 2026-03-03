@@ -46,7 +46,7 @@ export default function LoginPage() {
     const session = await res.json();
     if (session?.user?.role === "ADMIN") {
       await signOut({ redirect: false });
-      setError("Admin girişi için lütfen /admin-login sayfasını kullanın.");
+      setError(t("adminLoginRequired"));
       return;
     }
 
