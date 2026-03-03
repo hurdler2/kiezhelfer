@@ -55,6 +55,17 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Nicht angemeldet." }, { status: 401 });
     }
 
+    const currentUser = await prisma.user.findUnique({
+      where: { id: session.user.id },
+      select: { emailVerifiedAt: true },
+    });
+    if (!currentUser?.emailVerifiedAt) {
+      return NextResponse.json(
+        { error: "Bitte bestätige zuerst deine E-Mail-Adresse, um Nachrichten senden zu können." },
+        { status: 403 }
+      );
+    }
+
     const { recipientId, listingId } = await request.json();
 
     if (!recipientId) {
