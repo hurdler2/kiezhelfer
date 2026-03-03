@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
+import crypto from "crypto";
 import { prisma } from "@/lib/prisma";
 import { registerSchema } from "@/lib/validations/user";
+import { sendMail, verifyEmailEmail } from "@/lib/email";
 
 export const dynamic = "force-dynamic";
 
@@ -41,6 +43,22 @@ export async function POST(request: Request) {
         },
       },
     });
+
+    // Send verification email (async, don't block response)
+    try {
+      const rawToken = crypto.randomBytes(32).toString("hex");
+      const tokenHash = crypto.createHash("sha256").update(rawToken).digest("hex");
+      const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
+      await prisma.emailToken.create({
+        data: { userId: user.id, type: "VERIFY_EMAIL", tokenHash, expiresAt },
+      });
+      const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://kiezhelfer.com";
+      const verifyUrl = `${appUrl}/api/auth/verify-email?token=${rawToken}`;
+      const { subject, html } = verifyEmailEmail(user.name ?? "", verifyUrl);
+      await sendMail({ to: user.email, subject, html });
+    } catch (emailErr) {
+      console.warn("Verification email failed:", emailErr);
+    }
 
     return NextResponse.json(
       { message: "Konto erfolgreich erstellt.", userId: user.id },

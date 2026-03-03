@@ -12,11 +12,13 @@ import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import LocaleSwitcher from "@/components/layout/LocaleSwitcher";
 import Image from "next/image";
+import { Eye, EyeOff } from "lucide-react";
 
 export default function LoginPage() {
   const t = useTranslations("auth");
   const locale = useLocale();
   const [error, setError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
 
   const {
     register,
@@ -68,14 +70,31 @@ export default function LoginPage() {
                 error={errors.email?.message}
                 {...register("email")}
               />
-              <Input
-                id="password"
-                type="password"
-                label={t("password")}
-                placeholder="••••••••"
-                error={errors.password?.message}
-                {...register("password")}
-              />
+              <div className="relative">
+                <Input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  label={t("password")}
+                  placeholder="••••••••"
+                  error={errors.password?.message}
+                  className="pr-10"
+                  {...register("password")}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((v) => !v)}
+                  className="absolute right-3 top-7 text-gray-400 hover:text-gray-600"
+                  tabIndex={-1}
+                >
+                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                </button>
+              </div>
+
+              <div className="text-right">
+                <Link href="/forgot-password" className="text-xs text-teal-600 hover:text-teal-700">
+                  {t("forgotPassword")}
+                </Link>
+              </div>
 
               {error && (
                 <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">

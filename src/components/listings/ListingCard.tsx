@@ -23,6 +23,11 @@ export default function ListingCard({ listing, locale = "de" }: ListingCardProps
       cooking: "Kochen",
       beauty: "Schönheit",
       other: "Sonstiges",
+      "reparaturen-montage": "Kleine Reparaturen & Montageservice",
+      "technik-computer": "Technik- & Computerhilfe",
+      "alltag-nachbarschaft": "Alltags- & Nachbarschaftshilfe",
+      "garten-outdoor": "Garten- & Outdoor-Hilfe",
+      "transport-kurier": "Transport & Kurierhilfe",
     },
     en: {
       "home-repair": "Home Repair",
@@ -35,6 +40,11 @@ export default function ListingCard({ listing, locale = "de" }: ListingCardProps
       cooking: "Cooking",
       beauty: "Beauty",
       other: "Other",
+      "reparaturen-montage": "Repairs & Assembly",
+      "technik-computer": "Tech & Computer Help",
+      "alltag-nachbarschaft": "Everyday & Neighborhood Help",
+      "garten-outdoor": "Garden & Outdoor Help",
+      "transport-kurier": "Transport & Courier",
     },
   };
 

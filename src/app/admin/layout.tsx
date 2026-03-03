@@ -1,9 +1,8 @@
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
-import Link from "next/link";
 import {
-  LayoutDashboard, Users, List, Star, LogOut,
-  Wifi, Flag, MessageSquare, ArrowUpRight,
+  LayoutDashboard, Users, List, Star,
+  Wifi, Flag, MessageSquare, Mail,
 } from "lucide-react";
 import AdminNavLink from "./AdminNavLink";
 import AdminLogoutButton from "./AdminLogoutButton";
@@ -23,6 +22,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     { href: "/admin/messages", label: "Mesajlar",   icon: MessageSquare },
     { href: "/admin/activity", label: "Aktivite",   icon: Wifi },
     { href: "/admin/reports",  label: "Şikayetler", icon: Flag },
+    { href: "/admin/contact",  label: "Kontakt",    icon: Mail },
   ];
 
   const userEmail = session.user.email ?? "";
@@ -60,13 +60,6 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 
         {/* Footer */}
         <div className="px-3 pb-4 border-t border-white/5 pt-3 space-y-0.5">
-          <Link
-            href="/de"
-            className="group flex items-center gap-2.5 px-3 py-2 rounded-lg text-[13px] text-slate-500 hover:text-slate-200 hover:bg-white/5 transition-all"
-          >
-            <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-            Siteye Dön
-          </Link>
           <AdminLogoutButton />
         </div>
       </aside>

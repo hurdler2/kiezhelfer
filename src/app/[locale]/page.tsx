@@ -196,7 +196,7 @@ export default async function HomePage({ params }: { params: { locale: string } 
             <div className="text-center mb-12">
               <p className="text-xs font-semibold text-brand-600 uppercase tracking-widest mb-2">{t("whyTitle")}</p>
               <h2 className="text-3xl font-bold text-gray-900">
-                {params.locale === "de" ? "Vertrauen steht an erster Stelle" : "Trust comes first"}
+                {params.locale === "de" ? "Deine Fähigkeiten zählen! Wann du willst, wo du willst, für die Menschen in deiner Nachbarschaft." : "Your skills matter! Whenever you want, wherever you want, for the people in your neighborhood."}
               </h2>
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">

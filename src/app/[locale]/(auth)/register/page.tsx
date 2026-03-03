@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
@@ -20,6 +21,8 @@ export default function RegisterPage() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const {
     register,
@@ -95,22 +98,44 @@ export default function RegisterPage() {
                   error={errors.email?.message}
                   {...register("email")}
                 />
-                <Input
-                  id="password"
-                  type="password"
-                  label={t("password")}
-                  placeholder={t("passwordPlaceholder")}
-                  error={errors.password?.message}
-                  {...register("password")}
-                />
-                <Input
-                  id="confirmPassword"
-                  type="password"
-                  label={t("confirmPassword")}
-                  placeholder={t("confirmPasswordPlaceholder")}
-                  error={errors.confirmPassword?.message}
-                  {...register("confirmPassword")}
-                />
+                <div className="relative">
+                  <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    label={t("password")}
+                    placeholder={t("passwordPlaceholder")}
+                    error={errors.password?.message}
+                    className="pr-10"
+                    {...register("password")}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((v) => !v)}
+                    className="absolute right-3 top-7 text-gray-400 hover:text-gray-600"
+                    tabIndex={-1}
+                  >
+                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </button>
+                </div>
+                <div className="relative">
+                  <Input
+                    id="confirmPassword"
+                    type={showConfirmPassword ? "text" : "password"}
+                    label={t("confirmPassword")}
+                    placeholder={t("confirmPasswordPlaceholder")}
+                    error={errors.confirmPassword?.message}
+                    className="pr-10"
+                    {...register("confirmPassword")}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword((v) => !v)}
+                    className="absolute right-3 top-7 text-gray-400 hover:text-gray-600"
+                    tabIndex={-1}
+                  >
+                    {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </button>
+                </div>
 
                 {/* District (optional) */}
                 <div>

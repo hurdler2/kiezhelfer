@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
-import { writeFile, mkdir } from "fs/promises";
-import path from "path";
+import { put } from "@vercel/blob";
 
 export const dynamic = "force-dynamic";
 
@@ -34,18 +33,12 @@ export async function POST(request: Request) {
       );
     }
 
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
-
     const ext = file.type === "image/png" ? "png" : file.type === "image/webp" ? "webp" : "jpg";
-    const filename = `${session.user.id}-${Date.now()}.${ext}`;
-    const uploadDir = path.join(process.cwd(), "public", "uploads");
+    const filename = `listings/${session.user.id}-${Date.now()}.${ext}`;
 
-    await mkdir(uploadDir, { recursive: true });
-    await writeFile(path.join(uploadDir, filename), buffer);
+    const blob = await put(filename, file, { access: "public" });
 
-    const url = `/uploads/${filename}`;
-    return NextResponse.json({ url });
+    return NextResponse.json({ url: blob.url });
   } catch (error) {
     console.error("Upload error:", error);
     return NextResponse.json(

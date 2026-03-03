@@ -8,6 +8,7 @@ import Badge from "@/components/ui/Badge";
 import StarRating from "@/components/ui/StarRating";
 import ContactButton from "@/components/listings/ContactButton";
 import ListingImageUpload from "@/components/listings/ListingImageUpload";
+import ListingOwnerActions from "@/components/listings/ListingOwnerActions";
 import ReviewForm from "@/components/reviews/ReviewForm";
 import ReportListingButton from "@/components/reports/ReportListingButton";
 import { formatPrice, formatRelativeTime } from "@/lib/utils";
@@ -20,6 +21,7 @@ interface Props {
 export default async function ListingDetailPage({ params }: Props) {
   setRequestLocale(params.locale);
   const t = await getTranslations("listings");
+  const tCategories = await getTranslations("categories");
   const session = await auth();
 
   const listing = await prisma.listing.findUnique({
@@ -64,9 +66,15 @@ export default async function ListingDetailPage({ params }: Props) {
     notFound();
   }
 
-  // PENDING ilan sadece sahibi ve admin görebilir
-  const isOwnerOrAdmin = session?.user?.id === listing.userId || (session?.user as any)?.role === "ADMIN";
-  if (listing.status === "PENDING" && !isOwnerOrAdmin) {
+  // PENDING veya PAUSED ilan sadece sahibi ve admin görebilir
+  const isOwnerOrAdmin =
+    session?.user?.id === listing.userId ||
+    (session?.user as any)?.role === "ADMIN";
+
+  if (
+    (listing.status === "PENDING" || listing.status === "PAUSED") &&
+    !isOwnerOrAdmin
+  ) {
     notFound();
   }
 
@@ -77,12 +85,28 @@ export default async function ListingDetailPage({ params }: Props) {
     ? listing.reviews.some((r) => r.author.id === session.user!.id)
     : false;
 
+  // Kategori adını çeviri dosyasından al
+  const nameKey = listing.category.nameKey?.replace("categories.", "") ?? listing.category.slug;
+  let categoryDisplayName: string;
+  try {
+    categoryDisplayName = tCategories(nameKey as Parameters<typeof tCategories>[0]);
+  } catch {
+    categoryDisplayName = listing.category.slug;
+  }
+
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* PENDING banner */}
       {listing.status === "PENDING" && (
         <div className="mb-6 px-4 py-3 bg-purple-50 border border-purple-200 rounded-xl text-sm text-purple-800">
-          <strong>Bu ilan onay bekliyor.</strong> Admin onayladıktan sonra herkese görünür hale gelecek.
+          <strong>Dieses Angebot wartet auf Freigabe.</strong> Nach der Admin-Freigabe wird es für alle sichtbar.
+        </div>
+      )}
+
+      {/* PAUSED banner */}
+      {listing.status === "PAUSED" && (
+        <div className="mb-6 px-4 py-3 bg-yellow-50 border border-yellow-200 rounded-xl text-sm text-yellow-800">
+          <strong>{t("paused")}:</strong> {t("pausedBanner")}
         </div>
       )}
 
@@ -149,7 +173,7 @@ export default async function ListingDetailPage({ params }: Props) {
             </div>
 
             <div className="flex flex-wrap items-center gap-3 mt-3">
-              <Badge variant="info">{listing.category.slug}</Badge>
+              <Badge variant="info">{categoryDisplayName}</Badge>
               {listing.district && (
                 <div className="flex items-center gap-1 text-sm text-gray-500">
                   <MapPin className="h-3.5 w-3.5" />
@@ -171,6 +195,23 @@ export default async function ListingDetailPage({ params }: Props) {
                 {formatPrice(listing.priceType, listing.priceAmount, params.locale)}
               </span>
             </div>
+
+            {/* Owner actions: pause/delete (not shown for PENDING) */}
+            {isOwner && listing.status !== "PENDING" && (
+              <div className="mt-4">
+                <ListingOwnerActions
+                  listingId={listing.id}
+                  initialStatus={listing.status as "ACTIVE" | "PAUSED"}
+                  locale={params.locale}
+                  activeLabel={t("active")}
+                  pausedLabel={t("paused")}
+                  deleteLabel={t("deleteListing")}
+                  deleteConfirm={t("deleteConfirm")}
+                  pauseLabel={t("pauseListing")}
+                  unpauseLabel={t("unpauseListing")}
+                />
+              </div>
+            )}
           </div>
 
           {/* Description */}

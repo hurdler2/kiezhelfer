@@ -14,16 +14,24 @@ export default function ContactPage() {
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSending(true);
-    setTimeout(() => {
-      setSent(true);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, message }),
+      });
+      if (res.ok) {
+        setSent(true);
+        setName("");
+        setEmail("");
+        setMessage("");
+      }
+    } finally {
       setSending(false);
-      setName("");
-      setEmail("");
-      setMessage("");
-    }, 800);
+    }
   }
 
   return (

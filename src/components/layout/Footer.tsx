@@ -41,7 +41,7 @@ export default function Footer() {
             </div>
             <ul className="space-y-2 text-sm text-gray-600">
               <li>
-                <Link href="/listings" className="hover:text-brand-500 transition-colors">
+                <Link href="/wie-es-funktioniert" className="hover:text-brand-500 transition-colors">
                   {t("howItWorks")}
                 </Link>
               </li>

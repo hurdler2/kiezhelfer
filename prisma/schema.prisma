@@ -59,28 +59,43 @@ model VerificationToken {
 }
 
 model User {
-  id              String                    @id @default(cuid())
-  email           String                    @unique
-  emailVerified   DateTime?
-  passwordHash    String?
-  name            String?
-  image           String?
-  role            UserRole                  @default(USER)
-  createdAt       DateTime                  @default(now())
-  updatedAt       DateTime                  @updatedAt
-  accounts        Account[]
-  participations  ConversationParticipant[]
-  listings        Listing[]
-  messagesSent    Message[]
-  profile         Profile?
-  reviewsGiven    Review[]                  @relation("ReviewAuthor")
-  reviewsReceived Review[]                  @relation("ReviewTarget")
-  sessions        Session[]
-  reportsMade     Report[]                  @relation("ReportsMade")
-  reportsReceived Report[]                  @relation("ReportsReceived")
-  loginEvents     LoginEvent[]
+  id                String                    @id @default(cuid())
+  email             String                    @unique
+  emailVerified     DateTime?
+  emailVerifiedAt   DateTime?
+  passwordHash      String?
+  name              String?
+  image             String?
+  role              UserRole                  @default(USER)
+  createdAt         DateTime                  @default(now())
+  updatedAt         DateTime                  @updatedAt
+  accounts          Account[]
+  participations    ConversationParticipant[]
+  listings          Listing[]
+  messagesSent      Message[]
+  profile           Profile?
+  reviewsGiven      Review[]                  @relation("ReviewAuthor")
+  reviewsReceived   Review[]                  @relation("ReviewTarget")
+  sessions          Session[]
+  reportsMade       Report[]                  @relation("ReportsMade")
+  reportsReceived   Report[]                  @relation("ReportsReceived")
+  loginEvents       LoginEvent[]
+  emailTokens       EmailToken[]
 
   @@map("users")
+}
+
+model EmailToken {
+  id        String    @id @default(cuid())
+  userId    String
+  type      String
+  tokenHash String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("email_tokens")
 }
 
 model LoginEvent {
@@ -255,4 +270,15 @@ enum ReportStatus {
   PENDING
   REVIEWED
   DISMISSED
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  message   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@map("contact_messages")
 }
