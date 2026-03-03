@@ -14,7 +14,7 @@ export async function PATCH(
   }
 
   const body = await req.json();
-  const { banned, role } = body;
+  const { banned, role, verifyEmail } = body;
 
   if (typeof banned === "boolean") {
     await prisma.profile.upsert({
@@ -28,6 +28,13 @@ export async function PATCH(
     await prisma.user.update({
       where: { id: params.id },
       data: { role },
+    });
+  }
+
+  if (verifyEmail === true) {
+    await prisma.user.update({
+      where: { id: params.id },
+      data: { emailVerifiedAt: new Date() },
     });
   }
 

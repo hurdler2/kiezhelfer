@@ -19,7 +19,7 @@ export default async function AdminUsersPage({
       : undefined,
     orderBy: { createdAt: "desc" },
     select: {
-      id: true, name: true, email: true, role: true, createdAt: true,
+      id: true, name: true, email: true, role: true, createdAt: true, emailVerifiedAt: true,
       _count: { select: { listings: true, reviewsGiven: true } },
       profile: { select: { district: true, banned: true } },
     },
@@ -71,6 +71,7 @@ export default async function AdminUsersPage({
               <th className="text-left px-5 py-3.5 text-[11px] font-semibold uppercase tracking-wider text-slate-400">İlan</th>
               <th className="text-left px-5 py-3.5 text-[11px] font-semibold uppercase tracking-wider text-slate-400">Yorum</th>
               <th className="text-left px-5 py-3.5 text-[11px] font-semibold uppercase tracking-wider text-slate-400">Rol</th>
+              <th className="text-left px-5 py-3.5 text-[11px] font-semibold uppercase tracking-wider text-slate-400">Email</th>
               <th className="text-left px-5 py-3.5 text-[11px] font-semibold uppercase tracking-wider text-slate-400">Durum</th>
               <th className="text-left px-5 py-3.5 text-[11px] font-semibold uppercase tracking-wider text-slate-400">İşlem</th>
             </tr>
@@ -103,6 +104,17 @@ export default async function AdminUsersPage({
                   </span>
                 </td>
                 <td className="px-5 py-3.5">
+                  {u.emailVerifiedAt ? (
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-blue-50 text-blue-700">
+                      ✓ Onaylı
+                    </span>
+                  ) : (
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-amber-50 text-amber-700">
+                      Onaysız
+                    </span>
+                  )}
+                </td>
+                <td className="px-5 py-3.5">
                   {u.profile?.banned ? (
                     <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wide bg-red-100 text-red-700">
                       <span className="h-1.5 w-1.5 rounded-full bg-red-500" />
@@ -116,7 +128,7 @@ export default async function AdminUsersPage({
                   )}
                 </td>
                 <td className="px-5 py-3.5">
-                  <AdminUserActions userId={u.id} currentRole={u.role} isBanned={!!u.profile?.banned} />
+                  <AdminUserActions userId={u.id} currentRole={u.role} isBanned={!!u.profile?.banned} emailVerifiedAt={u.emailVerifiedAt} />
                 </td>
               </tr>
             ))}

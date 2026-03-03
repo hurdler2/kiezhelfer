@@ -2,9 +2,19 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { ShieldCheck, ShieldOff, Ban, CheckCircle, Loader2 } from "lucide-react";
+import { ShieldCheck, ShieldOff, Ban, CheckCircle, Loader2, MailCheck } from "lucide-react";
 
-export default function AdminUserActions({ userId, currentRole, isBanned }: { userId: string; currentRole: string; isBanned: boolean }) {
+export default function AdminUserActions({
+  userId,
+  currentRole,
+  isBanned,
+  emailVerifiedAt,
+}: {
+  userId: string;
+  currentRole: string;
+  isBanned: boolean;
+  emailVerifiedAt: Date | null;
+}) {
   const router = useRouter();
   const [loading, setLoading] = useState<string | null>(null);
 
@@ -16,7 +26,18 @@ export default function AdminUserActions({ userId, currentRole, isBanned }: { us
   }
 
   return (
-    <div className="flex items-center gap-1.5">
+    <div className="flex items-center gap-1.5 flex-wrap">
+      {!emailVerifiedAt && (
+        <button
+          onClick={() => patch({ verifyEmail: true }, "verify")}
+          disabled={loading !== null}
+          className="p-1.5 rounded-lg border text-xs font-medium transition-colors flex items-center gap-1 bg-blue-50 border-blue-200 text-blue-700 hover:bg-blue-100"
+          title="Email adresini manuel onayla"
+        >
+          {loading === "verify" ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <MailCheck className="h-3.5 w-3.5" />}
+          Email Onayla
+        </button>
+      )}
       <button
         onClick={() => patch({ banned: !isBanned }, "ban")}
         disabled={loading !== null}

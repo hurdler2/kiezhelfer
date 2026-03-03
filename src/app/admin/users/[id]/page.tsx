@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { format } from "date-fns";
-import { ArrowLeft, Mail, MapPin, Calendar, Star, List, ShieldAlert } from "lucide-react";
+import { ArrowLeft, Mail, MapPin, Calendar, Star, List, ShieldAlert, MailCheck, MailX } from "lucide-react";
 import AdminUserActions from "../AdminUserActions";
 
 const REASON_LABEL: Record<string, string> = {
@@ -107,6 +107,19 @@ export default async function AdminUserDetailPage({ params }: { params: { id: st
                 <Calendar className="h-4 w-4 text-gray-400 shrink-0" />
                 <span>Kayıt: {format(user.createdAt, "dd.MM.yyyy")}</span>
               </div>
+              <div className="flex items-center gap-2">
+                {user.emailVerifiedAt ? (
+                  <>
+                    <MailCheck className="h-4 w-4 text-blue-500 shrink-0" />
+                    <span className="text-blue-700 text-xs font-medium">Email onaylı ({format(user.emailVerifiedAt, "dd.MM.yyyy")})</span>
+                  </>
+                ) : (
+                  <>
+                    <MailX className="h-4 w-4 text-amber-500 shrink-0" />
+                    <span className="text-amber-700 text-xs font-medium">Email onaylanmamış</span>
+                  </>
+                )}
+              </div>
               {(user.profile?.averageRating ?? 0) > 0 && (
                 <div className="flex items-center gap-2 text-gray-600">
                   <Star className="h-4 w-4 text-amber-400 shrink-0" />
@@ -124,7 +137,7 @@ export default async function AdminUserDetailPage({ params }: { params: { id: st
 
             {/* Aksiyonlar */}
             <div className="border-t border-gray-100 pt-3">
-              <AdminUserActions userId={user.id} currentRole={user.role} isBanned={!!user.profile?.banned} />
+              <AdminUserActions userId={user.id} currentRole={user.role} isBanned={!!user.profile?.banned} emailVerifiedAt={user.emailVerifiedAt} />
             </div>
           </div>
 
