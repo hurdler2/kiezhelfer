@@ -13,10 +13,12 @@ export default function ContactPage() {
   const [message, setMessage] = useState("");
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSending(true);
+    setError(null);
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
@@ -28,7 +30,11 @@ export default function ContactPage() {
         setName("");
         setEmail("");
         setMessage("");
+      } else {
+        setError("Nachricht konnte nicht gesendet werden. Bitte versuche es später erneut.");
       }
+    } catch {
+      setError("Verbindungsfehler. Bitte überprüfe deine Internetverbindung.");
     } finally {
       setSending(false);
     }
@@ -116,6 +122,11 @@ export default function ContactPage() {
                   className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm placeholder:text-gray-400 focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500"
                 />
               </div>
+              {error && (
+                <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">
+                  {error}
+                </div>
+              )}
               <Button type="submit" loading={sending} className="w-full">
                 {t("contactSend")}
               </Button>

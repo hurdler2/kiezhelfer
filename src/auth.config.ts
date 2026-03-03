@@ -30,6 +30,8 @@ export default {
         token.id = user.id as string;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         token.role = ((user as unknown) as { role?: string }).role ?? "USER";
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        token.emailVerifiedAt = ((user as unknown) as { emailVerifiedAt?: Date | null }).emailVerifiedAt ?? null;
       }
       return token;
     },
@@ -38,6 +40,8 @@ export default {
       (session.user as any).id = token.id;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (session.user as any).role = token.role;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (session.user as any).emailVerifiedAt = token.emailVerifiedAt;
       return session;
     },
   },

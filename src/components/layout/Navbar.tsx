@@ -8,6 +8,7 @@ import { Menu, X, MessageCircle, Plus, LayoutDashboard, User, LogOut, ChevronDow
 import Image from "next/image";
 import Avatar from "@/components/ui/Avatar";
 import LocaleSwitcher from "./LocaleSwitcher";
+import EmailVerificationBanner from "./EmailVerificationBanner";
 
 export default function Navbar({ transparent = false }: { transparent?: boolean }) {
   const t = useTranslations("nav");
@@ -38,6 +39,7 @@ export default function Navbar({ transparent = false }: { transparent?: boolean 
         ? "bg-transparent border-transparent shadow-none"
         : "bg-white border-b border-gray-200 shadow-sm"
     }`}>
+      <EmailVerificationBanner />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
 
