@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { signIn } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
@@ -38,9 +38,19 @@ export default function LoginPage() {
 
     if (result?.error) {
       setError(t("invalidCredentials"));
-    } else {
-      window.location.href = `/${locale}/dashboard`;
+      return;
     }
+
+    // Admin hesabı kullanıcı login sayfasından giriş yapamaz
+    const res = await fetch("/api/auth/session");
+    const session = await res.json();
+    if (session?.user?.role === "ADMIN") {
+      await signOut({ redirect: false });
+      setError("Admin girişi için lütfen /admin-login sayfasını kullanın.");
+      return;
+    }
+
+    window.location.href = `/${locale}/dashboard`;
   }
 
   return (

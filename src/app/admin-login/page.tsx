@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { signIn } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Loader2, Lock } from "lucide-react";
@@ -35,6 +35,7 @@ export default function AdminLoginPage() {
     const res = await fetch("/api/auth/session");
     const session = await res.json();
     if (session?.user?.role !== "ADMIN") {
+      await signOut({ redirect: false });
       setError("Bu hesabın admin yetkisi yok.");
       return;
     }
