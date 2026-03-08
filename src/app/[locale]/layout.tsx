@@ -5,6 +5,7 @@ import { routing } from "@/i18n/routing";
 import type { Metadata } from "next";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
+import ScrollRestorer from "@/components/layout/ScrollRestorer";
 
 export const metadata: Metadata = {
   title: "KiezHelfer – Nachbarschaftshilfe in Berlin",
@@ -45,6 +46,7 @@ export default async function LocaleLayout({
   return (
     <SessionProvider session={session}>
       <NextIntlClientProvider messages={messages}>
+        <ScrollRestorer />
         {children}
       </NextIntlClientProvider>
     </SessionProvider>

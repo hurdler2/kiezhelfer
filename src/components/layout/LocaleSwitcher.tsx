@@ -10,8 +10,8 @@ export default function LocaleSwitcher() {
   const fullPathname = usePathname(); // e.g. "/en/listings" or "/de"
 
   function switchLocale(nextLocale: string) {
-    // Strip the current locale prefix to get the bare path
     const pathWithoutLocale = fullPathname.replace(new RegExp(`^/${locale}`), "") || "/";
+    sessionStorage.setItem("restoreScrollY", String(window.scrollY));
     window.location.href = `/${nextLocale}${pathWithoutLocale === "/" ? "" : pathWithoutLocale}`;
   }
 
