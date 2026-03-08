@@ -272,7 +272,7 @@ export default async function HomePage({ params }: { params: { locale: string } 
 
         {/* ── NASIL ÇALIŞIR ────────────────────────────────────────── */}
         <section className="py-24 px-4 bg-white">
-          <div className="max-w-5xl mx-auto">
+          <div className="max-w-7xl mx-auto">
             {/* Başlık */}
             <div className="text-center mb-14">
               <p className="text-xs font-semibold text-brand-600 uppercase tracking-widest mb-3">
