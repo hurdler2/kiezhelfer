@@ -189,7 +189,7 @@ export default async function HomePage({ params }: { params: { locale: string } 
 
         {/* ── KATEGORİLER ──────────────────────────────────────────── */}
         <section className="py-20 px-4 bg-white">
-          <div className="max-w-5xl mx-auto">
+          <div className="max-w-7xl mx-auto">
             <div className="flex items-end justify-between mb-10">
               <div>
                 <p className="text-xs font-semibold text-brand-600 uppercase tracking-widest mb-1">{t("categoriesLabel")}</p>
@@ -199,7 +199,7 @@ export default async function HomePage({ params }: { params: { locale: string } 
                 {t("viewAll")} <ChevronRight className="h-4 w-4" />
               </Link>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {categories.map((cat) => {
                 const meta = categoryMeta[cat.slug];
                 const nameKey = (cat.nameKey ?? "").replace("categories.", "");
@@ -218,7 +218,7 @@ export default async function HomePage({ params }: { params: { locale: string } 
                         alt={label}
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
-                        sizes="(max-width: 640px) 100vw, 33vw"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       />
                       <div className={`absolute inset-0 bg-gradient-to-t ${meta?.gradient ?? "from-gray-900/70 via-gray-800/40 to-transparent"}`} />
                       <div className="absolute bottom-0 left-0 right-0 p-5">
