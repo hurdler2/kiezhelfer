@@ -71,18 +71,18 @@ export default async function HomePage({ params }: { params: { locale: string } 
       <main className="min-h-screen bg-white">
 
         {/* ── HERO ─────────────────────────────────────────────────── */}
-        <section className="relative overflow-hidden text-white min-h-[820px]">
+        <section className="relative overflow-hidden text-white min-h-[480px]">
           <Image
             src="/hero2.png"
             alt="KiezHelfer Hero"
             fill
             priority
-            className="object-cover object-center"
+            className="object-cover object-top"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-slate-950/55 via-slate-900/45 to-slate-950/60" />
           <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-black/50 to-transparent" />
 
-          <div className="relative max-w-5xl mx-auto px-4 sm:px-6 pt-28 pb-48 text-center">
+          <div className="relative max-w-5xl mx-auto px-4 sm:px-6 pt-24 pb-16 text-center">
             <div className="inline-flex items-center gap-2 bg-brand-500/15 border border-brand-400/25 rounded-full px-4 py-1.5 text-xs text-brand-300 mb-8 font-medium tracking-wide uppercase">
               <span className="h-1.5 w-1.5 rounded-full bg-brand-400 animate-pulse" />
               Berlin · {userCount}+ {t("registeredUsersLabel")}
