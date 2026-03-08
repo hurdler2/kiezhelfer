@@ -359,8 +359,9 @@ export default async function HomePage({ params }: { params: { locale: string } 
         )}
 
         {/* ── CTA BANNER ───────────────────────────────────────────── */}
-        <section className="py-24 px-4 bg-gray-50">
+        <section className="py-24 px-4 bg-white">
           <div className="max-w-5xl mx-auto">
+            {/* Başlık */}
             <div className="text-center mb-14">
               <p className="text-xs font-semibold text-brand-600 uppercase tracking-widest mb-3">
                 {t("ctaLabel")}
@@ -373,57 +374,95 @@ export default async function HomePage({ params }: { params: { locale: string } 
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-5">
+            {/* Fotoğraflı kartlar */}
+            <div className="grid md:grid-cols-2 gap-6">
 
               {/* Kart 1 — Hilfe suchen */}
-              <div className="group relative overflow-hidden rounded-2xl bg-white border border-brand-100 hover:border-brand-300 hover:shadow-lg transition-all duration-300 p-8">
-                <div className="absolute top-0 right-0 h-40 w-40 rounded-full bg-blue-50 -translate-y-1/2 translate-x-1/2" />
-                <div className="relative">
-                  <div className="h-14 w-14 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center mb-6">
-                    <UserCheck className="h-7 w-7 text-blue-500" />
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
+              <Link
+                href="/listings"
+                className="group relative overflow-hidden rounded-3xl min-h-[480px] flex flex-col justify-end shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-1"
+              >
+                {/* Arka plan fotoğrafı */}
+                <div className="absolute inset-0">
+                  <Image
+                    src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=1200&h=800&fit=crop&q=85"
+                    alt={t("ctaSeekHelp")}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                </div>
+                {/* Gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-800/50 to-slate-700/10" />
+                {/* Üst badge */}
+                <div className="absolute top-6 left-6">
+                  <span className="inline-flex items-center gap-1.5 bg-white/15 backdrop-blur-sm border border-white/25 text-white text-xs font-semibold px-3 py-1.5 rounded-full">
+                    <UserCheck className="h-3.5 w-3.5" />
+                    {t("ctaSeekBadge")}
+                  </span>
+                </div>
+                {/* İçerik */}
+                <div className="relative p-8 space-y-3">
+                  <h3 className="text-2xl font-extrabold text-white leading-tight">
                     {t("ctaSeekHelp")}
                   </h3>
-                  <p className="text-gray-500 text-sm leading-relaxed mb-8">
+                  <p className="text-white/75 text-sm leading-relaxed">
                     {t("ctaSeekDesc")}
                   </p>
-                  <Link
-                    href="/listings"
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-xl transition-colors shadow-sm"
-                  >
-                    {t("ctaBrowseListings")}
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </div>
-              </div>
-
-              {/* Kart 2 — Angebot erstellen */}
-              <div className="group relative overflow-hidden rounded-2xl bg-brand-500 border border-brand-500 hover:shadow-xl hover:bg-brand-600 transition-all duration-300 p-8">
-                <div className="absolute top-0 right-0 h-40 w-40 rounded-full bg-white/10 -translate-y-1/2 translate-x-1/2" />
-                <div className="absolute bottom-0 left-0 h-28 w-28 rounded-full bg-black/10 translate-y-1/2 -translate-x-1/2" />
-                <div className="relative">
-                  <div className="h-14 w-14 rounded-2xl bg-white/20 border border-white/30 flex items-center justify-center mb-6">
-                    <Zap className="h-7 w-7 text-white" />
+                  <div className="pt-3">
+                    <span className="inline-flex items-center gap-2 bg-white text-slate-900 font-bold text-sm px-6 py-3 rounded-xl group-hover:bg-blue-50 transition-colors shadow-md">
+                      {t("ctaBrowseListings")}
+                      <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
+                    </span>
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-2">
+                </div>
+              </Link>
+
+              {/* Kart 2 — Hilfe anbieten */}
+              <Link
+                href="/listings/new"
+                className="group relative overflow-hidden rounded-3xl min-h-[480px] flex flex-col justify-end shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-1"
+              >
+                {/* Arka plan fotoğrafı */}
+                <div className="absolute inset-0">
+                  <Image
+                    src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&h=800&fit=crop&q=85"
+                    alt={t("ctaOfferHelp")}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                </div>
+                {/* Gradient overlay — yeşil ton */}
+                <div className="absolute inset-0 bg-gradient-to-t from-green-950/95 via-green-900/55 to-green-800/10" />
+                {/* Üst badge */}
+                <div className="absolute top-6 left-6">
+                  <span className="inline-flex items-center gap-1.5 bg-brand-500/30 backdrop-blur-sm border border-brand-400/40 text-white text-xs font-semibold px-3 py-1.5 rounded-full">
+                    <Zap className="h-3.5 w-3.5" />
+                    {t("ctaOfferBadge")}
+                  </span>
+                </div>
+                {/* İçerik */}
+                <div className="relative p-8 space-y-3">
+                  <h3 className="text-2xl font-extrabold text-white leading-tight">
                     {t("ctaOfferHelp")}
                   </h3>
-                  <p className="text-brand-100 text-sm leading-relaxed mb-8">
+                  <p className="text-white/75 text-sm leading-relaxed">
                     {t("ctaOfferDesc")}
                   </p>
-                  <Link
-                    href="/listings/new"
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-white text-brand-700 text-sm font-bold rounded-xl hover:bg-brand-50 transition-colors shadow-sm"
-                  >
-                    {t("ctaCreateListing")}
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
+                  <div className="pt-3">
+                    <span className="inline-flex items-center gap-2 bg-brand-500 hover:bg-brand-400 text-white font-bold text-sm px-6 py-3 rounded-xl transition-colors shadow-md group-hover:shadow-brand-500/30 group-hover:shadow-xl">
+                      {t("ctaCreateListing")}
+                      <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
+                    </span>
+                  </div>
                 </div>
-              </div>
+              </Link>
+
             </div>
 
-            <p className="text-center text-xs text-brand-700/60 mt-8 flex items-center justify-center gap-1.5">
+            {/* Alt not */}
+            <p className="text-center text-xs text-gray-400 mt-10 flex items-center justify-center gap-1.5">
               <Shield className="h-3.5 w-3.5" />
               {t("ctaSafeLabel")}
             </p>

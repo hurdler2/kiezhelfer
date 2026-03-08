@@ -71,7 +71,14 @@
     "ctaOfferHelp": "Offer Help",
     "ctaOfferDesc": "Create your free listing, share your skills with neighbors and earn money.",
     "ctaCreateListing": "Create Listing",
-    "ctaSafeLabel": "Free to register · No fees · Verified users"
+    "ctaSafeLabel": "Free to register · No fees · Verified users",
+    "ctaSeekBadge": "For those seeking help",
+    "ctaOfferBadge": "For helpers"
+  },
+  "map": {
+    "loadError": "Google Maps could not be loaded.",
+    "loading": "Loading map…",
+    "viewDetails": "View details →"
   },
   "listings": {
     "title": "Listings",

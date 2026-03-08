@@ -71,7 +71,14 @@
     "ctaOfferHelp": "Hilfe anbieten",
     "ctaOfferDesc": "Erstelle kostenlos dein Angebot, teile deine Fähigkeiten mit deinen Nachbarn und verdiene Geld.",
     "ctaCreateListing": "Angebot erstellen",
-    "ctaSafeLabel": "Kostenlos registrieren · Keine Gebühren · Verifizierte Nutzer"
+    "ctaSafeLabel": "Kostenlos registrieren · Keine Gebühren · Verifizierte Nutzer",
+    "ctaSeekBadge": "Für Hilfesuchende",
+    "ctaOfferBadge": "Für Anbieter"
+  },
+  "map": {
+    "loadError": "Google Maps konnte nicht geladen werden.",
+    "loading": "Karte wird geladen…",
+    "viewDetails": "Details anzeigen →"
   },
   "listings": {
     "title": "Angebote",

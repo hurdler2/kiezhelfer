@@ -1,7 +1,8 @@
-﻿"use client";
+"use client";
 
 import { useState, useCallback } from "react";
 import { GoogleMap, Marker, InfoWindow, useJsApiLoader } from "@react-google-maps/api";
+import { useTranslations } from "next-intl";
 import { formatPrice } from "@/lib/utils";
 
 const BERLIN_CENTER = { lat: 52.52, lng: 13.405 };
@@ -24,6 +25,8 @@ interface Props {
 }
 
 export default function MapView({ listings, locale = "de" }: Props) {
+  const t = useTranslations("map");
+
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? "",
   });
@@ -41,7 +44,7 @@ export default function MapView({ listings, locale = "de" }: Props) {
   if (loadError) {
     return (
       <div className="flex items-center justify-center h-96 bg-gray-100 rounded-xl">
-        <p className="text-gray-500">{locale === "de" ? "Google Maps konnte nicht geladen werden." : "Google Maps could not be loaded."}</p>
+        <p className="text-gray-500">{t("loadError")}</p>
       </div>
     );
   }
@@ -49,7 +52,7 @@ export default function MapView({ listings, locale = "de" }: Props) {
   if (!isLoaded) {
     return (
       <div className="flex items-center justify-center h-96 bg-gray-100 rounded-xl animate-pulse">
-        <p className="text-gray-400">{locale === "de" ? "Karte wird geladen..." : "Loading map..."}</p>
+        <p className="text-gray-400">{t("loading")}</p>
       </div>
     );
   }
@@ -111,7 +114,7 @@ export default function MapView({ listings, locale = "de" }: Props) {
                 href={`/${locale}/listings/${selectedListing.id}`}
                 className="text-xs text-brand-600 hover:underline block mt-1"
               >
-                {locale === "de" ? "Details anzeigen →" : "View Details →"}
+                {t("viewDetails")}
               </a>
             </div>
           </InfoWindow>
