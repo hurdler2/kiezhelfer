@@ -8,7 +8,7 @@ import Image from "next/image";
 import {
   ArrowRight, Shield, MessageCircle, MapPin,
   BadgeCheck, Zap, ChevronRight,
-  UserCheck, Clock, ThumbsUp,
+  UserCheck, ThumbsUp,
 } from "lucide-react";
 
 export default async function HomePage({ params }: { params: { locale: string } }) {
@@ -271,30 +271,69 @@ export default async function HomePage({ params }: { params: { locale: string } 
         </section>
 
         {/* ── NASIL ÇALIŞIR ────────────────────────────────────────── */}
-        <section className="py-20 px-4 bg-white">
+        <section className="py-24 px-4 bg-gray-50">
           <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-14">
-              <p className="text-xs font-semibold text-brand-600 uppercase tracking-widest mb-2">
+            {/* Başlık */}
+            <div className="text-center mb-16">
+              <p className="text-xs font-semibold text-brand-600 uppercase tracking-widest mb-3">
                 {t("howItWorksLabel")}
               </p>
-              <h2 className="text-3xl font-bold text-gray-900">{t("howItWorks")}</h2>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900">{t("howItWorks")}</h2>
             </div>
-            <div className="grid md:grid-cols-3 gap-8 relative">
-              <div className="hidden md:block absolute top-8 left-[calc(33%+1rem)] right-[calc(33%+1rem)] h-px bg-gradient-to-r from-brand-200 via-brand-300 to-brand-200" />
+
+            {/* Adımlar */}
+            <div className="grid md:grid-cols-3 gap-8 items-start">
               {[
-                { icon: <UserCheck className="h-7 w-7 text-brand-600" />, step: "01", title: t("step1Title"), desc: t("step1Desc") },
-                { icon: <Clock    className="h-7 w-7 text-brand-600" />, step: "02", title: t("step2Title"), desc: t("step2Desc") },
-                { icon: <MessageCircle className="h-7 w-7 text-brand-600" />, step: "03", title: t("step3Title"), desc: t("step3Desc") },
-              ].map((item) => (
-                <div key={item.step} className="relative flex flex-col items-center text-center">
-                  <div className="relative h-16 w-16 rounded-2xl bg-brand-50 border-2 border-brand-100 flex items-center justify-center mb-5 z-10">
-                    {item.icon}
-                    <span className="absolute -top-2 -right-2 h-6 w-6 rounded-full bg-brand-600 text-white text-[10px] font-bold flex items-center justify-center">
-                      {item.step}
-                    </span>
+                {
+                  step: "1",
+                  photo: "https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?w=800&h=600&fit=crop&q=85",
+                  title: t("step1Title"),
+                  desc: t("step1Desc"),
+                  color: "from-brand-500",
+                },
+                {
+                  step: "2",
+                  photo: "https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=800&h=600&fit=crop&q=85",
+                  title: t("step2Title"),
+                  desc: t("step2Desc"),
+                  color: "from-blue-500",
+                },
+                {
+                  step: "3",
+                  photo: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=600&fit=crop&q=85",
+                  title: t("step3Title"),
+                  desc: t("step3Desc"),
+                  color: "from-purple-500",
+                },
+              ].map((item, i) => (
+                <div key={item.step} className="flex flex-col">
+                  {/* Fotoğraf kartı */}
+                  <div className="relative rounded-2xl overflow-hidden shadow-md mb-6 aspect-[4/3]">
+                    <Image
+                      src={item.photo}
+                      alt={item.title}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
+                    {/* Alt gradient */}
+                    <div className={`absolute inset-0 bg-gradient-to-t ${item.color}/30 to-transparent`} />
+                    {/* Adım numarası */}
+                    <div className="absolute top-4 left-4">
+                      <span className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-white/90 backdrop-blur-sm text-gray-900 font-extrabold text-lg shadow-sm">
+                        {item.step}
+                      </span>
+                    </div>
+                    {/* Bağlantı oku (son kart hariç) */}
+                    {i < 2 && (
+                      <div className="hidden md:flex absolute -right-4 top-1/2 -translate-y-1/2 z-10 items-center justify-center h-8 w-8 rounded-full bg-white shadow-md border border-gray-100">
+                        <ArrowRight className="h-4 w-4 text-brand-500" />
+                      </div>
+                    )}
                   </div>
-                  <h3 className="font-bold text-gray-900 mb-2">{item.title}</h3>
-                  <p className="text-sm text-gray-500 max-w-xs leading-relaxed">{item.desc}</p>
+                  {/* Metin */}
+                  <h3 className="text-lg font-bold text-gray-900 mb-2">{item.title}</h3>
+                  <p className="text-sm text-gray-500 leading-relaxed">{item.desc}</p>
                 </div>
               ))}
             </div>
