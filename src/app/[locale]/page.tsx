@@ -5,7 +5,6 @@ import ListingCard from "@/components/listings/ListingCard";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Avatar from "@/components/ui/Avatar";
-import StarRating from "@/components/ui/StarRating";
 import Image from "next/image";
 import {
   ArrowRight, Shield, MessageCircle, MapPin,
@@ -426,7 +425,7 @@ export default async function HomePage({ params }: { params: { locale: string } 
                 {/* Arka plan fotoğrafı */}
                 <div className="absolute inset-0">
                   <Image
-                    src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&h=800&fit=crop&q=85"
+                    src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1200&h=800&fit=crop&q=85"
                     alt={t("ctaOfferHelp")}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-700"
