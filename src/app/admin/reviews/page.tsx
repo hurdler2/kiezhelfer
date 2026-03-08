@@ -13,7 +13,7 @@ export default async function AdminReviewsPage() {
 
   const statusLabel: Record<string, string> = { PENDING: "Bekliyor", APPROVED: "Onaylı", REJECTED: "Reddedildi" };
   const statusColor: Record<string, string> = { PENDING: "bg-amber-100 text-amber-700", APPROVED: "bg-green-100 text-green-700", REJECTED: "bg-red-100 text-red-700" };
-  const stars = (n: number) => "★".repeat(n) + "☆".repeat(5 - n);
+
 
   const pendingCount = reviews.filter((r) => r.status === "PENDING").length;
 

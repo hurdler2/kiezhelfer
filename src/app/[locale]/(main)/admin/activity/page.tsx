@@ -27,18 +27,6 @@ function timeAgo(iso: string) {
   return `${Math.floor(secs / 60)}dk önce`;
 }
 
-function MiniBar({ value, max }: { value: number; max: number }) {
-  const pct = max > 0 ? Math.round((value / max) * 100) : 0;
-  return (
-    <div className="flex items-end gap-0.5 h-6">
-      <div
-        className="w-full bg-brand-500 rounded-sm transition-all"
-        style={{ height: `${Math.max(pct, 4)}%` }}
-      />
-    </div>
-  );
-}
-
 export default function AdminActivityPage() {
   const [users, setUsers] = useState<OnlineUser[]>([]);
   const [total, setTotal] = useState(0);

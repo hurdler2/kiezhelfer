@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { format } from "date-fns";
-import { MessageSquare, ShieldAlert, Eye } from "lucide-react";
+import { MessageSquare, Eye } from "lucide-react";
 
 export default async function AdminMessagesPage() {
   // Şikayet almış kullanıcıların dahil olduğu konuşmalar
