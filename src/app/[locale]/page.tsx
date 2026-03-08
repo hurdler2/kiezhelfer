@@ -138,7 +138,7 @@ export default async function HomePage({ params }: { params: { locale: string } 
 
         {/* ── İSTATİSTİK BANDI ─────────────────────────────────────── */}
         <section className="bg-white border-b border-gray-100">
-          <div className="max-w-4xl mx-auto px-4">
+          <div className="max-w-7xl mx-auto px-4">
             <div className="grid grid-cols-3 divide-x divide-gray-100">
               {[
                 { icon: <ThumbsUp className="h-5 w-5 text-brand-600" />, value: `${listingCount}+`, label: t("statsListings") },
@@ -161,7 +161,7 @@ export default async function HomePage({ params }: { params: { locale: string } 
 
         {/* ── NEDEN KIEZHELFERs ────────────────────────────────────── */}
         <section className="py-20 px-4 bg-gray-50">
-          <div className="max-w-5xl mx-auto">
+          <div className="max-w-7xl mx-auto">
             <div className="text-center mb-12">
               <p className="text-xs font-semibold text-brand-600 uppercase tracking-widest mb-2">{t("whyTitle")}</p>
               <h2 className="text-3xl font-bold text-gray-900">
@@ -272,7 +272,7 @@ export default async function HomePage({ params }: { params: { locale: string } 
 
         {/* ── NASIL ÇALIŞIR ────────────────────────────────────────── */}
         <section className="py-20 px-4 bg-white">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-7xl mx-auto">
             <div className="text-center mb-14">
               <p className="text-xs font-semibold text-brand-600 uppercase tracking-widest mb-2">
                 {t("howItWorksLabel")}
@@ -304,7 +304,7 @@ export default async function HomePage({ params }: { params: { locale: string } 
 
         {/* ── CTA BANNER ───────────────────────────────────────────── */}
         <section className="py-24 px-4 bg-white">
-          <div className="max-w-5xl mx-auto">
+          <div className="max-w-7xl mx-auto">
             {/* Başlık */}
             <div className="text-center mb-14">
               <p className="text-xs font-semibold text-brand-600 uppercase tracking-widest mb-3">
