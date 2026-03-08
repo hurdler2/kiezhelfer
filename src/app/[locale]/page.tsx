@@ -4,11 +4,10 @@ import { prisma } from "@/lib/prisma";
 import ListingCard from "@/components/listings/ListingCard";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import Avatar from "@/components/ui/Avatar";
 import Image from "next/image";
 import {
   ArrowRight, Shield, MessageCircle, MapPin,
-  BadgeCheck, Zap, Star, ChevronRight,
+  BadgeCheck, Zap, ChevronRight,
   UserCheck, Clock, ThumbsUp,
 } from "lucide-react";
 
@@ -17,7 +16,7 @@ export default async function HomePage({ params }: { params: { locale: string } 
   const t = await getTranslations("home");
   const tCat = await getTranslations("categories");
 
-  const [featuredListings, listingCount, userCount, categories, topReviews] = await Promise.all([
+  const [featuredListings, listingCount, userCount, categories] = await Promise.all([
     prisma.listing.findMany({
       where: { status: "ACTIVE" },
       include: {
@@ -36,16 +35,6 @@ export default async function HomePage({ params }: { params: { locale: string } 
     prisma.listing.count({ where: { status: "ACTIVE" } }),
     prisma.user.count(),
     prisma.category.findMany({ orderBy: { sortOrder: "asc" } }),
-    prisma.review.findMany({
-      where: { status: "APPROVED", rating: { gte: 4 }, comment: { not: null } },
-      select: {
-        id: true, rating: true, comment: true,
-        author: { select: { name: true, profile: { select: { avatarUrl: true } } } },
-        target: { select: { name: true } },
-      },
-      orderBy: { rating: "desc" },
-      take: 6,
-    }),
   ]);
 
   const categoryMeta: Record<string, { photo: string; gradient: string; descKey: string }> = {
@@ -312,50 +301,6 @@ export default async function HomePage({ params }: { params: { locale: string } 
           </div>
         </section>
 
-        {/* ── YORUMLAR ─────────────────────────────────────────────── */}
-        {topReviews.length >= 3 && (
-          <section className="py-20 px-4 bg-gray-50">
-            <div className="max-w-5xl mx-auto">
-              <div className="text-center mb-12">
-                <p className="text-xs font-semibold text-brand-600 uppercase tracking-widest mb-2">
-                  {t("reviewsLabel")}
-                </p>
-                <h2 className="text-3xl font-bold text-gray-900">
-                  {t("reviewsTitle")}
-                </h2>
-                <div className="flex items-center justify-center gap-1 mt-3">
-                  {[1,2,3,4,5].map((i) => (
-                    <Star key={i} className="h-5 w-5 fill-amber-400 text-amber-400" />
-                  ))}
-                  <span className="ml-2 text-sm text-gray-500 font-medium">5.0 · {t("reviewsCount", { count: topReviews.length })}</span>
-                </div>
-              </div>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                {topReviews.slice(0, 6).map((review) => (
-                  <div key={review.id} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 flex flex-col gap-4">
-                    <div className="flex items-start gap-0.5">
-                      {Array.from({ length: review.rating }).map((_, i) => (
-                        <Star key={i} className="h-4 w-4 fill-amber-400 text-amber-400" />
-                      ))}
-                    </div>
-                    <p className="text-sm text-gray-700 leading-relaxed flex-1 italic">
-                      &ldquo;{review.comment}&rdquo;
-                    </p>
-                    <div className="flex items-center gap-3 pt-2 border-t border-gray-50">
-                      <Avatar src={review.author.profile?.avatarUrl} name={review.author.name} size="sm" />
-                      <div>
-                        <p className="text-xs font-semibold text-gray-900">{review.author.name}</p>
-                        <p className="text-xs text-gray-400">
-                          {t("reviewFor")} {review.target.name}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
 
         {/* ── CTA BANNER ───────────────────────────────────────────── */}
         <section className="py-24 px-4 bg-white">
