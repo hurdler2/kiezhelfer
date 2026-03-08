@@ -99,7 +99,7 @@ export default async function ListingDetailPage({ params }: Props) {
       {/* PENDING banner */}
       {listing.status === "PENDING" && (
         <div className="mb-6 px-4 py-3 bg-purple-50 border border-purple-200 rounded-xl text-sm text-purple-800">
-          <strong>Dieses Angebot wartet auf Freigabe.</strong> Nach der Admin-Freigabe wird es für alle sichtbar.
+          <strong>{t("pendingTitle")}</strong> {t("pendingBanner")}
         </div>
       )}
 

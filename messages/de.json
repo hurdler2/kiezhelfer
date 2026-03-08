@@ -112,6 +112,8 @@
     "pauseListing": "Pausieren",
     "unpauseListing": "Wieder aktivieren",
     "pausedBanner": "Dieses Angebot ist pausiert und für andere nicht sichtbar.",
+    "pendingTitle": "Dieses Angebot wartet auf Freigabe.",
+    "pendingBanner": "Nach der Admin-Freigabe wird es für alle sichtbar.",
     "reviews": "Bewertungen",
     "price": "Preis",
     "clearFilters": "Filter zurücksetzen"

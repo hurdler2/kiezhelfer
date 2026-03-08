@@ -112,6 +112,8 @@
     "pauseListing": "Pause",
     "unpauseListing": "Reactivate",
     "pausedBanner": "This listing is paused and not visible to others.",
+    "pendingTitle": "This listing is awaiting approval.",
+    "pendingBanner": "It will be visible to everyone after admin approval.",
     "reviews": "Reviews",
     "price": "Price",
     "clearFilters": "Clear Filters"
