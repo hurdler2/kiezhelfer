@@ -71,7 +71,7 @@ export default async function HomePage({ params }: { params: { locale: string } 
       <main className="min-h-screen bg-white">
 
         {/* ── HERO ─────────────────────────────────────────────────── */}
-        <section className="relative overflow-hidden text-white min-h-[480px]">
+        <section className="relative overflow-hidden text-white min-h-[680px]">
           <Image
             src="/hero2.png"
             alt="KiezHelfer Hero"
@@ -271,10 +271,10 @@ export default async function HomePage({ params }: { params: { locale: string } 
         </section>
 
         {/* ── NASIL ÇALIŞIR ────────────────────────────────────────── */}
-        <section className="py-24 px-4 bg-gray-50">
-          <div className="max-w-7xl mx-auto">
+        <section className="py-24 px-4 bg-white">
+          <div className="max-w-5xl mx-auto">
             {/* Başlık */}
-            <div className="text-center mb-16">
+            <div className="text-center mb-14">
               <p className="text-xs font-semibold text-brand-600 uppercase tracking-widest mb-3">
                 {t("howItWorksLabel")}
               </p>
@@ -282,33 +282,30 @@ export default async function HomePage({ params }: { params: { locale: string } 
             </div>
 
             {/* Adımlar */}
-            <div className="grid md:grid-cols-3 gap-8 items-start">
+            <div className="grid md:grid-cols-3 gap-6 items-start">
               {[
                 {
                   step: "1",
-                  photo: "https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?w=800&h=600&fit=crop&q=85",
+                  photo: "https://images.unsplash.com/photo-1484788984921-03950022c9ef?w=800&h=700&fit=crop&q=85",
                   title: t("step1Title"),
                   desc: t("step1Desc"),
-                  color: "from-brand-500",
                 },
                 {
                   step: "2",
-                  photo: "https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=800&h=600&fit=crop&q=85",
+                  photo: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&h=700&fit=crop&q=85",
                   title: t("step2Title"),
                   desc: t("step2Desc"),
-                  color: "from-blue-500",
                 },
                 {
                   step: "3",
-                  photo: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=600&fit=crop&q=85",
+                  photo: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=700&fit=crop&q=85",
                   title: t("step3Title"),
                   desc: t("step3Desc"),
-                  color: "from-purple-500",
                 },
               ].map((item, i) => (
                 <div key={item.step} className="flex flex-col">
-                  {/* Fotoğraf kartı */}
-                  <div className="relative rounded-2xl overflow-hidden shadow-md mb-6 aspect-[4/3]">
+                  {/* Fotoğraf + numara */}
+                  <div className="relative rounded-2xl overflow-hidden mb-5 aspect-[4/3] bg-gray-100 shadow-sm border border-gray-100">
                     <Image
                       src={item.photo}
                       alt={item.title}
@@ -316,24 +313,27 @@ export default async function HomePage({ params }: { params: { locale: string } 
                       className="object-cover"
                       sizes="(max-width: 768px) 100vw, 33vw"
                     />
-                    {/* Alt gradient */}
-                    <div className={`absolute inset-0 bg-gradient-to-t ${item.color}/30 to-transparent`} />
-                    {/* Adım numarası */}
-                    <div className="absolute top-4 left-4">
-                      <span className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-white/90 backdrop-blur-sm text-gray-900 font-extrabold text-lg shadow-sm">
+                    {/* Numara - sol üst, beyaz daire */}
+                    <div className="absolute top-3 left-3 z-10">
+                      <span className="inline-flex items-center justify-center h-9 w-9 rounded-full bg-white text-gray-900 font-extrabold text-base shadow-md">
                         {item.step}
                       </span>
                     </div>
-                    {/* Bağlantı oku (son kart hariç) */}
+                    {/* Bağlantı oku - sağ alt köşe (son kart hariç) */}
                     {i < 2 && (
-                      <div className="hidden md:flex absolute -right-4 top-1/2 -translate-y-1/2 z-10 items-center justify-center h-8 w-8 rounded-full bg-white shadow-md border border-gray-100">
-                        <ArrowRight className="h-4 w-4 text-brand-500" />
+                      <div className="hidden md:flex absolute bottom-3 right-3 z-10 items-center justify-center h-7 w-7 rounded-full bg-white/90 shadow border border-gray-100">
+                        <ArrowRight className="h-3.5 w-3.5 text-gray-400" />
                       </div>
                     )}
                   </div>
                   {/* Metin */}
-                  <h3 className="text-lg font-bold text-gray-900 mb-2">{item.title}</h3>
-                  <p className="text-sm text-gray-500 leading-relaxed">{item.desc}</p>
+                  <div className="flex items-start gap-3">
+                    <span className="text-2xl font-extrabold text-gray-200 leading-none mt-0.5 select-none">{item.step}</span>
+                    <div>
+                      <h3 className="text-base font-bold text-gray-900 mb-1">{item.title}</h3>
+                      <p className="text-sm text-gray-400 leading-relaxed">{item.desc}</p>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
