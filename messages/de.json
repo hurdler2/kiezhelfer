@@ -132,6 +132,8 @@
     "selectCategory": "Kategorie wählen...",
     "districtLabel": "Bezirk",
     "selectDistrict": "Bezirk wählen...",
+    "locationLabel": "Genauer Standort",
+    "locationOptional": "(optional – für Kartenansicht)",
     "priceTypeLabel": "Preistyp",
     "priceAmountLabel": "Preis (€)",
     "tagsLabel": "Schlagwörter (durch Komma getrennt)",

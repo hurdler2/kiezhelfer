@@ -132,6 +132,8 @@
     "selectCategory": "Select category...",
     "districtLabel": "District",
     "selectDistrict": "Select district...",
+    "locationLabel": "Exact Location",
+    "locationOptional": "(optional – for map view)",
     "priceTypeLabel": "Price Type",
     "priceAmountLabel": "Price (€)",
     "tagsLabel": "Tags (comma-separated)",

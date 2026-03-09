@@ -12,6 +12,7 @@ import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import { BERLIN_DISTRICTS } from "@/types";
 import { ImagePlus, X, Camera, Loader2 } from "lucide-react";
+import LocationPicker from "@/components/listings/LocationPicker";
 
 interface Props {
   categories: Category[];
@@ -48,6 +49,7 @@ export default function ListingForm({ categories, listingId, defaultValues }: Pr
     register,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<ListingFormValues>({
     resolver: zodResolver(listingSchema),
@@ -55,6 +57,9 @@ export default function ListingForm({ categories, listingId, defaultValues }: Pr
   });
 
   const priceType = watch("priceType");
+  const district = watch("district");
+  const latitude = watch("latitude");
+  const longitude = watch("longitude");
 
   async function onSubmit(data: ListingFormValues) {
     setError(null);
@@ -183,6 +188,22 @@ export default function ListingForm({ categories, listingId, defaultValues }: Pr
             </option>
           ))}
         </select>
+      </div>
+
+      {/* Location Picker */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1.5">
+          {t("locationLabel")} <span className="text-gray-400 font-normal text-xs">{t("locationOptional")}</span>
+        </label>
+        <LocationPicker
+          lat={latitude}
+          lng={longitude}
+          districtSlug={district}
+          onChange={(lat, lng) => {
+            setValue("latitude", lat);
+            setValue("longitude", lng);
+          }}
+        />
       </div>
 
       {/* Price */}
