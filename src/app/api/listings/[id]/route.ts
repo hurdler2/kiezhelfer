@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
+import { DISTRICT_COORDS } from "@/types";
 
 export const dynamic = "force-dynamic";
 
@@ -87,6 +88,12 @@ export async function PATCH(
     }
 
     const body = await request.json();
+
+    const districtCoords =
+      body.district && !body.latitude && !body.longitude
+        ? DISTRICT_COORDS[body.district] ?? null
+        : null;
+
     const updated = await prisma.listing.update({
       where: { id: params.id },
       data: {
@@ -103,6 +110,12 @@ export async function PATCH(
         }),
         ...(body.status && { status: body.status }),
         ...(body.imageUrls !== undefined && { imageUrls: body.imageUrls }),
+        ...(body.latitude !== undefined && { latitude: body.latitude }),
+        ...(body.longitude !== undefined && { longitude: body.longitude }),
+        ...(districtCoords && {
+          latitude: districtCoords.lat,
+          longitude: districtCoords.lng,
+        }),
       },
     });
 

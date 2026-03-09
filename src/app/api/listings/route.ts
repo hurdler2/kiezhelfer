@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { listingSchema } from "@/lib/validations/listing";
+import { DISTRICT_COORDS } from "@/types";
 
 export const dynamic = "force-dynamic";
 
@@ -103,6 +104,8 @@ export async function POST(request: Request) {
 
     const { title, description, categoryId, district, priceType, priceAmount, tags, latitude, longitude } = result.data;
 
+    const coords = district ? DISTRICT_COORDS[district] ?? null : null;
+
     const listing = await prisma.listing.create({
       data: {
         title,
@@ -112,8 +115,8 @@ export async function POST(request: Request) {
         priceType,
         priceAmount: priceAmount ?? null,
         tags: tags ? tags.split(",").map((t) => t.trim()).filter(Boolean) : [],
-        latitude: latitude ?? null,
-        longitude: longitude ?? null,
+        latitude: latitude ?? coords?.lat ?? null,
+        longitude: longitude ?? coords?.lng ?? null,
         userId: session.user.id,
         status: "PENDING",
       },
