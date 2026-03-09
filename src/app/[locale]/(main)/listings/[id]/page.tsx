@@ -13,9 +13,55 @@ import ReviewForm from "@/components/reviews/ReviewForm";
 import ReportListingButton from "@/components/reports/ReportListingButton";
 import { formatPrice, formatRelativeTime } from "@/lib/utils";
 import { MapPin, Calendar, Eye, Tag } from "lucide-react";
+import type { Metadata } from "next";
+
+const BASE_URL = "https://kiezhelfer.vercel.app";
 
 interface Props {
   params: { id: string; locale: string };
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const listing = await prisma.listing.findUnique({
+    where: { id: params.id },
+    select: {
+      title: true,
+      description: true,
+      imageUrls: true,
+      user: { select: { name: true } },
+      category: { select: { nameKey: true } },
+    },
+  });
+
+  if (!listing) return {};
+
+  const description = listing.description.replace(/\s+/g, " ").slice(0, 160);
+  const image = listing.imageUrls?.[0];
+
+  return {
+    title: listing.title,
+    description,
+    openGraph: {
+      title: `${listing.title} | KiezHelfer`,
+      description,
+      url: `${BASE_URL}/${params.locale}/listings/${params.id}`,
+      type: "article",
+      ...(image && { images: [{ url: image, alt: listing.title }] }),
+    },
+    twitter: {
+      card: image ? "summary_large_image" : "summary",
+      title: listing.title,
+      description,
+      ...(image && { images: [image] }),
+    },
+    alternates: {
+      canonical: `${BASE_URL}/${params.locale}/listings/${params.id}`,
+      languages: {
+        de: `${BASE_URL}/de/listings/${params.id}`,
+        en: `${BASE_URL}/en/listings/${params.id}`,
+      },
+    },
+  };
 }
 
 export default async function ListingDetailPage({ params }: Props) {

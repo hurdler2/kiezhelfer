@@ -5,12 +5,38 @@ import ListingCard from "@/components/listings/ListingCard";
 import ListingsFilter from "@/components/listings/ListingsFilter";
 import { Link } from "@/i18n/navigation";
 import { Plus } from "lucide-react";
+import type { Metadata } from "next";
 
 export const dynamic = "force-dynamic";
+
+const BASE_URL = "https://kiezhelfer.vercel.app";
 
 interface Props {
   params: { locale: string };
   searchParams: { category?: string; district?: string; q?: string; page?: string };
+}
+
+export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
+  const isDE = params.locale === "de";
+  const q = searchParams.q;
+  const category = searchParams.category;
+
+  const title = q
+    ? isDE ? `„${q}" – Angebote in Berlin` : `"${q}" – Listings in Berlin`
+    : category
+      ? isDE ? `${category.replace(/-/g, " ")} – Angebote Berlin` : `${category.replace(/-/g, " ")} – Listings Berlin`
+      : isDE ? "Alle Angebote in Berlin" : "All Listings in Berlin";
+
+  return {
+    title,
+    description: isDE
+      ? "Durchsuche Handwerker, Nachhilfe, Alltags- & Nachbarschaftshilfe auf KiezHelfer – günstig, lokal, direkt in deinem Berliner Kiez."
+      : "Browse craftsmen, tutoring, everyday and neighborhood help on KiezHelfer – affordable, local, right in your Berlin neighborhood.",
+    alternates: {
+      canonical: `${BASE_URL}/${params.locale}/listings`,
+      languages: { de: `${BASE_URL}/de/listings`, en: `${BASE_URL}/en/listings` },
+    },
+  };
 }
 
 export default async function ListingsPage({ params, searchParams }: Props) {

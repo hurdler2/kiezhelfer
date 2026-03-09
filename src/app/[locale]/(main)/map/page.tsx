@@ -1,6 +1,23 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { prisma } from "@/lib/prisma";
 import MapView from "@/components/map/MapView";
+import type { Metadata } from "next";
+
+const BASE_URL = "https://kiezhelfer.vercel.app";
+
+export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
+  const isDE = params.locale === "de";
+  return {
+    title: isDE ? "Karte – Angebote in Berlin" : "Map – Listings in Berlin",
+    description: isDE
+      ? "Entdecke Nachbarschaftshilfe auf der interaktiven Karte. Finde Handwerker und Helfer in deinem Berliner Bezirk."
+      : "Discover neighborhood help on the interactive map. Find craftsmen and helpers in your Berlin district.",
+    alternates: {
+      canonical: `${BASE_URL}/${params.locale}/map`,
+      languages: { de: `${BASE_URL}/de/map`, en: `${BASE_URL}/en/map` },
+    },
+  };
+}
 
 export default async function MapPage({ params }: { params: { locale: string } }) {
   setRequestLocale(params.locale);

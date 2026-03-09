@@ -1,13 +1,30 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { prisma } from "@/lib/prisma";
 import { Link } from "@/i18n/navigation";
+import type { Metadata } from "next";
 import {
   ArrowRight, MapPin, CheckCircle2, Sparkles, Users,
   Zap, Shield, Clock, DollarSign, TrendingUp, Star,
 } from "lucide-react";
 
+const BASE_URL = "https://kiezhelfer.vercel.app";
+
 interface Props {
   params: { locale: string };
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const isDE = params.locale === "de";
+  return {
+    title: isDE ? "Über uns – KiezHelfer" : "About Us – KiezHelfer",
+    description: isDE
+      ? "KiezHelfer verbindet Menschen in Berlin für gegenseitige Nachbarschaftshilfe. Lokal, einfach, fair – für jeden Berliner Kiez."
+      : "KiezHelfer connects people in Berlin for mutual neighborhood help. Local, simple, fair – for every Berlin neighborhood.",
+    alternates: {
+      canonical: `${BASE_URL}/${params.locale}/about`,
+      languages: { de: `${BASE_URL}/de/about`, en: `${BASE_URL}/en/about` },
+    },
+  };
 }
 
 export default async function AboutPage({ params }: Props) {

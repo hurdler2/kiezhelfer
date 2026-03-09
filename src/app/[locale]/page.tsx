@@ -5,11 +5,31 @@ import ListingCard from "@/components/listings/ListingCard";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Image from "next/image";
+import type { Metadata } from "next";
+import LocalBusinessSchema from "@/components/seo/LocalBusinessSchema";
 import {
   ArrowRight, Shield, MessageCircle, MapPin,
   BadgeCheck, Zap, ChevronRight,
   UserCheck, ThumbsUp,
 } from "lucide-react";
+
+const BASE_URL = "https://kiezhelfer.vercel.app";
+
+export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
+  const isDE = params.locale === "de";
+  return {
+    title: isDE
+      ? "KiezHelfer – Nachbarschaftshilfe in Berlin"
+      : "KiezHelfer – Neighborhood Help in Berlin",
+    description: isDE
+      ? "Finde Handwerker, Alltags- & Nachbarschaftshilfe in deinem Berliner Kiez – lokal, einfach, fair. Heute gesucht. Heute erledigt!"
+      : "Find craftsmen and everyday help in your Berlin neighborhood – local, simple, fair. Searched today. Done today!",
+    alternates: {
+      canonical: `${BASE_URL}/${params.locale}`,
+      languages: { de: `${BASE_URL}/de`, en: `${BASE_URL}/en` },
+    },
+  };
+}
 
 export default async function HomePage({ params }: { params: { locale: string } }) {
   setRequestLocale(params.locale);
@@ -67,6 +87,7 @@ export default async function HomePage({ params }: { params: { locale: string } 
 
   return (
     <>
+      <LocalBusinessSchema />
       <Navbar transparent />
       <main className="min-h-screen bg-white">
 
