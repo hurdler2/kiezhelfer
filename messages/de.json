@@ -159,9 +159,9 @@
   },
   "categories": {
     "reparaturenMontage": "Kleine Reparaturen & Montageservice",
-    "technikComputer": "Technik- & Computerhilfe",
-    "alltagNachbarschaft": "Alltags- & Nachbarschaftshilfe",
-    "gartenOutdoor": "Garten- & Outdoor-Hilfe",
+    "technikComputer": "Technik & Computerhilfe",
+    "alltagNachbarschaft": "Alltags & Nachbarschaftshilfe",
+    "gartenOutdoor": "Garten & Outdoor-Hilfe",
     "transportKurier": "Transport & Kurierhilfe",
     "reparaturenMontageDesc": "Regale, Lampen, Türen & mehr",
     "technikComputerDesc": "Laptop, WLAN, Software & Geräte",
