@@ -1,7 +1,7 @@
 "use client";
 
-import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import { useCallback, useRef } from "react";
+import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 
 const MAP_CONTAINER_STYLE = { width: "100%", height: "100%" };
 
@@ -24,13 +24,14 @@ export default function ListingMap({ lat, lng }: Props) {
   if (!process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY) return null;
 
   if (!isLoaded) {
-    return <div className="h-[180px] rounded-xl bg-gray-100 animate-pulse" />;
+    return <div className="h-[220px] rounded-xl bg-gray-100 animate-pulse" />;
   }
 
-  const position = { lat, lng };
+  // Prisma Float → garantili JS number
+  const position = { lat: Number(lat), lng: Number(lng) };
 
   return (
-    <div className="rounded-xl overflow-hidden border border-gray-200 h-[180px]">
+    <div className="rounded-xl overflow-hidden border border-gray-200 h-[220px]">
       <GoogleMap
         mapContainerStyle={MAP_CONTAINER_STYLE}
         center={position}
