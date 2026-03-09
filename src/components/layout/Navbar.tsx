@@ -46,11 +46,11 @@ export default function Navbar({ transparent = false }: { transparent?: boolean 
           {/* Logo */}
           <Link href="/" className="flex items-center flex-shrink-0">
             <Image
-              src="/logo.png"
+              src="/logoo.png"
               alt="KiezHelfer"
-              width={160}
-              height={160}
-              className="rounded-lg object-contain h-20 w-auto brightness-110"
+              width={220}
+              height={220}
+              className="object-contain h-24 w-auto"
             />
           </Link>
 

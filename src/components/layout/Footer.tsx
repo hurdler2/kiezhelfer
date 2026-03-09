@@ -26,11 +26,11 @@ export default function Footer() {
           <div>
             <Link href="/" className="inline-block mb-4">
               <Image
-                src="/logo.png"
+                src="/logoo.png"
                 alt="KiezHelfer"
-                width={140}
-                height={140}
-                className="rounded-xl object-contain"
+                width={180}
+                height={180}
+                className="object-contain"
               />
             </Link>
             <p className="text-sm text-gray-500 leading-relaxed mb-5">
