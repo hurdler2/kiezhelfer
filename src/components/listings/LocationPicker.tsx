@@ -6,7 +6,7 @@ import { MapPin } from "lucide-react";
 import { DISTRICT_COORDS } from "@/types";
 
 const BERLIN_CENTER = { lat: 52.52, lng: 13.405 };
-const MAP_CONTAINER_STYLE = { width: "100%", height: "280px" };
+const MAP_CONTAINER_STYLE = { width: "100%", height: "100%" };
 
 interface Props {
   lat: number | null | undefined;
@@ -65,7 +65,7 @@ export default function LocationPicker({ lat, lng, districtSlug, onChange }: Pro
 
   if (!isLoaded) {
     return (
-      <div className="h-[280px] rounded-xl bg-gray-100 animate-pulse flex items-center justify-center">
+      <div className="h-[220px] sm:h-[280px] rounded-xl bg-gray-100 animate-pulse flex items-center justify-center">
         <span className="text-sm text-gray-400">Karte wird geladen...</span>
       </div>
     );
@@ -78,7 +78,7 @@ export default function LocationPicker({ lat, lng, districtSlug, onChange }: Pro
 
   return (
     <div>
-      <div className="rounded-xl overflow-hidden border border-gray-200">
+      <div className="rounded-xl overflow-hidden border border-gray-200 h-[220px] sm:h-[280px]">
         <GoogleMap
           mapContainerStyle={MAP_CONTAINER_STYLE}
           center={center}
@@ -102,15 +102,15 @@ export default function LocationPicker({ lat, lng, districtSlug, onChange }: Pro
         </GoogleMap>
       </div>
       {markerPos ? (
-        <p className="mt-1.5 text-xs text-gray-500 flex items-center gap-1">
-          <MapPin className="h-3 w-3 text-brand-500" />
-          {markerPos.lat.toFixed(5)}, {markerPos.lng.toFixed(5)}
-          <span className="text-gray-400 ml-1">— Marker ziehen zum Anpassen</span>
+        <p className="mt-1.5 text-xs text-gray-500 flex items-center gap-1 flex-wrap">
+          <MapPin className="h-3 w-3 text-brand-500 flex-shrink-0" />
+          <span>{markerPos.lat.toFixed(5)}, {markerPos.lng.toFixed(5)}</span>
+          <span className="text-gray-400 hidden sm:inline">— Marker ziehen zum Anpassen</span>
         </p>
       ) : (
         <p className="mt-1.5 text-xs text-gray-400 flex items-center gap-1">
-          <MapPin className="h-3 w-3" />
-          Auf die Karte klicken, um deinen genauen Standort festzulegen
+          <MapPin className="h-3 w-3 flex-shrink-0" />
+          <span>Auf die Karte klicken, um den genauen Standort zu wählen</span>
         </p>
       )}
     </div>

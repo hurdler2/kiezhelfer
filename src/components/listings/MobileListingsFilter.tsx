@@ -114,7 +114,7 @@ export default function MobileListingsFilter({
           />
 
           {/* Sheet */}
-          <div className="fixed bottom-0 left-0 right-0 bg-white rounded-t-2xl z-50 px-5 pt-4 pb-8 shadow-2xl">
+          <div className="fixed bottom-0 left-0 right-0 bg-white rounded-t-2xl z-50 px-5 pt-4 pb-[env(safe-area-inset-bottom,24px)] shadow-2xl max-h-[85vh] overflow-y-auto">
             {/* Handle */}
             <div className="w-10 h-1 bg-gray-200 rounded-full mx-auto mb-4" />
 

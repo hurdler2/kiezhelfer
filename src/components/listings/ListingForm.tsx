@@ -137,7 +137,7 @@ export default function ListingForm({ categories, listingId, defaultValues }: Pr
           {t("descriptionLabel")}
         </label>
         <textarea
-          rows={5}
+          rows={3}
           placeholder={t("descriptionPlaceholder")}
           className={`block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm placeholder:text-gray-400 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500 ${
             errors.description ? "border-red-500" : ""
@@ -207,7 +207,7 @@ export default function ListingForm({ categories, listingId, defaultValues }: Pr
       </div>
 
       {/* Price */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
             {t("priceTypeLabel")}

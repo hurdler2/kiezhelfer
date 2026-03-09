@@ -180,14 +180,14 @@ export default async function ListingDetailPage({ params }: Props) {
             </div>
             {/* Thumbnail row (> 1 image) */}
             {listing.imageUrls.length > 1 && (
-              <div className="flex gap-2 mt-2">
+              <div className="flex gap-2 mt-2 overflow-x-auto scrollbar-hide">
                 {listing.imageUrls.slice(1).map((url) => (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     key={url}
                     src={url}
                     alt={listing.title}
-                    className="h-16 w-16 rounded-lg object-cover border border-gray-200"
+                    className="h-16 w-16 flex-shrink-0 rounded-lg object-cover border border-gray-200"
                   />
                 ))}
               </div>
