@@ -50,9 +50,9 @@ export default function Navbar({ transparent = false }: { transparent?: boolean 
               alt="KiezHelfer"
               width={220}
               height={220}
-              className="object-contain h-20 w-auto"
+              className="object-contain h-14 md:h-20 w-auto"
             />
-            <div className="flex flex-col leading-none">
+            <div className="hidden sm:flex flex-col leading-none">
               <span className={`text-xl font-extrabold tracking-tight ${glass ? "text-white" : "text-gray-900"}`}>
                 Kiez<span className="text-brand-500">Helfer</span>
               </span>
@@ -166,7 +166,7 @@ export default function Navbar({ transparent = false }: { transparent?: boolean 
                 </div>
               </>
             ) : (
-              <div className="flex items-center gap-2">
+              <div className="hidden md:flex items-center gap-2">
                 <Link
                   href="/login"
                   className={`text-sm font-semibold transition-colors px-3 py-2 ${
