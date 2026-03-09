@@ -46,7 +46,7 @@ export default function Navbar({ transparent = false }: { transparent?: boolean 
           {/* Logo */}
           <Link href="/" className="flex items-center flex-shrink-0">
             <Image
-              src="/logoo.png"
+              src="/logo.png"
               alt="KiezHelfer"
               width={160}
               height={160}
