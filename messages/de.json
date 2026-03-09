@@ -116,7 +116,10 @@
     "pendingBanner": "Nach der Admin-Freigabe wird es für alle sichtbar.",
     "reviews": "Bewertungen",
     "price": "Preis",
-    "clearFilters": "Filter zurücksetzen"
+    "clearFilters": "Filter zurücksetzen",
+    "mobileFilterBtn": "Filter",
+    "mobileFilterTitle": "Filtern",
+    "mobileFilterApply": "Anwenden"
   },
   "listingForm": {
     "createTitle": "Neues Angebot erstellen",

@@ -116,7 +116,10 @@
     "pendingBanner": "It will be visible to everyone after admin approval.",
     "reviews": "Reviews",
     "price": "Price",
-    "clearFilters": "Clear Filters"
+    "clearFilters": "Clear Filters",
+    "mobileFilterBtn": "Filter",
+    "mobileFilterTitle": "Filters",
+    "mobileFilterApply": "Apply"
   },
   "listingForm": {
     "createTitle": "Post a New Listing",

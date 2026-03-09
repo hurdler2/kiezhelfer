@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
 import ListingCard from "@/components/listings/ListingCard";
 import ListingsFilter from "@/components/listings/ListingsFilter";
+import MobileListingsFilter from "@/components/listings/MobileListingsFilter";
 import { Link } from "@/i18n/navigation";
 import { Plus } from "lucide-react";
 import type { Metadata } from "next";
@@ -161,6 +162,16 @@ export default async function ListingsPage({ params, searchParams }: Props) {
           <Plus className="h-4 w-4" />
           {t("newListing")}
         </Link>
+      </div>
+
+      {/* Mobile category pills + filter — only on < lg */}
+      <div className="lg:hidden mb-4">
+        <MobileListingsFilter
+          categories={categories}
+          currentCategory={searchParams.category}
+          currentDistrict={searchParams.district}
+          currentQ={searchParams.q}
+        />
       </div>
 
       <div className="flex gap-6">
