@@ -127,7 +127,7 @@ export default async function HomePage({ params }: { params: { locale: string } 
                   type="text"
                   name="q"
                   placeholder={t("searchPlaceholder")}
-                  className="flex-1 px-5 py-4 bg-transparent text-white text-sm placeholder:text-white/60 focus:outline-none"
+                  className="flex-1 px-5 py-4 bg-transparent text-white text-sm placeholder:text-white/60 focus:outline-none focus-visible:ring-0"
                 />
                 <button
                   type="submit"
