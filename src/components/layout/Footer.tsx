@@ -132,6 +132,16 @@ export default function Footer() {
             <Link href="/contact" className="hover:text-gray-600 transition-colors">{t("contact")}</Link>
           </div>
         </div>
+        <div className="border-t border-gray-100 py-2 text-center">
+          <a
+            href="https://www.linkedin.com/in/ahmetmustafayilmaz"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-gray-400 hover:text-brand-500 transition-colors"
+          >
+            Created by AMY
+          </a>
+        </div>
       </div>
     </footer>
   );
