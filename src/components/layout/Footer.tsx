@@ -24,14 +24,18 @@ export default function Footer() {
 
           {/* Sütun 1 — Logo + açıklama + platform linkleri */}
           <div>
-            <Link href="/" className="inline-block mb-4">
+            <Link href="/" className="flex items-center gap-2 mb-4">
               <Image
-                src="/logoo.png"
+                src="/logolast2.png"
                 alt="KiezHelfer"
-                width={180}
-                height={180}
-                className="object-contain"
+                width={140}
+                height={140}
+                className="object-contain h-12 w-auto"
               />
+              <div className="flex flex-col leading-none">
+                <span className="text-base font-extrabold tracking-tight text-gray-900">Kiez<span className="text-brand-500">Helfer</span></span>
+                <span className="text-[9px] font-medium tracking-widest uppercase mt-0.5 text-gray-400">Berlin</span>
+              </div>
             </Link>
             <p className="text-sm text-gray-500 leading-relaxed mb-5">
               {t("tagline")}
