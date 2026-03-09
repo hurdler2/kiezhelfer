@@ -119,7 +119,8 @@
     "clearFilters": "Clear Filters",
     "mobileFilterBtn": "Filter",
     "mobileFilterTitle": "Filters",
-    "mobileFilterApply": "Apply"
+    "mobileFilterApply": "Apply",
+    "locationLabel": "Location"
   },
   "listingForm": {
     "createTitle": "Post a New Listing",

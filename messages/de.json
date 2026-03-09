@@ -119,7 +119,8 @@
     "clearFilters": "Filter zurücksetzen",
     "mobileFilterBtn": "Filter",
     "mobileFilterTitle": "Filtern",
-    "mobileFilterApply": "Anwenden"
+    "mobileFilterApply": "Anwenden",
+    "locationLabel": "Standort"
   },
   "listingForm": {
     "createTitle": "Neues Angebot erstellen",

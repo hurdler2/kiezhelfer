@@ -13,6 +13,7 @@ import ReviewForm from "@/components/reviews/ReviewForm";
 import ReportListingButton from "@/components/reports/ReportListingButton";
 import { formatPrice, formatRelativeTime } from "@/lib/utils";
 import { MapPin, Calendar, Eye, Tag } from "lucide-react";
+import ListingMap from "@/components/listings/ListingMap";
 import type { Metadata } from "next";
 
 const BASE_URL = "https://kiezhelfer.vercel.app";
@@ -387,6 +388,17 @@ export default async function ListingDetailPage({ params }: Props) {
               {formatPrice(listing.priceType, listing.priceAmount, params.locale)}
             </p>
           </div>
+
+          {/* Location map */}
+          {listing.latitude && listing.longitude && (
+            <div>
+              <p className="text-sm font-medium text-gray-700 mb-2 flex items-center gap-1.5">
+                <MapPin className="h-3.5 w-3.5 text-brand-500" />
+                {t("locationLabel")}
+              </p>
+              <ListingMap lat={listing.latitude} lng={listing.longitude} />
+            </div>
+          )}
 
           {/* Report listing */}
           {session?.user && !isOwner && (
