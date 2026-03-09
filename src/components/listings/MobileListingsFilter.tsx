@@ -71,7 +71,7 @@ export default function MobileListingsFilter({
           value={localQ}
           onChange={(e) => setLocalQ(e.target.value)}
           placeholder={t("filterSearch")}
-          className="w-full pl-9 pr-10 py-2.5 text-sm border border-gray-200 rounded-xl bg-white focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"
+          className="w-full pl-9 pr-10 py-2.5 text-base border border-gray-200 rounded-xl bg-white focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"
         />
         {localQ && (
           <button
