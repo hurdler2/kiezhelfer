@@ -31,6 +31,8 @@ export default async function EditListingPage({ params }: Props) {
       imageUrls: true,
       userId: true,
       status: true,
+      latitude: true,
+      longitude: true,
     },
   });
 
@@ -71,6 +73,8 @@ export default async function EditListingPage({ params }: Props) {
             priceType: listing.priceType as "free" | "hourly" | "fixed" | "negotiable",
             priceAmount: listing.priceAmount ?? undefined,
             tags: listing.tags.join(", "),
+            latitude: listing.latitude ?? undefined,
+            longitude: listing.longitude ?? undefined,
           }}
         />
       </div>
