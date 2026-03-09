@@ -44,14 +44,22 @@ export default function Navbar({ transparent = false }: { transparent?: boolean 
         <div className="flex items-center justify-between h-20">
 
           {/* Logo */}
-          <Link href="/" className="flex items-center flex-shrink-0">
+          <Link href="/" className="flex items-center gap-2.5 flex-shrink-0">
             <Image
-              src="/logoo.png"
+              src="/logolast2.png"
               alt="KiezHelfer"
               width={220}
               height={220}
-              className="object-contain h-24 w-auto"
+              className="object-contain h-20 w-auto"
             />
+            <div className="flex flex-col leading-none">
+              <span className={`text-xl font-extrabold tracking-tight ${glass ? "text-white" : "text-gray-900"}`}>
+                Kiez<span className="text-brand-500">Helfer</span>
+              </span>
+              <span className={`text-[10px] font-medium tracking-widest uppercase mt-0.5 ${glass ? "text-white/60" : "text-gray-400"}`}>
+                Berlin
+              </span>
+            </div>
           </Link>
 
           {/* Desktop nav links */}
