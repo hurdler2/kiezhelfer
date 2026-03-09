@@ -70,7 +70,7 @@ export default async function AboutPage({ params }: Props) {
           </p>
           <div className="inline-flex items-center gap-2 bg-white/15 border border-white/25 rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-widest mb-8">
             <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
-            Berlin · 2024
+            Berlin · 2026
           </div>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-[1.1] tracking-tight mb-6 whitespace-pre-line">
             {t("heroTitle")}
