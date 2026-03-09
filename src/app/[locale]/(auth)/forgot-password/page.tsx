@@ -42,8 +42,11 @@ export default function ForgotPasswordPage() {
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <div className="flex justify-between items-center p-4">
         <Link href="/" className="flex items-center gap-2">
-          <Image src="/logo.png" alt="KiezHelfer" width={100} height={100} className="rounded-lg" />
-          <span className="font-bold text-gray-900">KiezHelfer</span>
+          <Image src="/logolast2.png" alt="KiezHelfer" width={140} height={140} className="object-contain h-10 w-auto" />
+          <div className="flex flex-col leading-none">
+            <span className="text-base font-extrabold tracking-tight text-gray-900">Kiez<span className="text-brand-500">Helfer</span></span>
+            <span className="text-[9px] font-medium tracking-widest uppercase mt-0.5 text-gray-400">Berlin</span>
+          </div>
         </Link>
         <LocaleSwitcher />
       </div>
