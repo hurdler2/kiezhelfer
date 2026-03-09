@@ -66,7 +66,7 @@ export default async function AboutPage({ params }: Props) {
         />
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 py-24 text-center">
           <p className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-white drop-shadow">
-            Heute gesucht. Heute erledigt!
+            {t("slogan")}
           </p>
           <div className="inline-flex items-center gap-2 bg-white/15 border border-white/25 rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-widest mb-8">
             <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
