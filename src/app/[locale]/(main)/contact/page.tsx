@@ -55,9 +55,9 @@ export default function ContactPage() {
             <div>
               <p className="font-medium text-gray-900">{t("contactAddress")}</p>
               <p className="text-sm text-gray-500 mt-1">
-                KiezHelfer GmbH<br />
-                Musterstraße 1<br />
-                10115 Berlin, Deutschland
+                {t("contactCompany")}<br />
+                {t("contactStreet")}<br />
+                {t("contactCity")}
               </p>
             </div>
           </div>
@@ -68,8 +68,8 @@ export default function ContactPage() {
             </div>
             <div>
               <p className="font-medium text-gray-900">{t("contactEmailLabel")}</p>
-              <a href="mailto:kontakt@kiezhelfer.de" className="text-sm text-teal-600 hover:text-teal-700 mt-1 block">
-                kontakt@kiezhelfer.de
+              <a href={`mailto:${t("contactEmailValue")}`} className="text-sm text-teal-600 hover:text-teal-700 mt-1 block">
+                {t("contactEmailValue")}
               </a>
             </div>
           </div>
@@ -79,8 +79,8 @@ export default function ContactPage() {
               <Clock className="h-5 w-5 text-teal-600" />
             </div>
             <div>
-              <p className="font-medium text-gray-900">Mo – Fr</p>
-              <p className="text-sm text-gray-500 mt-1">09:00 – 18:00 Uhr</p>
+              <p className="font-medium text-gray-900">{t("contactHoursLabel")}</p>
+              <p className="text-sm text-gray-500 mt-1">{t("contactHoursValue")}</p>
             </div>
           </div>
         </div>

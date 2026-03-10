@@ -243,6 +243,9 @@
     "changePasswordSubmit": "Change Password",
     "changePasswordSuccess": "Password changed successfully!",
     "changePasswordWrongCurrent": "The current password is incorrect.",
+    "emailVerifiedTitle": "Email Successfully Verified!",
+    "emailVerifiedDesc": "Your email address has been successfully verified. You can now use all KiezHelfer features – create listings, send messages, and write reviews.",
+    "emailVerifiedLogin": "Sign In Now",
     "emailVerifyBanner": "Please verify your email address to create listings and send messages.",
     "emailVerifyResend": "Resend verification email",
     "emailVerifySuccess": "Email address verified!",
@@ -292,7 +295,10 @@
     "profileReviewSuccess": "Thank you for your review!",
     "loginToReview": "Sign in to leave a review.",
     "submitting": "Saving...",
-    "userReviews": "Reviews about this user"
+    "userReviews": "Reviews about this user",
+    "ratingRequired": "Please select a rating (1–5 stars).",
+    "saveError": "Error saving review.",
+    "networkError": "Network error. Please try again."
   },
   "map": {
     "title": "Map",
@@ -301,7 +307,10 @@
     "noListingsInArea": "No listings in this area",
     "loading": "Loading map...",
     "loadError": "Google Maps could not be loaded.",
-    "viewDetails": "View Details →"
+    "viewDetails": "View Details →",
+    "listingCount": "{count} listings on the map",
+    "apiKeyMissing": "Google Maps API key is missing",
+    "apiKeyHint": "Please set NEXT_PUBLIC_GOOGLE_MAPS_API_KEY in .env.local"
   },
   "dashboard": {
     "hello": "Hello, {name}!",
@@ -377,6 +386,12 @@
     "contactSuccess": "Your message has been sent. We will get back to you soon!",
     "contactError": "Message could not be sent. Please try again later.",
     "contactNetworkError": "Connection error. Please check your internet connection.",
+    "contactCompany": "KiezHelfer GmbH",
+    "contactStreet": "Musterstraße 1",
+    "contactCity": "10115 Berlin, Germany",
+    "contactEmailValue": "kontakt@kiezhelfer.de",
+    "contactHoursLabel": "Mon – Fri",
+    "contactHoursValue": "9:00 AM – 6:00 PM",
     "lastUpdated": "Last updated: February 2026"
   },
   "reports": {

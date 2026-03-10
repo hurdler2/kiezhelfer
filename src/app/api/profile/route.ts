@@ -8,7 +8,7 @@ export async function GET() {
   try {
     const session = await auth();
     if (!session?.user?.id) {
-      return NextResponse.json({ error: "Nicht angemeldet." }, { status: 401 });
+      return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
     }
 
     const user = await prisma.user.findUnique({
@@ -27,7 +27,7 @@ export async function GET() {
   } catch (error) {
     console.error("Profile fetch error:", error);
     return NextResponse.json(
-      { error: "Profil konnte nicht geladen werden." },
+      { error: "Failed to load profile." },
       { status: 500 }
     );
   }
@@ -37,7 +37,7 @@ export async function PATCH(request: Request) {
   try {
     const session = await auth();
     if (!session?.user?.id) {
-      return NextResponse.json({ error: "Nicht angemeldet." }, { status: 401 });
+      return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
     }
 
     const body = await request.json();
@@ -75,7 +75,7 @@ export async function PATCH(request: Request) {
   } catch (error) {
     console.error("Profile update error:", error);
     return NextResponse.json(
-      { error: "Profil konnte nicht aktualisiert werden." },
+      { error: "Failed to update profile." },
       { status: 500 }
     );
   }

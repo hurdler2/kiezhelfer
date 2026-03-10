@@ -9,7 +9,7 @@ export async function POST(request: Request) {
   try {
     const { email } = await request.json();
     if (!email?.trim()) {
-      return NextResponse.json({ error: "E-Mail-Adresse fehlt." }, { status: 400 });
+      return NextResponse.json({ error: "Email address is required." }, { status: 400 });
     }
 
     const user = await prisma.user.findUnique({ where: { email: email.trim().toLowerCase() } });
@@ -41,6 +41,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Forgot password error:", error);
-    return NextResponse.json({ error: "Fehler beim Senden der E-Mail." }, { status: 500 });
+    return NextResponse.json({ error: "Failed to send email." }, { status: 500 });
   }
 }

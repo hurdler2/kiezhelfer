@@ -68,7 +68,7 @@ export async function GET(request: Request) {
   } catch (error) {
     console.error("Listings fetch error:", error);
     return NextResponse.json(
-      { error: "Angebote konnten nicht geladen werden." },
+      { error: "Failed to load listings." },
       { status: 500 }
     );
   }
@@ -78,7 +78,7 @@ export async function POST(request: Request) {
   try {
     const session = await auth();
     if (!session?.user?.id) {
-      return NextResponse.json({ error: "Nicht angemeldet." }, { status: 401 });
+      return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
     }
 
     const currentUser = await prisma.user.findUnique({
@@ -87,7 +87,7 @@ export async function POST(request: Request) {
     });
     if (!currentUser?.emailVerifiedAt) {
       return NextResponse.json(
-        { error: "Bitte bestätige zuerst deine E-Mail-Adresse, um Angebote erstellen zu können." },
+        { error: "Please verify your email address first." },
         { status: 403 }
       );
     }
@@ -127,7 +127,7 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("Listing create error:", error);
     return NextResponse.json(
-      { error: "Angebot konnte nicht erstellt werden." },
+      { error: "Failed to create listing." },
       { status: 500 }
     );
   }

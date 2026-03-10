@@ -8,7 +8,7 @@ export async function GET() {
   try {
     const session = await auth();
     if (!session?.user?.id) {
-      return NextResponse.json({ error: "Nicht angemeldet." }, { status: 401 });
+      return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
     }
 
     const conversations = await prisma.conversation.findMany({
@@ -42,7 +42,7 @@ export async function GET() {
   } catch (error) {
     console.error("Conversations fetch error:", error);
     return NextResponse.json(
-      { error: "Nachrichten konnten nicht geladen werden." },
+      { error: "Failed to load conversations." },
       { status: 500 }
     );
   }
@@ -52,7 +52,7 @@ export async function POST(request: Request) {
   try {
     const session = await auth();
     if (!session?.user?.id) {
-      return NextResponse.json({ error: "Nicht angemeldet." }, { status: 401 });
+      return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
     }
 
     const currentUser = await prisma.user.findUnique({
@@ -61,7 +61,7 @@ export async function POST(request: Request) {
     });
     if (!currentUser?.emailVerifiedAt) {
       return NextResponse.json(
-        { error: "Bitte bestätige zuerst deine E-Mail-Adresse, um Nachrichten senden zu können." },
+        { error: "Please verify your email address first." },
         { status: 403 }
       );
     }
@@ -69,12 +69,12 @@ export async function POST(request: Request) {
     const { recipientId, listingId } = await request.json();
 
     if (!recipientId) {
-      return NextResponse.json({ error: "Empfänger fehlt." }, { status: 400 });
+      return NextResponse.json({ error: "Recipient is required." }, { status: 400 });
     }
 
     if (recipientId === session.user.id) {
       return NextResponse.json(
-        { error: "Du kannst dir selbst keine Nachrichten senden." },
+        { error: "You cannot message yourself." },
         { status: 400 }
       );
     }
@@ -122,7 +122,7 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("Conversation create error:", error);
     return NextResponse.json(
-      { error: "Konversation konnte nicht erstellt werden." },
+      { error: "Failed to create conversation." },
       { status: 500 }
     );
   }

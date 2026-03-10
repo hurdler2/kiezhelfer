@@ -9,7 +9,7 @@ const VALID_REASONS = ["spam", "fake", "harassment", "scam", "inappropriate", "o
 export async function POST(req: NextRequest) {
   const session = await auth();
   if (!session?.user) {
-    return NextResponse.json({ error: "Giriş yapmanız gerekiyor" }, { status: 401 });
+    return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
   }
 
   const reporterId = (session.user as any).id as string;
@@ -17,16 +17,16 @@ export async function POST(req: NextRequest) {
   const { reportedId, listingId, reason, details } = body;
 
   if (!reportedId || !VALID_REASONS.includes(reason)) {
-    return NextResponse.json({ error: "Geçersiz istek" }, { status: 400 });
+    return NextResponse.json({ error: "Invalid request." }, { status: 400 });
   }
 
   if (reporterId === reportedId) {
-    return NextResponse.json({ error: "Kendinizi şikayet edemezsiniz" }, { status: 400 });
+    return NextResponse.json({ error: "You cannot report yourself." }, { status: 400 });
   }
 
   const reported = await prisma.user.findUnique({ where: { id: reportedId } });
   if (!reported) {
-    return NextResponse.json({ error: "Kullanıcı bulunamadı" }, { status: 404 });
+    return NextResponse.json({ error: "User not found." }, { status: 404 });
   }
 
   if (listingId) {
@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
     });
     if (existing) {
       return NextResponse.json(
-        { error: "Bu ilan için zaten bekleyen bir şikayetiniz var" },
+        { error: "You already have a pending report for this listing." },
         { status: 409 }
       );
     }
@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
     });
     if (existing) {
       return NextResponse.json(
-        { error: "Bu kullanıcı için zaten bekleyen bir şikayetiniz var" },
+        { error: "You already have a pending report for this user." },
         { status: 409 }
       );
     }

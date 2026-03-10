@@ -10,7 +10,7 @@ export async function POST(request: Request) {
     const { token, password } = await request.json();
 
     if (!token || !password || password.length < 8) {
-      return NextResponse.json({ error: "Ungültige Anfrage." }, { status: 400 });
+      return NextResponse.json({ error: "Invalid request." }, { status: 400 });
     }
 
     const tokenHash = crypto.createHash("sha256").update(token).digest("hex");
@@ -21,15 +21,15 @@ export async function POST(request: Request) {
     });
 
     if (!emailToken || emailToken.type !== "RESET_PASSWORD") {
-      return NextResponse.json({ error: "Ungültiger oder abgelaufener Link." }, { status: 400 });
+      return NextResponse.json({ error: "Invalid or expired link." }, { status: 400 });
     }
 
     if (emailToken.usedAt) {
-      return NextResponse.json({ error: "Dieser Link wurde bereits verwendet." }, { status: 400 });
+      return NextResponse.json({ error: "This link has already been used." }, { status: 400 });
     }
 
     if (emailToken.expiresAt < new Date()) {
-      return NextResponse.json({ error: "Dieser Link ist abgelaufen." }, { status: 400 });
+      return NextResponse.json({ error: "This link has expired." }, { status: 400 });
     }
 
     const passwordHash = await bcrypt.hash(password, 12);
@@ -48,6 +48,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Reset password error:", error);
-    return NextResponse.json({ error: "Fehler beim Zurücksetzen des Passworts." }, { status: 500 });
+    return NextResponse.json({ error: "Failed to reset password." }, { status: 500 });
   }
 }

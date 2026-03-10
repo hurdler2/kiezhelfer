@@ -16,7 +16,7 @@ export async function POST(
 
   const { replyText } = await req.json();
   if (!replyText?.trim()) {
-    return NextResponse.json({ error: "Yanıt metni boş olamaz" }, { status: 400 });
+    return NextResponse.json({ error: "Reply text cannot be empty." }, { status: 400 });
   }
 
   const message = await (prisma as any).contactMessage.findUnique({
@@ -24,7 +24,7 @@ export async function POST(
   });
 
   if (!message) {
-    return NextResponse.json({ error: "Mesaj bulunamadı" }, { status: 404 });
+    return NextResponse.json({ error: "Message not found." }, { status: 404 });
   }
 
   const { subject, html } = contactReplyEmail(message.name, message.message, replyText.trim());

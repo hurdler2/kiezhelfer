@@ -77,7 +77,7 @@ export async function GET(
   try {
     const session = await auth();
     if (!session?.user?.id) {
-      return NextResponse.json({ error: "Nicht angemeldet." }, { status: 401 });
+      return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
     }
 
     // Verify participant
@@ -91,7 +91,7 @@ export async function GET(
     });
 
     if (!participant) {
-      return NextResponse.json({ error: "Keine Berechtigung." }, { status: 403 });
+      return NextResponse.json({ error: "Forbidden." }, { status: 403 });
     }
 
     const { searchParams } = new URL(request.url);
@@ -135,7 +135,7 @@ export async function GET(
   } catch (error) {
     console.error("Messages fetch error:", error);
     return NextResponse.json(
-      { error: "Nachrichten konnten nicht geladen werden." },
+      { error: "Failed to load messages." },
       { status: 500 }
     );
   }

@@ -35,14 +35,14 @@ export async function GET(
     });
 
     if (!user) {
-      return NextResponse.json({ error: "Benutzer nicht gefunden." }, { status: 404 });
+      return NextResponse.json({ error: "User not found." }, { status: 404 });
     }
 
     return NextResponse.json(user);
   } catch (error) {
     console.error("User fetch error:", error);
     return NextResponse.json(
-      { error: "Benutzer konnte nicht geladen werden." },
+      { error: "Failed to load user." },
       { status: 500 }
     );
   }

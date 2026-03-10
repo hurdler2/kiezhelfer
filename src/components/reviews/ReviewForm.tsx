@@ -40,7 +40,7 @@ export default function ReviewForm({ listingId, alreadyReviewed }: Props) {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (rating === 0) {
-      setError("Bitte wähle eine Bewertung (1–5 Sterne).");
+      setError(t("ratingRequired"));
       return;
     }
     setError(null);
@@ -53,13 +53,13 @@ export default function ReviewForm({ listingId, alreadyReviewed }: Props) {
       });
       const data = await res.json();
       if (!res.ok) {
-        setError(data.error ?? "Fehler beim Speichern.");
+        setError(data.error ?? t("saveError"));
         return;
       }
       setSuccess(true);
       router.refresh();
     } catch {
-      setError("Netzwerkfehler. Bitte versuche es erneut.");
+      setError(t("networkError"));
     } finally {
       setLoading(false);
     }

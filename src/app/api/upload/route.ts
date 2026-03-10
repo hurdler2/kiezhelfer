@@ -8,27 +8,27 @@ export async function POST(request: Request) {
   try {
     const session = await auth();
     if (!session?.user?.id) {
-      return NextResponse.json({ error: "Nicht angemeldet." }, { status: 401 });
+      return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
     }
 
     const formData = await request.formData();
     const file = formData.get("file") as File;
 
     if (!file) {
-      return NextResponse.json({ error: "Keine Datei gefunden." }, { status: 400 });
+      return NextResponse.json({ error: "No file found." }, { status: 400 });
     }
 
     const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
     if (!allowedTypes.includes(file.type)) {
       return NextResponse.json(
-        { error: "Nur JPEG, PNG und WebP erlaubt." },
+        { error: "Only JPEG, PNG and WebP allowed." },
         { status: 400 }
       );
     }
 
     if (file.size > 5 * 1024 * 1024) {
       return NextResponse.json(
-        { error: "Datei darf maximal 5 MB groß sein." },
+        { error: "File must be 5 MB or less." },
         { status: 400 }
       );
     }
@@ -42,7 +42,7 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("Upload error:", error);
     return NextResponse.json(
-      { error: "Upload fehlgeschlagen." },
+      { error: "Upload failed." },
       { status: 500 }
     );
   }

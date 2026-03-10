@@ -50,7 +50,7 @@ export async function GET(
     });
 
     if (!listing || listing.status === "DELETED") {
-      return NextResponse.json({ error: "Angebot nicht gefunden." }, { status: 404 });
+      return NextResponse.json({ error: "Listing not found." }, { status: 404 });
     }
 
     // Increment view count
@@ -63,7 +63,7 @@ export async function GET(
   } catch (error) {
     console.error("Listing fetch error:", error);
     return NextResponse.json(
-      { error: "Angebot konnte nicht geladen werden." },
+      { error: "Failed to load listing." },
       { status: 500 }
     );
   }
@@ -76,15 +76,15 @@ export async function PATCH(
   try {
     const session = await auth();
     if (!session?.user?.id) {
-      return NextResponse.json({ error: "Nicht angemeldet." }, { status: 401 });
+      return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
     }
 
     const listing = await prisma.listing.findUnique({ where: { id: params.id } });
     if (!listing) {
-      return NextResponse.json({ error: "Angebot nicht gefunden." }, { status: 404 });
+      return NextResponse.json({ error: "Listing not found." }, { status: 404 });
     }
     if (listing.userId !== session.user.id && session.user.role !== "ADMIN") {
-      return NextResponse.json({ error: "Keine Berechtigung." }, { status: 403 });
+      return NextResponse.json({ error: "Forbidden." }, { status: 403 });
     }
 
     const body = await request.json();
@@ -123,7 +123,7 @@ export async function PATCH(
   } catch (error) {
     console.error("Listing update error:", error);
     return NextResponse.json(
-      { error: "Angebot konnte nicht aktualisiert werden." },
+      { error: "Failed to update listing." },
       { status: 500 }
     );
   }
@@ -136,15 +136,15 @@ export async function DELETE(
   try {
     const session = await auth();
     if (!session?.user?.id) {
-      return NextResponse.json({ error: "Nicht angemeldet." }, { status: 401 });
+      return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
     }
 
     const listing = await prisma.listing.findUnique({ where: { id: params.id } });
     if (!listing) {
-      return NextResponse.json({ error: "Angebot nicht gefunden." }, { status: 404 });
+      return NextResponse.json({ error: "Listing not found." }, { status: 404 });
     }
     if (listing.userId !== session.user.id && session.user.role !== "ADMIN") {
-      return NextResponse.json({ error: "Keine Berechtigung." }, { status: 403 });
+      return NextResponse.json({ error: "Forbidden." }, { status: 403 });
     }
 
     await prisma.listing.update({
@@ -156,7 +156,7 @@ export async function DELETE(
   } catch (error) {
     console.error("Listing delete error:", error);
     return NextResponse.json(
-      { error: "Angebot konnte nicht gelöscht werden." },
+      { error: "Failed to delete listing." },
       { status: 500 }
     );
   }

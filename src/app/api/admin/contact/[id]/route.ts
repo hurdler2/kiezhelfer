@@ -10,7 +10,7 @@ export async function PATCH(
 ) {
   const session = await auth();
   if (!session?.user || (session.user as any).role !== "ADMIN") {
-    return NextResponse.json({ error: "Yetkisiz." }, { status: 403 });
+    return NextResponse.json({ error: "Unauthorized." }, { status: 403 });
   }
 
   const { isRead } = await request.json();

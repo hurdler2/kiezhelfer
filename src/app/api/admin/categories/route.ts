@@ -27,12 +27,12 @@ export async function POST(req: NextRequest) {
   const { slug, nameKey, iconName, sortOrder } = await req.json();
 
   if (!slug || !nameKey) {
-    return NextResponse.json({ error: "slug ve nameKey zorunludur" }, { status: 400 });
+    return NextResponse.json({ error: "slug and nameKey are required." }, { status: 400 });
   }
 
   const existing = await prisma.category.findUnique({ where: { slug } });
   if (existing) {
-    return NextResponse.json({ error: "Bu slug zaten kullanılıyor" }, { status: 409 });
+    return NextResponse.json({ error: "This slug is already in use." }, { status: 409 });
   }
 
   const category = await prisma.category.create({

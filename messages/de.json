@@ -243,6 +243,9 @@
     "changePasswordSubmit": "Passwort ändern",
     "changePasswordSuccess": "Passwort erfolgreich geändert!",
     "changePasswordWrongCurrent": "Das aktuelle Passwort ist falsch.",
+    "emailVerifiedTitle": "E-Mail erfolgreich bestätigt!",
+    "emailVerifiedDesc": "Deine E-Mail-Adresse wurde erfolgreich bestätigt. Du kannst jetzt alle Funktionen von KiezHelfer nutzen – Angebote erstellen, Nachrichten senden und Bewertungen abgeben.",
+    "emailVerifiedLogin": "Jetzt anmelden",
     "emailVerifyBanner": "Bitte bestätige deine E-Mail-Adresse, um Angebote zu erstellen und Nachrichten zu senden.",
     "emailVerifyResend": "Bestätigungs-E-Mail erneut senden",
     "emailVerifySuccess": "E-Mail-Adresse bestätigt!",
@@ -292,7 +295,10 @@
     "profileReviewSuccess": "Vielen Dank für deine Bewertung!",
     "loginToReview": "Melde dich an, um zu bewerten.",
     "submitting": "Wird gespeichert...",
-    "userReviews": "Bewertungen über diesen Nutzer"
+    "userReviews": "Bewertungen über diesen Nutzer",
+    "ratingRequired": "Bitte wähle eine Bewertung (1–5 Sterne).",
+    "saveError": "Fehler beim Speichern.",
+    "networkError": "Netzwerkfehler. Bitte versuche es erneut."
   },
   "map": {
     "title": "Karte",
@@ -301,7 +307,10 @@
     "noListingsInArea": "Keine Angebote in diesem Bereich",
     "loading": "Karte wird geladen...",
     "loadError": "Google Maps konnte nicht geladen werden.",
-    "viewDetails": "Details anzeigen →"
+    "viewDetails": "Details anzeigen →",
+    "listingCount": "{count} Angebote auf der Karte",
+    "apiKeyMissing": "Google Maps API Key fehlt",
+    "apiKeyHint": "Bitte NEXT_PUBLIC_GOOGLE_MAPS_API_KEY in .env.local eintragen"
   },
   "dashboard": {
     "hello": "Hallo, {name}!",
@@ -377,6 +386,12 @@
     "contactSuccess": "Deine Nachricht wurde gesendet. Wir melden uns bald bei dir!",
     "contactError": "Nachricht konnte nicht gesendet werden. Bitte versuche es später erneut.",
     "contactNetworkError": "Verbindungsfehler. Bitte überprüfe deine Internetverbindung.",
+    "contactCompany": "KiezHelfer GmbH",
+    "contactStreet": "Musterstraße 1",
+    "contactCity": "10115 Berlin, Deutschland",
+    "contactEmailValue": "kontakt@kiezhelfer.de",
+    "contactHoursLabel": "Mo – Fr",
+    "contactHoursValue": "09:00 – 18:00 Uhr",
     "lastUpdated": "Zuletzt aktualisiert: Februar 2026"
   },
   "reports": {

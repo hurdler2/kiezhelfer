@@ -26,7 +26,7 @@ export async function GET(
   } catch (error) {
     console.error("Reviews fetch error:", error);
     return NextResponse.json(
-      { error: "Bewertungen konnten nicht geladen werden." },
+      { error: "Failed to load reviews." },
       { status: 500 }
     );
   }

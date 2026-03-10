@@ -10,7 +10,7 @@ export async function POST() {
   try {
     const session = await auth();
     if (!session?.user?.id) {
-      return NextResponse.json({ error: "Nicht angemeldet." }, { status: 401 });
+      return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
     }
 
     const user = await prisma.user.findUnique({
@@ -19,11 +19,11 @@ export async function POST() {
     });
 
     if (!user) {
-      return NextResponse.json({ error: "Benutzer nicht gefunden." }, { status: 404 });
+      return NextResponse.json({ error: "User not found." }, { status: 404 });
     }
 
     if (user.emailVerifiedAt) {
-      return NextResponse.json({ error: "E-Mail bereits bestätigt." }, { status: 400 });
+      return NextResponse.json({ error: "Email already verified." }, { status: 400 });
     }
 
     // Invalidate existing verify tokens
@@ -48,6 +48,6 @@ export async function POST() {
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Resend verify error:", error);
-    return NextResponse.json({ error: "Fehler beim Senden der E-Mail." }, { status: 500 });
+    return NextResponse.json({ error: "Failed to send email." }, { status: 500 });
   }
 }

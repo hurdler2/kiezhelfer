@@ -20,7 +20,7 @@ export async function PATCH(
       where: { slug, NOT: { id: params.id } },
     });
     if (existing) {
-      return NextResponse.json({ error: "Bu slug zaten kullanılıyor" }, { status: 409 });
+      return NextResponse.json({ error: "This slug is already in use." }, { status: 409 });
     }
   }
 

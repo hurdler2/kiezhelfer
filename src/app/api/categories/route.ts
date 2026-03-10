@@ -12,7 +12,7 @@ export async function GET() {
   } catch (error) {
     console.error("Categories fetch error:", error);
     return NextResponse.json(
-      { error: "Kategorien konnten nicht geladen werden." },
+      { error: "Failed to load categories." },
       { status: 500 }
     );
   }
