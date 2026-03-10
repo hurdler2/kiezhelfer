@@ -25,6 +25,13 @@ export default async function AdminListingsPage({ searchParams }: { searchParams
 
   const statusLabel: Record<string, string> = { PENDING: "Onay Bekliyor", ACTIVE: "Aktif", PAUSED: "Duraklatıldı", DELETED: "Silindi" };
   const statusColor: Record<string, string> = { PENDING: "bg-purple-100 text-purple-700", ACTIVE: "bg-green-100 text-green-700", PAUSED: "bg-amber-100 text-amber-700", DELETED: "bg-red-100 text-red-700" };
+  const categoryLabel: Record<string, string> = {
+    "reparaturen-montage": "Kleine Reparaturen & Montageservice",
+    "technik-computer": "Technik & Computerhilfe",
+    "alltag-nachbarschaft": "Alltags & Nachbarschaftshilfe",
+    "garten-outdoor": "Garten & Outdoor-Hilfe",
+    "transport-kurier": "Transport & Kurierhilfe",
+  };
 
   return (
     <div className="space-y-6 max-w-7xl">
@@ -72,7 +79,7 @@ export default async function AdminListingsPage({ searchParams }: { searchParams
                   </td>
                   <td className="px-5 py-3.5">
                     <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 text-[11px] font-medium">
-                      {l.category.slug}
+                      {categoryLabel[l.category.slug] ?? l.category.slug}
                     </span>
                   </td>
                   <td className="px-5 py-3.5">

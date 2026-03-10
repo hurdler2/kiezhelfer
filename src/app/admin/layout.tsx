@@ -2,7 +2,7 @@ import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import {
   LayoutDashboard, Users, List, Star,
-  Wifi, Flag, MessageSquare, Mail,
+  Wifi, Flag, MessageSquare, Mail, Tag,
 } from "lucide-react";
 import AdminNavLink from "./AdminNavLink";
 import AdminLogoutButton from "./AdminLogoutButton";
@@ -22,7 +22,8 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     { href: "/admin/messages", label: "Mesajlar",   icon: MessageSquare },
     { href: "/admin/activity", label: "Aktivite",   icon: Wifi },
     { href: "/admin/reports",  label: "Şikayetler", icon: Flag },
-    { href: "/admin/contact",  label: "Kontakt",    icon: Mail },
+    { href: "/admin/contact",    label: "Kontakt",    icon: Mail },
+    { href: "/admin/categories", label: "Kategoriler", icon: Tag },
   ];
 
   const userEmail = session.user.email ?? "";

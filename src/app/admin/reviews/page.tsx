@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import AdminReviewActions from "./AdminReviewActions";
+import AdminBulkApproveButton from "./AdminBulkApproveButton";
 
 export default async function AdminReviewsPage() {
   const reviews = await prisma.review.findMany({
@@ -20,7 +21,7 @@ export default async function AdminReviewsPage() {
   return (
     <div className="space-y-6 max-w-7xl">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-4 flex-wrap">
         <div>
           <h1 className="text-[22px] font-bold text-slate-900 tracking-tight">Yorumlar</h1>
           <p className="text-sm text-slate-500 mt-0.5 flex items-center gap-2">
@@ -33,6 +34,7 @@ export default async function AdminReviewsPage() {
             )}
           </p>
         </div>
+        <AdminBulkApproveButton pendingCount={pendingCount} />
       </div>
 
       {/* Table */}

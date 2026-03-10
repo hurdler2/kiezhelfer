@@ -37,6 +37,26 @@ export function resetPasswordEmail(name: string, resetUrl: string) {
   };
 }
 
+export function contactReplyEmail(senderName: string, originalMessage: string, replyText: string) {
+  return {
+    subject: "KiezHelfer – Antwort auf Ihre Nachricht",
+    html: `
+      <div style="font-family:sans-serif;max-width:560px;margin:0 auto;padding:24px">
+        <h2 style="color:#0f172a">Hallo ${senderName},</h2>
+        <p>vielen Dank für Ihre Nachricht an KiezHelfer. Hier ist unsere Antwort:</p>
+        <div style="background:#f0fdf4;border-left:4px solid #2CB34F;padding:16px;border-radius:0 8px 8px 0;margin:20px 0">
+          <p style="margin:0;color:#1e293b;white-space:pre-wrap">${replyText}</p>
+        </div>
+        <hr style="border:none;border-top:1px solid #e2e8f0;margin:24px 0"/>
+        <p style="color:#94a3b8;font-size:12px">Ihre ursprüngliche Nachricht:</p>
+        <p style="color:#94a3b8;font-size:12px;white-space:pre-wrap">${originalMessage}</p>
+        <hr style="border:none;border-top:1px solid #e2e8f0;margin:24px 0"/>
+        <p style="color:#64748b;font-size:13px">Mit freundlichen Grüßen,<br/><strong>Das KiezHelfer-Team</strong></p>
+      </div>
+    `,
+  };
+}
+
 export function verifyEmailEmail(name: string, verifyUrl: string) {
   return {
     subject: "KiezHelfer – E-Mail bestätigen",

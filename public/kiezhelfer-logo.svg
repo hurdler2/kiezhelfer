@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Outer circle border -->
+  <circle cx="100" cy="100" r="96" fill="none" stroke="#2d5a27" stroke-width="5"/>
+
+  <!-- House roof orange /\ -->
+  <polyline points="62,108 100,68 138,108"
+    fill="none" stroke="#e8623a" stroke-width="7"
+    stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Stem -->
+  <line x1="100" y1="68" x2="100" y2="52"
+    stroke="#e8623a" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Green leaf -->
+  <path d="M100,52 C106,44 118,36 115,26 C110,34 102,36 100,38 C98,36 90,34 85,26 C82,36 94,44 100,52 Z" fill="#4a8c3f"/>
+  <line x1="100" y1="52" x2="100" y2="28" stroke="#2d5a27" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Orange hand (bottom-left) -->
+  <path d="M58,125 C54,120 55,112 61,110 L84,102 C87,101 90,102 91,106 L93,112 L115,125 C118,127 118,132 115,134 L95,145 C91,147 87,146 85,143 Z" fill="#e8623a"/>
+  <path d="M95,145 C95,145 98,151 103,149 C108,147 106,141 106,141" fill="#e8623a"/>
+  <path d="M100,142 C100,142 103,148 108,146 C113,144 111,138 111,138" fill="#e8623a"/>
+  <path d="M105,139 C105,139 108,145 113,143 C118,141 116,135 116,135" fill="#e8623a"/>
+
+  <!-- Green hand (top-right) -->
+  <path d="M142,90 C146,85 145,77 139,75 L116,67 C113,66 110,67 109,71 L107,77 L85,90 C82,92 82,97 85,99 L105,110 C109,112 113,111 115,108 Z" fill="#4a8c3f"/>
+  <path d="M105,110 C105,110 102,116 97,114 C92,112 94,106 94,106" fill="#4a8c3f"/>
+  <path d="M100,107 C100,107 97,113 92,111 C87,109 89,103 89,103" fill="#4a8c3f"/>
+  <path d="M95,104 C95,104 92,110 87,108 C82,106 84,100 84,100" fill="#4a8c3f"/>
+
+  <!-- Center shadow -->
+  <ellipse cx="100" cy="110" rx="14" ry="9" fill="#b04820" opacity="0.3"/>
+
+  <!-- KIEZHELFER text -->
+  <text font-family="'Arial Black', Impact, 'Helvetica Neue', Arial, sans-serif"
+    font-size="17.5" font-weight="900" letter-spacing="1" text-anchor="middle" y="157">
+    <tspan x="100" fill="#2d5a27">KIEZ</tspan><tspan fill="#e8623a">HELFER</tspan>
+  </text>
+
+  <!-- Tiny leaf on Z -->
+  <path d="M109,143 C111,139 115,135 113,131 C111,135 107,137 107,139 Z" fill="#4a8c3f"/>
+
+  <!-- BERLIN -->
+  <text x="100" y="174"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="12" font-weight="700" letter-spacing="3.5"
+    text-anchor="middle" fill="#e8623a">• BERLIN •</text>
+</svg>

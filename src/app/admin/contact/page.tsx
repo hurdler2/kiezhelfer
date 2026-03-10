@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { format } from "date-fns";
 import AdminContactActions from "./AdminContactActions";
+import AdminContactReplyButton from "./AdminContactReplyButton";
 
 export const dynamic = "force-dynamic";
 
@@ -39,7 +40,7 @@ export default async function AdminContactPage() {
                 <th className="text-left px-5 py-3.5 text-[11px] font-semibold uppercase tracking-wider text-slate-400">Mesaj</th>
                 <th className="text-left px-5 py-3.5 text-[11px] font-semibold uppercase tracking-wider text-slate-400">Tarih</th>
                 <th className="text-left px-5 py-3.5 text-[11px] font-semibold uppercase tracking-wider text-slate-400">Durum</th>
-                <th className="text-left px-5 py-3.5 text-[11px] font-semibold uppercase tracking-wider text-slate-400">İşlem</th>
+                <th className="text-left px-5 py-3.5 text-[11px] font-semibold uppercase tracking-wider text-slate-400 whitespace-nowrap">İşlem</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
@@ -75,7 +76,15 @@ export default async function AdminContactPage() {
                     )}
                   </td>
                   <td className="px-5 py-3.5">
-                    <AdminContactActions messageId={m.id} isRead={m.isRead} />
+                    <div className="flex items-center gap-2">
+                      <AdminContactReplyButton
+                        messageId={m.id}
+                        senderName={m.name}
+                        senderEmail={m.email}
+                        originalMessage={m.message}
+                      />
+                      <AdminContactActions messageId={m.id} isRead={m.isRead} />
+                    </div>
                   </td>
                 </tr>
               ))}
