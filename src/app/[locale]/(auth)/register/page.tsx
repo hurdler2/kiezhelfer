@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { Eye, EyeOff } from "lucide-react";
+import { useState, useRef } from "react";
+import { Eye, EyeOff, Camera } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
@@ -23,6 +23,10 @@ export default function RegisterPage() {
   const [success, setSuccess] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [avatarFile, setAvatarFile] = useState<File | null>(null);
+  const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+  const [avatarError, setAvatarError] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const {
     register,
@@ -32,13 +36,47 @@ export default function RegisterPage() {
     resolver: zodResolver(registerSchema),
   });
 
+  function handleAvatarChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+    if (!allowedTypes.includes(file.type)) {
+      setAvatarError("Only JPEG, PNG and WebP allowed.");
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      setAvatarError("Max 5 MB.");
+      return;
+    }
+
+    setAvatarFile(file);
+    setAvatarError(null);
+    const reader = new FileReader();
+    reader.onloadend = () => setAvatarPreview(reader.result as string);
+    reader.readAsDataURL(file);
+  }
+
   async function onSubmit(data: RegisterFormValues) {
     setError(null);
+
+    if (!avatarFile) {
+      setAvatarError(t("profilePhotoRequired"));
+      return;
+    }
+
     try {
+      const formData = new FormData();
+      formData.append("name", data.name);
+      formData.append("email", data.email);
+      formData.append("password", data.password);
+      formData.append("confirmPassword", data.confirmPassword);
+      if (data.district) formData.append("district", data.district);
+      formData.append("avatar", avatarFile);
+
       const res = await fetch("/api/register", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: formData,
       });
       const result = await res.json();
 
@@ -85,6 +123,51 @@ export default function RegisterPage() {
               </div>
             ) : (
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                {/* Avatar Upload */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    {t("profilePhoto")} <span className="text-red-500">*</span>
+                  </label>
+                  <div className="flex items-center gap-4">
+                    <button
+                      type="button"
+                      onClick={() => fileInputRef.current?.click()}
+                      className="relative w-20 h-20 rounded-full border-2 border-dashed border-gray-300 hover:border-brand-500 flex items-center justify-center overflow-hidden transition-colors bg-gray-50"
+                    >
+                      {avatarPreview ? (
+                        <Image
+                          src={avatarPreview}
+                          alt="Avatar"
+                          fill
+                          className="object-cover rounded-full"
+                        />
+                      ) : (
+                        <Camera className="h-6 w-6 text-gray-400" />
+                      )}
+                    </button>
+                    <div className="flex-1">
+                      <button
+                        type="button"
+                        onClick={() => fileInputRef.current?.click()}
+                        className="text-sm font-medium text-brand-600 hover:text-brand-700"
+                      >
+                        {avatarPreview ? t("changePhoto") : t("uploadPhoto")}
+                      </button>
+                      <p className="text-xs text-gray-400 mt-0.5">JPEG, PNG, WebP · max 5 MB</p>
+                    </div>
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept="image/jpeg,image/png,image/webp"
+                      onChange={handleAvatarChange}
+                      className="hidden"
+                    />
+                  </div>
+                  {avatarError && (
+                    <p className="text-sm text-red-600 mt-1">{avatarError}</p>
+                  )}
+                </div>
+
                 <Input
                   id="name"
                   type="text"

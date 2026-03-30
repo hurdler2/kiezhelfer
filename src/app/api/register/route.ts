@@ -4,17 +4,49 @@ import crypto from "crypto";
 import { prisma } from "@/lib/prisma";
 import { registerSchema } from "@/lib/validations/user";
 import { sendMail, verifyEmailEmail } from "@/lib/email";
+import { put } from "@vercel/blob";
 
 export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
+    const formData = await request.formData();
+    const body = {
+      name: formData.get("name") as string,
+      email: formData.get("email") as string,
+      password: formData.get("password") as string,
+      confirmPassword: formData.get("confirmPassword") as string,
+      district: (formData.get("district") as string) || undefined,
+    };
+    const avatarFile = formData.get("avatar") as File | null;
+
     const result = registerSchema.safeParse(body);
 
     if (!result.success) {
       return NextResponse.json(
         { error: result.error.issues[0].message },
+        { status: 400 }
+      );
+    }
+
+    if (!avatarFile || avatarFile.size === 0) {
+      return NextResponse.json(
+        { error: "Profile photo is required." },
+        { status: 400 }
+      );
+    }
+
+    const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+    if (!allowedTypes.includes(avatarFile.type)) {
+      return NextResponse.json(
+        { error: "Only JPEG, PNG and WebP allowed." },
+        { status: 400 }
+      );
+    }
+
+    if (avatarFile.size > 5 * 1024 * 1024) {
+      return NextResponse.json(
+        { error: "File must be 5 MB or less." },
         { status: 400 }
       );
     }
@@ -29,6 +61,11 @@ export async function POST(request: Request) {
       );
     }
 
+    // Upload avatar to Vercel Blob
+    const ext = avatarFile.type === "image/png" ? "png" : avatarFile.type === "image/webp" ? "webp" : "jpg";
+    const filename = `avatars/${Date.now()}-${crypto.randomBytes(4).toString("hex")}.${ext}`;
+    const blob = await put(filename, avatarFile, { access: "public" });
+
     const passwordHash = await bcrypt.hash(password, 12);
 
     const user = await prisma.user.create({
@@ -36,9 +73,11 @@ export async function POST(request: Request) {
         email,
         name,
         passwordHash,
+        image: blob.url,
         profile: {
           create: {
             district: district || null,
+            avatarUrl: blob.url,
           },
         },
       },
