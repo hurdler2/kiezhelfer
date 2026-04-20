@@ -163,12 +163,12 @@
     "technikComputer": "Technik & Computerhilfe",
     "alltagNachbarschaft": "Alltags & Nachbarschaftshilfe",
     "gartenOutdoor": "Garten & Outdoor-Hilfe",
-    "transportKurier": "Transport & Kurierhilfe",
+    "transportKurier": "Umzugshilfe",
     "reparaturenMontageDesc": "Regale, Lampen, Türen & mehr",
     "technikComputerDesc": "Laptop, WLAN, Software & Geräte",
     "alltagNachbarschaftDesc": "Einkaufen, Begleitung & Alltagshilfe",
     "gartenOutdoorDesc": "Rasenmähen, Pflanzen & Außenanlagen",
-    "transportKurierDesc": "Pakete, Einkäufe & kleine Transporte"
+    "transportKurierDesc": "Möbel, Umzüge & kleine Transporte"
   },
   "districts": {
     "mitte": "Mitte",
@@ -379,7 +379,7 @@
     "pop2": "Berlin Computerhilfe",
     "pop3": "Berlin Nachbarschaftshilfe",
     "pop4": "Berlin Gartenhilfe",
-    "pop5": "Berlin Kurierdienst"
+    "pop5": "Berlin Umzugshilfe"
   },
   "legal": {
     "privacyTitle": "Datenschutzerklärung",

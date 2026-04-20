@@ -163,12 +163,12 @@
     "technikComputer": "Tech & Computer Help",
     "alltagNachbarschaft": "Everyday & Neighborhood Help",
     "gartenOutdoor": "Garden & Outdoor Help",
-    "transportKurier": "Transport & Courier Help",
+    "transportKurier": "Moving Help",
     "reparaturenMontageDesc": "Shelves, lamps, doors & more",
     "technikComputerDesc": "Laptop, Wi-Fi, software & devices",
     "alltagNachbarschaftDesc": "Shopping, companionship & daily help",
     "gartenOutdoorDesc": "Lawn mowing, plants & outdoor areas",
-    "transportKurierDesc": "Parcels, shopping & small deliveries"
+    "transportKurierDesc": "Furniture, moving & small transports"
   },
   "districts": {
     "mitte": "Mitte",

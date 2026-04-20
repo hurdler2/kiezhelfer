@@ -16,7 +16,7 @@ const LABEL_MAP: Record<string, string> = {
   "technik-computer": "Technik & Computerhilfe",
   "alltag-nachbarschaft": "Alltags & Nachbarschaftshilfe",
   "garten-outdoor": "Garten & Outdoor-Hilfe",
-  "transport-kurier": "Transport & Kurierhilfe",
+  "transport-kurier": "Umzugshilfe",
 };
 
 export default function AdminCategoryRow({ cat }: { cat: Category }) {

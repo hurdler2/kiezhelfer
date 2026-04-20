@@ -37,7 +37,7 @@ export default function LocalBusinessSchema() {
         { "@type": "Offer", itemOffered: { "@type": "Service", name: "Technik- & Computerhilfe" } },
         { "@type": "Offer", itemOffered: { "@type": "Service", name: "Alltags- & Nachbarschaftshilfe" } },
         { "@type": "Offer", itemOffered: { "@type": "Service", name: "Garten- & Outdoor-Hilfe" } },
-        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Transport & Kurierhilfe" } },
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Umzugshilfe" } },
       ],
     },
     sameAs: [

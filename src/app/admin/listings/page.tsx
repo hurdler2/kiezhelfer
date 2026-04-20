@@ -30,7 +30,7 @@ export default async function AdminListingsPage({ searchParams }: { searchParams
     "technik-computer": "Technik & Computerhilfe",
     "alltag-nachbarschaft": "Alltags & Nachbarschaftshilfe",
     "garten-outdoor": "Garten & Outdoor-Hilfe",
-    "transport-kurier": "Transport & Kurierhilfe",
+    "transport-kurier": "Umzugshilfe",
   };
 
   return (
