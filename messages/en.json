@@ -302,7 +302,13 @@
     "userReviews": "Reviews about this user",
     "ratingRequired": "Please select a rating (1–5 stars).",
     "saveError": "Error saving review.",
-    "networkError": "Network error. Please try again."
+    "networkError": "Network error. Please try again.",
+    "deleteAccountBtn": "Delete Account",
+    "deleteAccountTitle": "Really delete account?",
+    "deleteAccountDesc": "This action is irreversible. All your data, listings, reviews and messages will be permanently deleted.",
+    "deleteAccountConfirm": "Yes, delete account",
+    "deleteAccountCancel": "Cancel",
+    "deleteAccountError": "Failed to delete account. Please try again."
   },
   "map": {
     "title": "Map",
@@ -393,7 +399,7 @@
     "contactCompany": "KiezHelfer GmbH",
     "contactStreet": "Musterstraße 1",
     "contactCity": "10115 Berlin, Germany",
-    "contactEmailValue": "kontakt@kiezhelfer.de",
+    "contactEmailValue": "info@kiezhelfer.com",
     "contactHoursLabel": "Mon – Fri",
     "contactHoursValue": "9:00 AM – 6:00 PM",
     "lastUpdated": "Last updated: February 2026"

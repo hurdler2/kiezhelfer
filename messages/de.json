@@ -302,7 +302,13 @@
     "userReviews": "Bewertungen über diesen Nutzer",
     "ratingRequired": "Bitte wähle eine Bewertung (1–5 Sterne).",
     "saveError": "Fehler beim Speichern.",
-    "networkError": "Netzwerkfehler. Bitte versuche es erneut."
+    "networkError": "Netzwerkfehler. Bitte versuche es erneut.",
+    "deleteAccountBtn": "Konto löschen",
+    "deleteAccountTitle": "Konto wirklich löschen?",
+    "deleteAccountDesc": "Diese Aktion ist unwiderruflich. Alle deine Daten, Angebote, Bewertungen und Nachrichten werden dauerhaft gelöscht.",
+    "deleteAccountConfirm": "Ja, Konto löschen",
+    "deleteAccountCancel": "Abbrechen",
+    "deleteAccountError": "Fehler beim Löschen. Bitte versuche es erneut."
   },
   "map": {
     "title": "Karte",
@@ -393,7 +399,7 @@
     "contactCompany": "KiezHelfer GmbH",
     "contactStreet": "Musterstraße 1",
     "contactCity": "10115 Berlin, Deutschland",
-    "contactEmailValue": "kontakt@kiezhelfer.de",
+    "contactEmailValue": "info@kiezhelfer.com",
     "contactHoursLabel": "Mo – Fr",
     "contactHoursValue": "09:00 – 18:00 Uhr",
     "lastUpdated": "Zuletzt aktualisiert: Februar 2026"

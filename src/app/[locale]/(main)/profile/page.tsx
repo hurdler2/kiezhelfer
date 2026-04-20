@@ -5,6 +5,7 @@ import { prisma } from "@/lib/prisma";
 import ProfileEditForm from "@/components/profile/ProfileEditForm";
 import ChangePasswordForm from "@/components/profile/ChangePasswordForm";
 import EmailVerifyBanner from "@/components/profile/EmailVerifyBanner";
+import DeleteAccountButton from "@/components/profile/DeleteAccountButton";
 
 export default async function ProfilePage({ params }: { params: { locale: string } }) {
   setRequestLocale(params.locale);
@@ -44,11 +45,17 @@ export default async function ProfilePage({ params }: { params: { locale: string
       </div>
 
       {user.passwordHash && (
-        <div className="bg-white rounded-xl border border-gray-200 p-6">
+        <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6">
           <h2 className="text-lg font-semibold text-gray-900 mb-4">{tAuth("changePasswordTitle")}</h2>
           <ChangePasswordForm />
         </div>
       )}
+
+      <div className="bg-white rounded-xl border border-red-100 p-6">
+        <h2 className="text-base font-semibold text-red-700 mb-1">{t("deleteAccountTitle")}</h2>
+        <p className="text-sm text-gray-500 mb-4">{t("deleteAccountDesc")}</p>
+        <DeleteAccountButton />
+      </div>
     </div>
   );
 }

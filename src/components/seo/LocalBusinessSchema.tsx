@@ -9,7 +9,7 @@ export default function LocalBusinessSchema() {
     logo: "https://kiezhelfer.vercel.app/logolast2.png",
     image: "https://kiezhelfer.vercel.app/logolast2.png",
     telephone: "",
-    email: "kontakt@kiezhelfer.de",
+    email: "info@kiezhelfer.com",
     address: {
       "@type": "PostalAddress",
       addressLocality: "Berlin",
