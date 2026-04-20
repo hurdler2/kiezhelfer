@@ -59,27 +59,27 @@ export default async function HomePage({ params }: { params: { locale: string } 
 
   const categoryMeta: Record<string, { photo: string; gradient: string; descKey: string }> = {
     "reparaturen-montage": {
-      photo: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=700&h=460&fit=crop&q=85",
+      photo: "/Site-Fotolar/Kleine-Reparaturen.png",
       gradient: "from-orange-900/70 via-orange-800/40 to-transparent",
       descKey: "reparaturenMontageDesc",
     },
     "technik-computer": {
-      photo: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=700&h=460&fit=crop&q=85",
+      photo: "/Site-Fotolar/Tecknik%26Computerhilfe.png",
       gradient: "from-blue-900/70 via-blue-800/40 to-transparent",
       descKey: "technikComputerDesc",
     },
     "alltag-nachbarschaft": {
-      photo: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=700&h=460&fit=crop&q=85",
+      photo: "/Site-Fotolar/Gemini_Generated_Image_xyhm7cxyhm7cxyhm.png",
       gradient: "from-emerald-900/70 via-emerald-800/40 to-transparent",
       descKey: "alltagNachbarschaftDesc",
     },
     "garten-outdoor": {
-      photo: "https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?w=700&h=460&fit=crop&q=85",
+      photo: "/Site-Fotolar/Garten%26Outdoor.png",
       gradient: "from-green-900/70 via-green-800/40 to-transparent",
       descKey: "gartenOutdoorDesc",
     },
     "transport-kurier": {
-      photo: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=700&h=460&fit=crop&q=85",
+      photo: "/Site-Fotolar/Transport%26Umzughilfe.png",
       gradient: "from-amber-900/70 via-amber-800/40 to-transparent",
       descKey: "transportKurierDesc",
     },
@@ -307,19 +307,19 @@ export default async function HomePage({ params }: { params: { locale: string } 
               {[
                 {
                   step: "1",
-                  photo: "https://images.unsplash.com/photo-1484788984921-03950022c9ef?w=800&h=700&fit=crop&q=85",
+                  photo: "/Site-Fotolar/Registrieren.png",
                   title: t("step1Title"),
                   desc: t("step1Desc"),
                 },
                 {
                   step: "2",
-                  photo: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&h=700&fit=crop&q=85",
+                  photo: "/Site-Fotolar/Angebo%20erstellen.png",
                   title: t("step2Title"),
                   desc: t("step2Desc"),
                 },
                 {
                   step: "3",
-                  photo: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=700&fit=crop&q=85",
+                  photo: "/Site-Fotolar/Verbinden.png",
                   title: t("step3Title"),
                   desc: t("step3Desc"),
                 },
@@ -389,7 +389,7 @@ export default async function HomePage({ params }: { params: { locale: string } 
                 {/* Arka plan fotoğrafı */}
                 <div className="absolute inset-0">
                   <Image
-                    src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=1200&h=800&fit=crop&q=85"
+                    src="/Site-Fotolar/Hilfe%20suchen.png"
                     alt={t("ctaSeekHelp")}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-700"
@@ -430,7 +430,7 @@ export default async function HomePage({ params }: { params: { locale: string } 
                 {/* Arka plan fotoğrafı */}
                 <div className="absolute inset-0">
                   <Image
-                    src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1200&h=800&fit=crop&q=85"
+                    src="/Site-Fotolar/Hilfe%20anbieten.png"
                     alt={t("ctaOfferHelp")}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-700"
