@@ -18,7 +18,7 @@ export default async function PrivacyPage({ params }: { params: { locale: string
 
         <section>
           <h2 className="text-lg font-semibold text-gray-900 mb-3">2) Datenerfassung beim Besuch unserer Website</h2>
-          <p className="mb-2">2.1 Bei der bloß informatorischen Nutzung unserer Website erheben wir nur solche Daten, die Ihr Browser an den Seitenserver übermittelt (sog. „Server-Logfiles"). Wenn Sie unsere Website aufrufen, erheben wir die folgenden Daten:</p>
+          <p className="mb-2">2.1 Bei der bloß informatorischen Nutzung unserer Website erheben wir nur solche Daten, die Ihr Browser an den Seitenserver übermittelt (sog. &bdquo;Server-Logfiles&ldquo;). Wenn Sie unsere Website aufrufen, erheben wir die folgenden Daten:</p>
           <ul className="list-disc pl-5 space-y-1 mb-3">
             <li>Unsere besuchte Website</li>
             <li>Datum und Uhrzeit zum Zeitpunkt des Zugriffes</li>
