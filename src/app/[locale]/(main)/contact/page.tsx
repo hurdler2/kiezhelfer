@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { Mail, MapPin, Clock } from "lucide-react";
+import { Mail } from "lucide-react";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 
@@ -50,20 +50,6 @@ export default function ContactPage() {
         <div className="space-y-6">
           <div className="flex items-start gap-4">
             <div className="h-10 w-10 rounded-lg bg-teal-50 flex items-center justify-center flex-shrink-0">
-              <MapPin className="h-5 w-5 text-teal-600" />
-            </div>
-            <div>
-              <p className="font-medium text-gray-900">{t("contactAddress")}</p>
-              <p className="text-sm text-gray-500 mt-1">
-                {t("contactCompany")}<br />
-                {t("contactStreet")}<br />
-                {t("contactCity")}
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-start gap-4">
-            <div className="h-10 w-10 rounded-lg bg-teal-50 flex items-center justify-center flex-shrink-0">
               <Mail className="h-5 w-5 text-teal-600" />
             </div>
             <div>
@@ -71,16 +57,6 @@ export default function ContactPage() {
               <a href={`mailto:${t("contactEmailValue")}`} className="text-sm text-teal-600 hover:text-teal-700 mt-1 block">
                 {t("contactEmailValue")}
               </a>
-            </div>
-          </div>
-
-          <div className="flex items-start gap-4">
-            <div className="h-10 w-10 rounded-lg bg-teal-50 flex items-center justify-center flex-shrink-0">
-              <Clock className="h-5 w-5 text-teal-600" />
-            </div>
-            <div>
-              <p className="font-medium text-gray-900">{t("contactHoursLabel")}</p>
-              <p className="text-sm text-gray-500 mt-1">{t("contactHoursValue")}</p>
             </div>
           </div>
         </div>

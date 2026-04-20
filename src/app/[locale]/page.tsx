@@ -465,11 +465,6 @@ export default async function HomePage({ params }: { params: { locale: string } 
 
             </div>
 
-            {/* Alt not */}
-            <p className="text-center text-xs text-gray-400 mt-10 flex items-center justify-center gap-1.5">
-              <Shield className="h-3.5 w-3.5" />
-              {t("ctaSafeLabel")}
-            </p>
           </div>
         </section>
 

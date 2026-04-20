@@ -166,37 +166,6 @@ export default async function AboutPage({ params }: Props) {
         </div>
       </section>
 
-      {/* ── MEHR ALS NUR ─────────────────────────────── */}
-      <section className="bg-gray-50 py-20 px-4">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <p className="text-xs font-semibold text-brand-600 uppercase tracking-widest mb-3">
-              {t("featuresBadge")}
-            </p>
-            <p className="text-gray-500 max-w-2xl mx-auto leading-relaxed">
-              {t("featuresHeadline")}
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {features.map((f, i) => (
-              <div
-                key={i}
-                className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex items-start gap-4 hover:shadow-md hover:border-brand-100 transition-all"
-              >
-                <div className="h-10 w-10 rounded-xl bg-brand-50 flex items-center justify-center flex-shrink-0">
-                  {f.icon}
-                </div>
-                <p className="text-sm font-medium text-gray-800 leading-relaxed">{f.text}</p>
-              </div>
-            ))}
-          </div>
-
-          <p className="text-center text-gray-600 font-semibold mt-10 text-base">
-            {t("featuresBoth")}
-          </p>
-        </div>
-      </section>
 
       {/* ── WARUM DAS WICHTIG IST ────────────────────── */}
       <section className="py-20 px-4">
