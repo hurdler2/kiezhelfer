@@ -17,6 +17,7 @@ export async function POST(request: Request) {
       password: formData.get("password") as string,
       confirmPassword: formData.get("confirmPassword") as string,
       district: (formData.get("district") as string) || undefined,
+      bio: (formData.get("bio") as string) || undefined,
     };
     const avatarFile = formData.get("avatar") as File | null;
 
@@ -29,29 +30,23 @@ export async function POST(request: Request) {
       );
     }
 
-    if (!avatarFile || avatarFile.size === 0) {
-      return NextResponse.json(
-        { error: "Profile photo is required." },
-        { status: 400 }
-      );
+    if (avatarFile && avatarFile.size > 0) {
+      const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+      if (!allowedTypes.includes(avatarFile.type)) {
+        return NextResponse.json(
+          { error: "Only JPEG, PNG and WebP allowed." },
+          { status: 400 }
+        );
+      }
+      if (avatarFile.size > 5 * 1024 * 1024) {
+        return NextResponse.json(
+          { error: "File must be 5 MB or less." },
+          { status: 400 }
+        );
+      }
     }
 
-    const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
-    if (!allowedTypes.includes(avatarFile.type)) {
-      return NextResponse.json(
-        { error: "Only JPEG, PNG and WebP allowed." },
-        { status: 400 }
-      );
-    }
-
-    if (avatarFile.size > 5 * 1024 * 1024) {
-      return NextResponse.json(
-        { error: "File must be 5 MB or less." },
-        { status: 400 }
-      );
-    }
-
-    const { name, email, password, district } = result.data;
+    const { name, email, password, district, bio } = result.data;
 
     const existingUser = await prisma.user.findUnique({ where: { email } });
     if (existingUser) {
@@ -61,10 +56,13 @@ export async function POST(request: Request) {
       );
     }
 
-    // Upload avatar to Vercel Blob
-    const ext = avatarFile.type === "image/png" ? "png" : avatarFile.type === "image/webp" ? "webp" : "jpg";
-    const filename = `avatars/${Date.now()}-${crypto.randomBytes(4).toString("hex")}.${ext}`;
-    const blob = await put(filename, avatarFile, { access: "public" });
+    let avatarUrl: string | null = null;
+    if (avatarFile && avatarFile.size > 0) {
+      const ext = avatarFile.type === "image/png" ? "png" : avatarFile.type === "image/webp" ? "webp" : "jpg";
+      const filename = `avatars/${Date.now()}-${crypto.randomBytes(4).toString("hex")}.${ext}`;
+      const blob = await put(filename, avatarFile, { access: "public" });
+      avatarUrl = blob.url;
+    }
 
     const passwordHash = await bcrypt.hash(password, 12);
 
@@ -73,11 +71,12 @@ export async function POST(request: Request) {
         email,
         name,
         passwordHash,
-        image: blob.url,
+        image: avatarUrl,
         profile: {
           create: {
             district: district || null,
-            avatarUrl: blob.url,
+            avatarUrl: avatarUrl,
+            bio: bio || null,
           },
         },
       },

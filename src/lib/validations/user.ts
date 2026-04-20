@@ -9,6 +9,7 @@ export const registerSchema = z
       .min(8, "Passwort muss mindestens 8 Zeichen lang sein"),
     confirmPassword: z.string(),
     district: z.string().optional(),
+    bio: z.string().max(500).optional(),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwörter stimmen nicht überein",

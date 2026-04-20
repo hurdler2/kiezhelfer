@@ -60,11 +60,6 @@ export default function RegisterPage() {
   async function onSubmit(data: RegisterFormValues) {
     setError(null);
 
-    if (!avatarFile) {
-      setAvatarError(t("profilePhotoRequired"));
-      return;
-    }
-
     try {
       const formData = new FormData();
       formData.append("name", data.name);
@@ -72,7 +67,8 @@ export default function RegisterPage() {
       formData.append("password", data.password);
       formData.append("confirmPassword", data.confirmPassword);
       if (data.district) formData.append("district", data.district);
-      formData.append("avatar", avatarFile);
+      if (data.bio) formData.append("bio", data.bio);
+      if (avatarFile) formData.append("avatar", avatarFile);
 
       const res = await fetch("/api/register", {
         method: "POST",
@@ -126,7 +122,7 @@ export default function RegisterPage() {
                 {/* Avatar Upload */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    {t("profilePhoto")} <span className="text-red-500">*</span>
+                    {t("profilePhoto")}
                   </label>
                   <div className="flex items-center gap-4">
                     <button
@@ -221,6 +217,19 @@ export default function RegisterPage() {
                   >
                     {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                   </button>
+                </div>
+
+                {/* Bio / Fähigkeiten */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    {t("skillsLabel")}
+                  </label>
+                  <textarea
+                    rows={3}
+                    placeholder={t("bioPlaceholder")}
+                    className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm placeholder:text-gray-400 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"
+                    {...register("bio")}
+                  />
                 </div>
 
                 {/* District (optional) */}
