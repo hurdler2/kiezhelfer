@@ -1,6 +1,6 @@
 import { Resend } from "resend";
 
-const FROM = process.env.RESEND_FROM_EMAIL ?? "noreply@kiezhelfer.com";
+const FROM = process.env.RESEND_FROM_EMAIL ?? "info@kiezhelfer.com";
 
 export async function sendMail({
   to,
