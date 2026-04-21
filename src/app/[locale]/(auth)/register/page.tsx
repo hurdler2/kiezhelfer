@@ -17,6 +17,7 @@ import Image from "next/image";
 
 export default function RegisterPage() {
   const t = useTranslations("auth");
+  const tp = useTranslations("profile");
   const locale = useLocale();
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
@@ -222,11 +223,11 @@ export default function RegisterPage() {
                 {/* Bio / Fähigkeiten */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    {t("skillsLabel")}
+                    {tp("skillsLabel")}
                   </label>
                   <textarea
                     rows={3}
-                    placeholder={t("bioPlaceholder")}
+                    placeholder={tp("bioPlaceholder")}
                     className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm placeholder:text-gray-400 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"
                     {...register("bio")}
                   />
