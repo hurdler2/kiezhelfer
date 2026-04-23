@@ -1,4 +1,5 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { auth } from "@/auth";
 import { Link } from "@/i18n/navigation";
 import { prisma } from "@/lib/prisma";
 import ListingCard from "@/components/listings/ListingCard";
@@ -35,6 +36,8 @@ export default async function HomePage({ params }: { params: { locale: string } 
   setRequestLocale(params.locale);
   const t = await getTranslations("home");
   const tCat = await getTranslations("categories");
+  const session = await auth();
+  const isLoggedIn = !!session?.user;
 
   const [featuredListings, listingCount, userCount, categories] = await Promise.all([
     prisma.listing.findMany({
@@ -324,7 +327,7 @@ export default async function HomePage({ params }: { params: { locale: string } 
                   photo: "/Site-Fotolar/Verbinden.png",
                   title: t("step3Title"),
                   desc: t("step3Desc"),
-                  href: "/listings",
+                  href: isLoggedIn ? "/listings" : "/register",
                 },
               ].map((item, i) => (
                 <div key={item.step} className="flex flex-col">
