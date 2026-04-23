@@ -327,7 +327,7 @@ export default async function HomePage({ params }: { params: { locale: string } 
                   photo: "/Site-Fotolar/Verbinden.png",
                   title: t("step3Title"),
                   desc: t("step3Desc"),
-                  href: isLoggedIn ? "/listings" : "/register",
+                  href: isLoggedIn ? "/listings" : "/login",
                 },
               ].map((item, i) => (
                 <div key={item.step} className="flex flex-col">
