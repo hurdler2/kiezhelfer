@@ -320,7 +320,7 @@ export default async function HomePage({ params }: { params: { locale: string } 
                   photo: "/Site-Fotolar/Angebo%20erstellen.png",
                   title: t("step2Title"),
                   desc: t("step2Desc"),
-                  href: "/listings/create",
+                  href: "/listings/new",
                 },
                 {
                   step: "3",
