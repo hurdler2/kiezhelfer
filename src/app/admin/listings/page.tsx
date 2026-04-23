@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import AdminListingActions from "./AdminListingActions";
 import AdminListingsFilter from "./AdminListingsFilter";
 import { Suspense } from "react";
+import Link from "next/link";
 
 export default async function AdminListingsPage({ searchParams }: { searchParams: { q?: string; status?: string } }) {
   const q = searchParams.q?.trim() ?? "";
@@ -74,8 +75,10 @@ export default async function AdminListingsPage({ searchParams }: { searchParams
               {listings.map((l) => (
                 <tr key={l.id} className="hover:bg-slate-50 transition-colors">
                   <td className="px-5 py-3.5">
-                    <p className="font-medium text-slate-800 max-w-[220px] truncate">{l.title}</p>
-                    <p className="text-[11px] text-slate-400 truncate max-w-[220px] mt-0.5">{l.description}</p>
+                    <Link href={`/admin/listings/${l.id}`} className="hover:underline">
+                      <p className="font-medium text-slate-800 max-w-[220px] truncate">{l.title}</p>
+                      <p className="text-[11px] text-slate-400 truncate max-w-[220px] mt-0.5">{l.description}</p>
+                    </Link>
                   </td>
                   <td className="px-5 py-3.5">
                     <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 text-[11px] font-medium">
