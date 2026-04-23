@@ -42,11 +42,14 @@ export async function PATCH(request: Request) {
 
     const body = await request.json();
 
-    // Update user name if provided
-    if (body.name) {
+    // Update user name and/or image if provided
+    if (body.name || body.avatarUrl !== undefined) {
       await prisma.user.update({
         where: { id: session.user.id },
-        data: { name: body.name },
+        data: {
+          ...(body.name && { name: body.name }),
+          ...(body.avatarUrl !== undefined && { image: body.avatarUrl }),
+        },
       });
     }
 
