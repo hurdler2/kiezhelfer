@@ -310,23 +310,27 @@ export default async function HomePage({ params }: { params: { locale: string } 
                   photo: "/Site-Fotolar/Registrieren.png",
                   title: t("step1Title"),
                   desc: t("step1Desc"),
+                  href: "/register",
                 },
                 {
                   step: "2",
                   photo: "/Site-Fotolar/Angebo%20erstellen.png",
                   title: t("step2Title"),
                   desc: t("step2Desc"),
+                  href: "/listings/create",
                 },
                 {
                   step: "3",
                   photo: "/Site-Fotolar/Verbinden.png",
                   title: t("step3Title"),
                   desc: t("step3Desc"),
+                  href: "/listings",
                 },
               ].map((item, i) => (
                 <div key={item.step} className="flex flex-col">
                   {/* Fotoğraf + numara */}
-                  <div className="relative rounded-2xl overflow-hidden mb-5 aspect-[4/3] bg-gray-100 shadow-sm border border-gray-100">
+                  <Link href={item.href}>
+                  <div className="relative rounded-2xl overflow-hidden mb-5 aspect-[4/3] bg-gray-100 shadow-sm border border-gray-100 cursor-pointer hover:opacity-90 transition-opacity">
                     <Image
                       src={item.photo}
                       alt={item.title}
@@ -347,6 +351,7 @@ export default async function HomePage({ params }: { params: { locale: string } 
                       </div>
                     )}
                   </div>
+                  </Link>
                   {/* Metin */}
                   <div className="flex items-start gap-3">
                     <span className="text-2xl font-extrabold text-gray-200 leading-none mt-0.5 select-none">{item.step}</span>
