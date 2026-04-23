@@ -12,6 +12,7 @@ const nextConfig = {
       { hostname: "lh3.googleusercontent.com" },
       { hostname: "avatars.githubusercontent.com" },
       { hostname: "images.unsplash.com" },
+      { hostname: "*.public.blob.vercel-storage.com" },
     ],
   },
 };
