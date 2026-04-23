@@ -63,7 +63,7 @@ export default async function AdminListingDetailPage({ params }: { params: { id:
           <div>
             <p className="text-xs text-slate-400 mb-0.5">Fiyat</p>
             <p className="font-medium text-slate-800">
-              {listing.price != null ? `${listing.price} €` : "—"}
+              {listing.priceAmount != null ? `${listing.priceAmount} €` : "—"}
               {listing.priceType === "hourly" ? " / Std." : listing.priceType === "negotiable" ? " (Verhandelbar)" : ""}
             </p>
           </div>
