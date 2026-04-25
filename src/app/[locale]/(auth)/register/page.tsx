@@ -28,6 +28,9 @@ export default function RegisterPage() {
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
   const [avatarError, setAvatarError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [termsOpen, setTermsOpen] = useState(false);
+  const [termsAccepted, setTermsAccepted] = useState(false);
+  const [termsError, setTermsError] = useState(false);
 
   const {
     register,
@@ -60,6 +63,11 @@ export default function RegisterPage() {
 
   async function onSubmit(data: RegisterFormValues) {
     setError(null);
+    if (!termsAccepted) {
+      setTermsError(true);
+      return;
+    }
+    setTermsError(false);
 
     try {
       const formData = new FormData();
@@ -251,6 +259,33 @@ export default function RegisterPage() {
                   </select>
                 </div>
 
+                {/* Nutzungsbedingungen */}
+                <div>
+                  <div className="flex items-start gap-2">
+                    <input
+                      type="checkbox"
+                      id="terms"
+                      checked={termsAccepted}
+                      onChange={(e) => { setTermsAccepted(e.target.checked); setTermsError(false); }}
+                      className="mt-0.5 h-4 w-4 rounded border-gray-300 text-brand-500 focus:ring-brand-500 cursor-pointer"
+                    />
+                    <label htmlFor="terms" className="text-sm text-gray-600 cursor-pointer">
+                      Ich habe die{" "}
+                      <button
+                        type="button"
+                        onClick={() => setTermsOpen(true)}
+                        className="text-brand-600 hover:underline font-medium"
+                      >
+                        Nutzungsbedingungen
+                      </button>{" "}
+                      gelesen und akzeptiere sie.
+                    </label>
+                  </div>
+                  {termsError && (
+                    <p className="text-xs text-red-600 mt-1">Bitte akzeptiere die Nutzungsbedingungen.</p>
+                  )}
+                </div>
+
                 {error && (
                   <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">
                     {error}
@@ -272,6 +307,51 @@ export default function RegisterPage() {
           </p>
         </div>
       </div>
+
+      {/* Nutzungsbedingungen Modal */}
+      {termsOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg flex flex-col max-h-[80vh]">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+              <h2 className="text-base font-bold text-gray-900">Nutzungsbedingungen</h2>
+              <button onClick={() => setTermsOpen(false)} className="text-gray-400 hover:text-gray-600 text-xl leading-none">&times;</button>
+            </div>
+            <div className="overflow-y-auto px-6 py-4 text-sm text-gray-700 leading-relaxed space-y-4 flex-1">
+              <p className="text-xs text-gray-400">Stand: April 2026</p>
+
+              <section><h3 className="font-semibold text-gray-900 mb-1">1. Vertragsgegenstand &amp; Rolle von KiezHelfer</h3><p>KiezHelfer stellt lediglich die <strong>technische Infrastruktur</strong> zur Kontaktaufnahme zwischen Privatpersonen in Berlin bereit. KiezHelfer ist kein Handwerksbetrieb, kein Dienstleistungsunternehmen und kein Arbeitsvermittler.</p></section>
+
+              <section><h3 className="font-semibold text-gray-900 mb-1">2. Vertragsschluss ausschließlich zwischen Nutzern</h3><p>Verträge über Hilfeleistungen entstehen ausschließlich und direkt zwischen dem Hilfesuchenden und dem Helfer. Durch die Nutzung der Plattform entsteht <strong>kein Arbeitsverhältnis</strong> zwischen dem Nutzer und dem Plattformbetreiber.</p></section>
+
+              <section><h3 className="font-semibold text-gray-900 mb-1">3. Registrierung und Nutzerkonto</h3><ul className="list-disc pl-4 space-y-1"><li>Die Nutzung setzt eine Registrierung mit wahrheitsgemäßen Angaben voraus.</li><li>Die Nutzung ist ausschließlich natürlichen Personen zu privaten Zwecken gestattet.</li><li>Das Mindestalter beträgt 18 Jahre (oder 16 Jahre mit Zustimmung der Erziehungsberechtigten).</li><li>Die Plattform ist für Nutzer aktuell kostenlos.</li></ul></section>
+
+              <section><h3 className="font-semibold text-gray-900 mb-1">4. Verhaltensregeln und Inhalte</h3><p>Untersagt sind Inhalte, die gegen geltendes Recht verstoßen, beleidigend oder diskriminierend sind oder Werbung enthalten. Der Betreiber kann Inhalte bei Verstößen löschen und Konten sperren.</p></section>
+
+              <section><h3 className="font-semibold text-gray-900 mb-1">5. Eigenverantwortung &amp; Handwerksordnung</h3><p>Nutzer sind selbst verantwortlich, die Qualifikation des Gegenübers zu prüfen. KiezHelfer führt keine Überprüfung von Meisterbriefen oder Zertifikaten durch.</p></section>
+
+              <section><h3 className="font-semibold text-gray-900 mb-1">6. Haftungsausschluss &amp; Versicherung</h3><p>Der Betreiber übernimmt keine Haftung für Schäden im Rahmen vermittelter Nachbarschaftshilfe. Wir empfehlen dringend den Abschluss einer <strong>privaten Haftpflichtversicherung</strong>.</p></section>
+
+              <section><h3 className="font-semibold text-gray-900 mb-1">7. Steuern &amp; Schwarzarbeit</h3><p>Jeder Helfer handelt eigenverantwortlich und hat sicherzustellen, dass seine Tätigkeit steuerlich korrekt angemeldet ist und nicht gegen das Schwarzarbeitsgesetz verstößt.</p></section>
+
+              <section><h3 className="font-semibold text-gray-900 mb-1">8–12. Weitere Bestimmungen</h3><p>Der Nutzer stellt den Betreiber von Ansprüchen Dritter frei. Der Betreiber haftet nur bei vorsätzlicher Pflichtverletzung. Nutzer können ihr Konto jederzeit löschen. Es gilt deutsches Recht.</p></section>
+            </div>
+            <div className="px-6 py-4 border-t border-gray-200 flex gap-3">
+              <button
+                onClick={() => setTermsOpen(false)}
+                className="flex-1 px-4 py-2.5 rounded-xl border border-gray-200 text-sm font-medium text-gray-700 hover:bg-gray-50"
+              >
+                Schließen
+              </button>
+              <button
+                onClick={() => { setTermsAccepted(true); setTermsError(false); setTermsOpen(false); }}
+                className="flex-1 px-4 py-2.5 rounded-xl bg-brand-500 hover:bg-brand-600 text-white text-sm font-semibold"
+              >
+                Akzeptieren
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
