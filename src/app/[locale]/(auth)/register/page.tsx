@@ -319,21 +319,89 @@ export default function RegisterPage() {
             <div className="overflow-y-auto px-6 py-4 text-sm text-gray-700 leading-relaxed space-y-4 flex-1">
               <p className="text-xs text-gray-400">Stand: April 2026</p>
 
-              <section><h3 className="font-semibold text-gray-900 mb-1">1. Vertragsgegenstand &amp; Rolle von KiezHelfer</h3><p>KiezHelfer stellt lediglich die <strong>technische Infrastruktur</strong> zur Kontaktaufnahme zwischen Privatpersonen in Berlin bereit. KiezHelfer ist kein Handwerksbetrieb, kein Dienstleistungsunternehmen und kein Arbeitsvermittler.</p></section>
+              <section>
+                <h3 className="font-semibold text-gray-900 mb-1">1. Vertragsgegenstand &amp; Rolle von KiezHelfer</h3>
+                <p>KiezHelfer stellt lediglich die <strong>technische Infrastruktur</strong> zur Kontaktaufnahme zwischen Privatpersonen in Berlin bereit. KiezHelfer ist kein Handwerksbetrieb, kein Dienstleistungsunternehmen und kein Arbeitsvermittler. Der Betreiber tritt zu keinem Zeitpunkt als Vertragspartner, Makler oder Arbeitgeber auf.</p>
+              </section>
 
-              <section><h3 className="font-semibold text-gray-900 mb-1">2. Vertragsschluss ausschließlich zwischen Nutzern</h3><p>Verträge über Hilfeleistungen entstehen ausschließlich und direkt zwischen dem Hilfesuchenden und dem Helfer. Durch die Nutzung der Plattform entsteht <strong>kein Arbeitsverhältnis</strong> zwischen dem Nutzer und dem Plattformbetreiber.</p></section>
+              <section>
+                <h3 className="font-semibold text-gray-900 mb-1">2. Vertragsschluss ausschließlich zwischen Nutzern</h3>
+                <p>Verträge über Hilfeleistungen (mündlich oder schriftlich) entstehen ausschließlich und direkt zwischen dem Hilfesuchenden und dem Helfer. KiezHelfer bietet selbst keine Handwerks- oder Dienstleistungen an. Durch die Nutzung der Plattform entsteht <strong>kein Arbeitsverhältnis</strong> und kein Dienstvertrag zwischen dem Nutzer und dem Plattformbetreiber.</p>
+              </section>
 
-              <section><h3 className="font-semibold text-gray-900 mb-1">3. Registrierung und Nutzerkonto</h3><ul className="list-disc pl-4 space-y-1"><li>Die Nutzung setzt eine Registrierung mit wahrheitsgemäßen Angaben voraus.</li><li>Die Nutzung ist ausschließlich natürlichen Personen zu privaten Zwecken gestattet.</li><li>Das Mindestalter beträgt 18 Jahre (oder 16 Jahre mit Zustimmung der Erziehungsberechtigten).</li><li>Die Plattform ist für Nutzer aktuell kostenlos.</li></ul></section>
+              <section>
+                <h3 className="font-semibold text-gray-900 mb-1">3. Registrierung und Nutzerkonto</h3>
+                <ul className="list-disc pl-4 space-y-1">
+                  <li>3.1 Die Nutzung setzt eine Registrierung voraus. Der Nutzer verpflichtet sich, wahrheitsgemäße Angaben zu machen.</li>
+                  <li>3.2 Die Nutzung ist ausschließlich natürlichen Personen zu privaten Zwecken gestattet. Gewerbliche Angebote sind ohne ausdrückliche Genehmigung untersagt.</li>
+                  <li>3.3 Das Mindestalter für die Registrierung beträgt 18 Jahre (oder 16 Jahre mit Zustimmung der Erziehungsberechtigten).</li>
+                  <li>3.4 Die Bereitstellung der Plattform ist für Nutzer aktuell kostenlos. Der Betreiber erhebt keine Vermittlungsprovisionen.</li>
+                </ul>
+              </section>
 
-              <section><h3 className="font-semibold text-gray-900 mb-1">4. Verhaltensregeln und Inhalte</h3><p>Untersagt sind Inhalte, die gegen geltendes Recht verstoßen, beleidigend oder diskriminierend sind oder Werbung enthalten. Der Betreiber kann Inhalte bei Verstößen löschen und Konten sperren.</p></section>
+              <section>
+                <h3 className="font-semibold text-gray-900 mb-1">4. Verhaltensregeln und Inhalte</h3>
+                <p className="mb-1">4.1 Jeder Nutzer ist für die von ihm eingestellten Inhalte (Texte, Bilder, Gesuche) selbst verantwortlich.</p>
+                <p className="mb-1">4.2 Untersagt sind Inhalte, die:</p>
+                <ul className="list-disc pl-4 space-y-1 mb-1">
+                  <li>gegen geltendes Recht verstoßen,</li>
+                  <li>beleidigend, diskriminierend oder gewaltverherrlichend sind,</li>
+                  <li>Werbung oder Spam enthalten.</li>
+                </ul>
+                <p>4.3 Der Betreiber behält sich vor, Inhalte bei Verstößen ohne Vorankündigung zu löschen und Nutzerkonten zu sperren.</p>
+              </section>
 
-              <section><h3 className="font-semibold text-gray-900 mb-1">5. Eigenverantwortung &amp; Handwerksordnung</h3><p>Nutzer sind selbst verantwortlich, die Qualifikation des Gegenübers zu prüfen. KiezHelfer führt keine Überprüfung von Meisterbriefen oder Zertifikaten durch.</p></section>
+              <section>
+                <h3 className="font-semibold text-gray-900 mb-1">5. Eigenverantwortung &amp; Handwerksordnung (HwO)</h3>
+                <p className="mb-1">Die Nutzer sind allein dafür verantwortlich, die Eignung und fachliche Qualifikation des Gegenübers zu prüfen.</p>
+                <ul className="list-disc pl-4 space-y-1">
+                  <li><strong>Meisterpflicht:</strong> Für viele handwerkliche Tätigkeiten (z. B. Elektro, Gas, Wasser, Statik) besteht in Deutschland eine Meisterpflicht oder eine Eintragungspflicht in die Handwerksrolle.</li>
+                  <li><strong>Zulassung:</strong> Nutzer verpflichten sich, nur Tätigkeiten anzubieten, die sie nach geltendem Recht (insbesondere Handwerksordnung und Gewerbeordnung) ausführen dürfen.</li>
+                  <li><strong>Keine Prüfung:</strong> KiezHelfer führt keine Überprüfung von Meisterbriefen, Gewerbeanmeldungen oder Zertifikaten durch. Die Verantwortung hierfür liegt allein bei den Nutzern.</li>
+                </ul>
+              </section>
 
-              <section><h3 className="font-semibold text-gray-900 mb-1">6. Haftungsausschluss &amp; Versicherung</h3><p>Der Betreiber übernimmt keine Haftung für Schäden im Rahmen vermittelter Nachbarschaftshilfe. Wir empfehlen dringend den Abschluss einer <strong>privaten Haftpflichtversicherung</strong>.</p></section>
+              <section>
+                <h3 className="font-semibold text-gray-900 mb-1">6. Haftungsausschluss &amp; Versicherung</h3>
+                <p className="mb-1"><strong>6.1 Keine Haftung für Schäden:</strong> Da KiezHelfer nicht Vertragspartner der Hilfeleistung ist, übernimmt der Betreiber keine Haftung für Sachschäden, Vermögensschäden oder Personenschäden, die im Rahmen der vermittelten Nachbarschaftshilfe entstehen.</p>
+                <p><strong>6.2 Versicherungsschutz:</strong> Wir weisen ausdrücklich darauf hin, dass die gesetzliche Unfallversicherung hier meist nicht greift. Wir raten jedem Nutzer dringend zum Abschluss einer <strong>privaten Haftpflichtversicherung</strong>, die auch Gefälligkeitshandlungen abdeckt.</p>
+              </section>
 
-              <section><h3 className="font-semibold text-gray-900 mb-1">7. Steuern &amp; Schwarzarbeit</h3><p>Jeder Helfer handelt eigenverantwortlich und hat sicherzustellen, dass seine Tätigkeit steuerlich korrekt angemeldet ist und nicht gegen das Schwarzarbeitsgesetz verstößt.</p></section>
+              <section>
+                <h3 className="font-semibold text-gray-900 mb-1">7. Steuern, Gewerbe &amp; Schwarzarbeit</h3>
+                <p className="mb-1">Jeder Helfer handelt eigenverantwortlich. Er hat selbstständig zu prüfen und sicherzustellen, dass seine Tätigkeit:</p>
+                <ul className="list-disc pl-4 space-y-1 mb-1">
+                  <li>die Grenzen der steuerfreien Nachbarschaftshilfe nicht überschreitet,</li>
+                  <li>gegebenenfalls steuerlich angemeldet wird (z. B. Kleingewerbe),</li>
+                  <li>nicht gegen das Gesetz zur Bekämpfung der Schwarzarbeit verstößt.</li>
+                </ul>
+                <p>Der Betreiber leistet keine Rechts- oder Steuerberatung.</p>
+              </section>
 
-              <section><h3 className="font-semibold text-gray-900 mb-1">8–12. Weitere Bestimmungen</h3><p>Der Nutzer stellt den Betreiber von Ansprüchen Dritter frei. Der Betreiber haftet nur bei vorsätzlicher Pflichtverletzung. Nutzer können ihr Konto jederzeit löschen. Es gilt deutsches Recht.</p></section>
+              <section>
+                <h3 className="font-semibold text-gray-900 mb-1">8. Freistellung durch den Nutzer</h3>
+                <p>Der Nutzer stellt den Betreiber von sämtlichen Ansprüchen Dritter (z. B. andere Nutzer, Behörden oder Handwerkskammern) frei, die auf einer rechtswidrigen Nutzung der Plattform oder einem Verstoß gegen diese Bedingungen durch den Nutzer beruhen. Dies umfasst auch die Kosten einer angemessenen Rechtsverteidigung.</p>
+              </section>
+
+              <section>
+                <h3 className="font-semibold text-gray-900 mb-1">9. Haftungsbeschränkung des Betreibers</h3>
+                <p>Der Betreiber haftet nur für Schäden aus der Nutzung der Plattform selbst, die auf einer vorsätzlichen oder grob fahrlässigen Pflichtverletzung des Betreibers beruhen. Für die ständige Verfügbarkeit oder technische Fehler der Plattform wird keine Gewähr übernommen.</p>
+              </section>
+
+              <section>
+                <h3 className="font-semibold text-gray-900 mb-1">10. Beendigung der Nutzung</h3>
+                <p>Nutzer können ihr Konto jederzeit löschen. Der Betreiber kann den Betrieb der Plattform jederzeit einstellen oder ändern.</p>
+              </section>
+
+              <section>
+                <h3 className="font-semibold text-gray-900 mb-1">11. Datenschutz</h3>
+                <p>Die Verarbeitung personenbezogener Daten erfolgt gemäß der separaten <strong>Datenschutzerklärung</strong> auf unserer Webseite.</p>
+              </section>
+
+              <section>
+                <h3 className="font-semibold text-gray-900 mb-1">12. Schlussbestimmungen</h3>
+                <p>Sollten einzelne Bestimmungen dieser Bedingungen unwirksam sein, bleibt die Wirksamkeit der übrigen Bestimmungen unberührt. Es gilt das Recht der Bundesrepublik Deutschland.</p>
+              </section>
             </div>
             <div className="px-6 py-4 border-t border-gray-200 flex gap-3">
               <button
