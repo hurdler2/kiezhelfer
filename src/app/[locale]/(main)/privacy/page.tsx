@@ -13,7 +13,7 @@ export default async function PrivacyPage({ params }: { params: { locale: string
         <section>
           <h2 className="text-lg font-semibold text-gray-900 mb-3">1) Einleitung und Kontaktdaten des Verantwortlichen</h2>
           <p className="mb-2">1.1 Wir freuen uns, dass Sie unsere Website besuchen, und bedanken uns für Ihr Interesse. Im Folgenden informieren wir Sie über den Umgang mit Ihren personenbezogenen Daten bei der Nutzung unserer Website. Personenbezogene Daten sind hierbei alle Daten, mit denen Sie persönlich identifiziert werden können.</p>
-          <p>1.2 Verantwortlicher für die Datenverarbeitung auf dieser Website im Sinne der Datenschutz-Grundverordnung (DSGVO) ist Gamze Yilmaz, c/o POSTFLEX PFX-552-936 Emsdettener Straße 10, 48268 Greven, Deutschland, Tel.: 01788644671, E-Mail: info@kiezhelfer.com.</p>
+          <p>1.2 Verantwortlicher für die Datenverarbeitung auf dieser Website im Sinne der Datenschutz-Grundverordnung (DSGVO) ist Gamze Yilmaz, c/o POSTFLEX PFX-552-936 Emsdettener Straße 10, 48268 Greven, Deutschland, Tel.: 01785226459, E-Mail: info@kiezhelfer.com.</p>
         </section>
 
         <section>

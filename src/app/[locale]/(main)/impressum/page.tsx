@@ -28,7 +28,7 @@ export default async function ImpressumPage({ params }: { params: { locale: stri
         <section>
           <h2 className="text-lg font-semibold text-gray-900 mb-3">Kontakt</h2>
           <p>
-            Tel.: 01788644671<br />
+            Tel.: 01785226459<br />
             E-Mail: <a href="mailto:info@kiezhelfer.com" className="text-brand-600 hover:underline">info@kiezhelfer.com</a>
           </p>
         </section>
